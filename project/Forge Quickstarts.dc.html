@@ -1,0 +1,1060 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="_ds/2026-coreweave-design-system-june-a63cc0f4-563e-46d5-a9bc-929b66e4fdbe/tokens/fonts.css">
+  <link rel="stylesheet" href="_ds/2026-coreweave-design-system-june-a63cc0f4-563e-46d5-a9bc-929b66e4fdbe/tokens/colors.css">
+  <link rel="stylesheet" href="_ds/2026-coreweave-design-system-june-a63cc0f4-563e-46d5-a9bc-929b66e4fdbe/tokens/typography.css">
+  <link rel="stylesheet" href="_ds/2026-coreweave-design-system-june-a63cc0f4-563e-46d5-a9bc-929b66e4fdbe/tokens/spacing.css">
+  <link rel="stylesheet" href="_ds/2026-coreweave-design-system-june-a63cc0f4-563e-46d5-a9bc-929b66e4fdbe/tokens/effects.css">
+  <link rel="stylesheet" href="_ds/2026-coreweave-design-system-june-a63cc0f4-563e-46d5-a9bc-929b66e4fdbe/styles.css">
+  <script src="_ds/2026-coreweave-design-system-june-a63cc0f4-563e-46d5-a9bc-929b66e4fdbe/_ds_bundle.js"></script>
+  <style>
+    body{margin:0;background:var(--cw-gray-100);}
+    *{box-sizing:border-box;}
+    a{color:var(--cw-blue-700);text-decoration:none;}
+    a:hover{color:var(--cw-blue-500);}
+    input:focus,select:focus{outline:2px solid var(--cw-blue-500);outline-offset:1px;}
+  </style>
+</helmet>
+<div style="width:1440px;height:948px;position:relative;overflow:hidden;font-family:var(--font-brand);color:var(--text-primary);background:#fff;">
+  <div style="width:100%;height:100%;background:#fff;overflow:auto;">
+
+    <sc-if value="{{ isGallery }}" hint-placeholder-val="{{ true }}">
+      <div data-screen-label="Gallery">
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px 20px;border-bottom:1px solid var(--color-border);">
+          <div style="display:flex;align-items:center;gap:16px;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="var(--cw-gray-700)"><circle cx="5" cy="5" r="1.6"></circle><circle cx="12" cy="5" r="1.6"></circle><circle cx="19" cy="5" r="1.6"></circle><circle cx="5" cy="12" r="1.6"></circle><circle cx="12" cy="12" r="1.6"></circle><circle cx="19" cy="12" r="1.6"></circle><circle cx="5" cy="19" r="1.6"></circle><circle cx="12" cy="19" r="1.6"></circle><circle cx="19" cy="19" r="1.6"></circle></svg>
+            <div style="display:flex;align-items:center;gap:8px;">
+              <img src="assets/coreweave-mark-blue.png" alt="CoreWeave" style="height: 22px; width: auto; display: block; position: static">
+              <span style="font-weight:800;font-size:15px;letter-spacing:-0.01em;">Forge</span>
+            </div>
+            <span style="font-weight:600;font-size:14px;color:var(--text-secondary);">Notebooks</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:16px;">
+            <div onClick="{{ stop }}" style="position:relative;">
+              <sc-if value="{{ gsOpen }}" hint-placeholder-val="{{ false }}">
+                <div style="display:flex;align-items:center;gap:8px;border:1px solid var(--cw-blue-500);background:#fff;border-radius:var(--radius-sm);padding:0 10px;height:34px;width:320px;">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--cw-gray-850)" stroke-width="1.8"><circle cx="11" cy="11" r="7"></circle><path d="M21 21l-4.3-4.3"></path></svg>
+                  <input ref="{{ gsRef }}" value="{{ gq }}" onChange="{{ onGq }}" onKeyDown="{{ onGqKey }}" placeholder="Search templates and notebooks" style="border:none;outline:none;font-family:var(--font-brand);font-size:13px;width:100%;background:transparent;color:var(--text-primary);">
+                  <span onClick="{{ closeGs }}" style="display:flex;color:var(--cw-gray-850);cursor:pointer;" style-hover="color:var(--cw-blue-700);"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 6l12 12M18 6L6 18"></path></svg></span>
+                </div>
+                <sc-if value="{{ gsHasQuery }}" hint-placeholder-val="{{ false }}">
+                  <div style="position:absolute;top:40px;right:0;width:360px;background:#fff;border:1px solid var(--color-border);border-radius:var(--radius-md);box-shadow:var(--shadow-md);z-index:40;padding:6px;display:flex;flex-direction:column;max-height:420px;overflow-y:auto;">
+                    <sc-if value="{{ gsHasTpl }}" hint-placeholder-val="{{ false }}">
+                      <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:0.06em;text-transform:uppercase;color:var(--text-secondary);padding:8px 10px 4px;">Templates</div>
+                      <sc-for list="{{ gsTpl }}" as="gt" hint-placeholder-count="2">
+                        <div onClick="{{ gt.open }}" style="display:flex;justify-content:space-between;align-items:center;gap:10px;padding:8px 10px;border-radius:var(--radius-xs);cursor:pointer;" style-hover="background:var(--cw-blue-50);">
+                          <span style="font-size:13px;font-weight:600;">{{ gt.title }}</span>
+                          <span style="font-family:var(--font-mono);font-size:10px;color:var(--text-secondary);white-space:nowrap;">{{ gt.cat }}</span>
+                        </div>
+                      </sc-for>
+                    </sc-if>
+                    <sc-if value="{{ gsHasNb }}" hint-placeholder-val="{{ false }}">
+                      <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:0.06em;text-transform:uppercase;color:var(--text-secondary);padding:8px 10px 4px;">Notebooks</div>
+                      <sc-for list="{{ gsNb }}" as="gn" hint-placeholder-count="2">
+                        <div onClick="{{ gn.open }}" style="display:flex;flex-direction:column;gap:2px;padding:8px 10px;border-radius:var(--radius-xs);cursor:pointer;" style-hover="background:var(--cw-blue-50);">
+                          <span style="font-size:13px;font-weight:600;">{{ gn.title }}</span>
+                          <span style="font-family:var(--font-mono);font-size:11px;color:var(--text-secondary);">{{ gn.project }}</span>
+                        </div>
+                      </sc-for>
+                    </sc-if>
+                    <sc-if value="{{ gsEmpty }}" hint-placeholder-val="{{ false }}">
+                      <div style="font-size:13px;color:var(--text-secondary);padding:10px;">No results for “{{ gq }}”</div>
+                    </sc-if>
+                  </div>
+                </sc-if>
+              </sc-if>
+              <sc-if value="{{ gsClosed }}" hint-placeholder-val="{{ true }}">
+                <span onClick="{{ openGs }}" title="Search" style="display:flex;padding:6px;border-radius:var(--radius-xs);color:var(--cw-gray-850);cursor:pointer;" style-hover="color:var(--cw-blue-700);background:var(--cw-blue-50);">
+                  <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="11" cy="11" r="7"></circle><path d="M21 21l-4.3-4.3"></path></svg>
+                </span>
+              </sc-if>
+            </div>
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="var(--cw-gray-850)" stroke-width="1.6"><circle cx="12" cy="12" r="9"></circle><path d="M9.5 9a2.5 2.5 0 1 1 3.5 2.3c-.8.4-1 .9-1 1.7" stroke-linecap="round"></path><circle cx="12" cy="17" r="0.6" fill="currentColor"></circle></svg>
+            <x-import component-from-global-scope="CoreWeaveDesignSystem_a63cc0.Button" variant="secondary" size="sm" icon-left="{{ sparkIcon }}" hint-size="110px,34px">Ask ARIA</x-import>
+            <div style="display:flex;align-items:center;gap:10px;">
+              <div style="text-align:right;line-height:1.25;">
+                <div style="font-size:13px;font-weight:600;">Tanha Alsheikhdallah</div>
+                <div style="font-size:12px;color:var(--text-secondary);">wandb</div>
+              </div>
+              <div style="width:32px;height:32px;border-radius:50%;background:var(--cw-blue-700);color:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;">TA</div>
+            </div>
+          </div>
+        </div>
+
+        <div style="display:flex;min-height:891px;">
+          <div style="width:220px;flex-shrink:0;border-right:1px solid var(--color-border);padding:16px 12px;display:flex;flex-direction:column;gap:2px;">
+            <div onClick="{{ nav.home.go }}" style="display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:var(--radius-sm);font-size:14px;cursor:pointer;background:{{ nav.home.bg }};color:{{ nav.home.fg }};font-weight:{{ nav.home.fw }};">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 11l9-7 9 7"></path><path d="M5 10v9h14v-9"></path></svg>Overview
+            </div>
+            <div onClick="{{ nav.templates.go }}" style="display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:var(--radius-sm);font-size:14px;cursor:pointer;background:{{ nav.templates.bg }};color:{{ nav.templates.fg }};font-weight:{{ nav.templates.fw }};">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="7" height="7" rx="1.5"></rect><rect x="14" y="3" width="7" height="7" rx="1.5"></rect><rect x="3" y="14" width="7" height="7" rx="1.5"></rect><rect x="14" y="14" width="7" height="7" rx="1.5"></rect></svg>Getting started
+            </div>
+            <div onClick="{{ nav.quickstart.go }}" style="display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:var(--radius-sm);font-size:14px;cursor:pointer;background:{{ nav.quickstart.bg }};color:{{ nav.quickstart.fg }};font-weight:{{ nav.quickstart.fw }};">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="6" rx="1.5"></rect><rect x="3" y="12" width="8" height="9" rx="1.5"></rect><rect x="13" y="12" width="8" height="9" rx="1.5"></rect></svg>Quickstart templates
+            </div>
+          </div>
+
+          <div style="flex:1;min-width:0;padding:40px 36px 48px;background:var(--cw-gray-50);">
+
+            <sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
+              <div style="display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:16px;margin-bottom:32px;">
+                <div onClick="{{ openCreate }}" style="aspect-ratio:9/5;min-width:0;cursor:pointer;display:flex;flex-direction:column;border-radius:var(--radius-md);overflow:hidden;transition:border-color 120ms;border:1px dashed var(--cw-gray-500);background:#fff;color:var(--cw-gray-850);" style-hover="border-color:var(--cw-blue-500);color:var(--cw-blue-700);">
+                  <div style="flex:1;min-height:0;display:flex;align-items:center;justify-content:center;">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 5v14M5 12h14"></path></svg>
+                  </div>
+                  <div style="padding:8px 12px;font-size:12px;font-weight:600;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex-shrink:0;color:var(--text-primary);">Blank notebook</div>
+                </div>
+                <div onClick="{{ homeOpen.loss }}" style="aspect-ratio:9/5;min-width:0;cursor:pointer;display:flex;flex-direction:column;border-radius:var(--radius-md);overflow:hidden;transition:border-color 120ms;border:1px solid var(--color-border);background:#fff;" style-hover="border-color:var(--cw-blue-300);">
+                  <div style="flex:1;min-height:0;background:var(--cw-blue-50);padding:6px 10px;"><svg viewBox="0 0 160 100" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" style="display:block;"><path d="M14 20 Q60 30 90 65 T146 82" stroke="#0541E9" fill="none" stroke-width="2"></path><path d="M14 26 Q60 50 90 72 T146 88" stroke="#2374FF" fill="none" stroke-width="2"></path><path d="M14 18 Q55 22 85 58 T146 76" stroke="#63A4FF" fill="none" stroke-width="2"></path></svg></div>
+                  <div style="padding:8px 12px;font-size:12px;font-weight:600;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex-shrink:0;border-top:1px solid var(--color-border);">Loss curve comparison</div>
+                </div>
+                <div onClick="{{ homeOpen.scatter }}" style="aspect-ratio:9/5;min-width:0;cursor:pointer;display:flex;flex-direction:column;border-radius:var(--radius-md);overflow:hidden;transition:border-color 120ms;border:1px solid var(--color-border);background:#fff;" style-hover="border-color:var(--cw-blue-300);">
+                  <div style="flex:1;min-height:0;background:var(--cw-blue-50);padding:6px 10px;"><svg viewBox="0 0 160 100" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" style="display:block;"><line x1="14" y1="86" x2="140" y2="18" stroke="#9DC7FE" stroke-dasharray="3,3"></line><circle cx="40" cy="66" r="3.5" fill="#0541E9"></circle><circle cx="55" cy="58" r="3.5" fill="#0541E9"></circle><circle cx="70" cy="50" r="3.5" fill="#2374FF"></circle><circle cx="90" cy="46" r="3.5" fill="#2374FF"></circle><circle cx="105" cy="34" r="3.5" fill="#63A4FF"></circle><circle cx="120" cy="28" r="3.5" fill="#63A4FF"></circle><circle cx="60" cy="70" r="3.5" fill="#0541E9"></circle><circle cx="100" cy="40" r="3.5" fill="#2374FF"></circle></svg></div>
+                  <div style="padding:8px 12px;font-size:12px;font-weight:600;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex-shrink:0;border-top:1px solid var(--color-border);">Explore predictions vs. actual</div>
+                </div>
+                <div onClick="{{ homeOpen.filter }}" style="aspect-ratio:9/5;min-width:0;cursor:pointer;display:flex;flex-direction:column;border-radius:var(--radius-md);overflow:hidden;transition:border-color 120ms;border:1px solid var(--color-border);background:#fff;" style-hover="border-color:var(--cw-blue-300);">
+                  <div style="flex:1;min-height:0;background:var(--cw-blue-50);padding:6px 10px;"><svg viewBox="0 0 160 100" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" style="display:block;"><circle cx="24" cy="26" r="4" fill="#0541E9"></circle><line x1="34" y1="26" x2="130" y2="26" stroke="#9DC7FE" stroke-width="2"></line><circle cx="24" cy="46" r="4" fill="#2374FF"></circle><line x1="34" y1="46" x2="110" y2="46" stroke="#9DC7FE" stroke-width="2"></line><circle cx="24" cy="66" r="4" fill="#63A4FF"></circle><line x1="34" y1="66" x2="95" y2="66" stroke="#9DC7FE" stroke-width="2"></line><circle cx="24" cy="86" r="4" fill="#0541E9"></circle><line x1="34" y1="86" x2="120" y2="86" stroke="#9DC7FE" stroke-width="2"></line></svg></div>
+                  <div style="padding:8px 12px;font-size:12px;font-weight:600;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex-shrink:0;border-top:1px solid var(--color-border);">Compare runs side-by-side</div>
+                </div>
+                <div onClick="{{ homeOpen.confusion }}" style="aspect-ratio:9/5;min-width:0;cursor:pointer;display:flex;flex-direction:column;border-radius:var(--radius-md);overflow:hidden;transition:border-color 120ms;border:1px solid var(--color-border);background:#fff;" style-hover="border-color:var(--cw-blue-300);">
+                  <div style="flex:1;min-height:0;background:var(--cw-blue-50);padding:6px 10px;"><svg viewBox="0 0 160 100" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" style="display:block;"><rect x="47" y="17" width="20" height="20" rx="3" fill="#0541E9" opacity="1"></rect><rect x="69" y="17" width="20" height="20" rx="3" fill="#0541E9" opacity="0.35"></rect><rect x="91" y="17" width="20" height="20" rx="3" fill="#0541E9" opacity="0.15"></rect><rect x="47" y="39" width="20" height="20" rx="3" fill="#0541E9" opacity="0.3"></rect><rect x="69" y="39" width="20" height="20" rx="3" fill="#0541E9" opacity="1"></rect><rect x="91" y="39" width="20" height="20" rx="3" fill="#0541E9" opacity="0.25"></rect><rect x="47" y="61" width="20" height="20" rx="3" fill="#0541E9" opacity="0.12"></rect><rect x="69" y="61" width="20" height="20" rx="3" fill="#0541E9" opacity="0.2"></rect><rect x="91" y="61" width="20" height="20" rx="3" fill="#0541E9" opacity="1"></rect></svg></div>
+                  <div style="padding:8px 12px;font-size:12px;font-weight:600;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex-shrink:0;border-top:1px solid var(--color-border);">Confusion matrix viewer</div>
+                </div>
+                <div onClick="{{ openPanel }}" style="aspect-ratio:9/5;min-width:0;cursor:pointer;display:flex;flex-direction:column;border-radius:var(--radius-md);overflow:hidden;transition:border-color 120ms;border:1px solid transparent;background:var(--cw-blue-700);color:#fff;" style-hover="background:var(--cw-blue-500);">
+                  <div style="flex:1;min-height:0;display:flex;align-items:center;justify-content:center;">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="6" rx="1.5"></rect><rect x="3" y="12" width="8" height="9" rx="1.5"></rect><rect x="13" y="12" width="8" height="9" rx="1.5"></rect></svg>
+                  </div>
+                  <div style="padding:8px 12px;font-size:12px;font-weight:600;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex-shrink:0;">View more templates</div>
+                </div>
+              </div>
+              <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
+                <h2 style="font-size:20px;font-weight:700;margin:0;flex:1;letter-spacing:-0.01em;">Notebooks&nbsp;</h2>
+                <x-import component-from-global-scope="CoreWeaveDesignSystem_a63cc0.Button" variant="support" appearance="outline" size="sm" on-click="{{ openPanel }}" hint-size="150px,34px">Explore templates</x-import>
+                <x-import component-from-global-scope="CoreWeaveDesignSystem_a63cc0.Button" size="sm" icon-left="{{ plusIcon }}" on-click="{{ openCreate }}" hint-size="120px,34px">Create new</x-import>
+              </div>
+              <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;flex-wrap:wrap;">
+                <div style="display:flex;align-items:center;gap:10px;border:1px solid var(--cw-gray-300);background:#fff;border-radius:var(--radius-sm);padding:0 12px;height:34px;width:320px;max-width:100%;">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--cw-gray-850)" stroke-width="1.8"><circle cx="11" cy="11" r="7"></circle><path d="M21 21l-4.3-4.3"></path></svg>
+                  <input value="{{ nbQuery }}" onChange="{{ onNbQuery }}" placeholder="Search notebooks" style="border:none;outline:none;font-family:var(--font-brand);font-size:13px;width:100%;background:transparent;color:var(--text-primary);">
+                </div>
+                <x-import component-from-global-scope="CoreWeaveDesignSystem_a63cc0.Button" variant="{{ filterBtnVariant }}" appearance="outline" size="sm" icon-left="{{ filterIcon }}" on-click="{{ toggleFilters }}" hint-size="100px,34px">{{ filterLabel }}</x-import>
+                <sc-if value="{{ filtersOpen }}" hint-placeholder-val="{{ false }}">
+                  <select value="{{ fProject }}" onChange="{{ onFProject }}" style="height:34px;padding:0 10px;border:1px solid var(--cw-gray-300);border-radius:var(--radius-sm);background:#fff;font-family:var(--font-brand);font-size:13px;color:var(--text-primary);">
+                    <sc-for list="{{ projectOpts }}" as="po" hint-placeholder-count="3"><option value="{{ po.v }}">{{ po.label }}</option></sc-for>
+                  </select>
+                  <select value="{{ fAuthor }}" onChange="{{ onFAuthor }}" style="height:34px;padding:0 10px;border:1px solid var(--cw-gray-300);border-radius:var(--radius-sm);background:#fff;font-family:var(--font-brand);font-size:13px;color:var(--text-primary);">
+                    <sc-for list="{{ authorOpts }}" as="ao" hint-placeholder-count="3"><option value="{{ ao.v }}">{{ ao.label }}</option></sc-for>
+                  </select>
+                  <sc-if value="{{ hasActiveFilters }}" hint-placeholder-val="{{ false }}">
+                    <span onClick="{{ clearFilters }}" style="font-size:13px;font-weight:600;color:var(--cw-blue-700);cursor:pointer;">Clear</span>
+                  </sc-if>
+                </sc-if>
+                <div style="flex:1;"></div>
+                <span style="font-size:12px;font-family:var(--font-mono);color:var(--text-secondary);">{{ pagination }}</span>
+              </div>
+            </sc-if>
+
+            <sc-if value="{{ isTemplates }}" hint-placeholder-val="{{ false }}">
+              <div style="text-align:center;max-width:620px;margin:8px auto 36px;display:flex;flex-direction:column;align-items:center;gap:14px;">
+                <div style="width:48px;height:48px;border-radius:50%;background:var(--cw-blue-50);color:var(--cw-blue-700);display:flex;align-items:center;justify-content:center;">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 3h9l5 5v13H6z"></path><path d="M9 12h6M9 16h6M9 8h3"></path></svg>
+                </div>
+                <h1 style="font-size: 32px; font-weight: 600; line-height: 0.85; letter-spacing: -0.02em; text-transform: capitalize; margin: 0">Get started with notebooks</h1>
+                <p style="font-size:14px;line-height:1.5;color:var(--text-secondary);margin:0;text-wrap:pretty;">Create, find, and manage live Marimo-powered Python notebooks for exploratory work and data apps.</p>
+              </div>
+              <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:16px;max-width:900px;margin:0 auto;">
+                  <div onClick="{{ openCopy }}" style="background:#fff;border:1px solid var(--color-border);border-radius:var(--radius-md);padding:20px;display:flex;flex-direction:column;justify-content:space-between;gap:16px;min-height:160px;cursor:pointer;transition:border-color 120ms;" style-hover="border-color:var(--cw-blue-300);">
+                    <div style="display:flex;flex-direction:column;gap:8px;">
+                      <div style="font-size:16px;font-weight:700;line-height:1.25;">Fine-tune an LLM with W&amp;B, Agent Pulse, Training and Inference</div>
+                      <p style="font-size:13px;line-height:1.5;color:var(--text-secondary);margin:0;">Fine-tune, track, evaluate, and run inference on an LLM.</p>
+                    </div>
+                    <div style="display:flex;align-items:center;gap:6px;font-size:13px;font-weight:600;color:var(--cw-blue-700);">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="9" y="9" width="11" height="11" rx="1.5"></rect><path d="M5 15V5a1.5 1.5 0 0 1 1.5-1.5H15"></path></svg>Make a copy
+                    </div>
+                  </div>
+                  <div onClick="{{ openCopy }}" style="background:#fff;border:1px solid var(--color-border);border-radius:var(--radius-md);padding:20px;display:flex;flex-direction:column;justify-content:space-between;gap:16px;min-height:160px;cursor:pointer;transition:border-color 120ms;" style-hover="border-color:var(--cw-blue-300);">
+                    <div style="display:flex;flex-direction:column;gap:8px;">
+                      <div style="font-size:16px;font-weight:700;line-height:1.25;">Monitor an agent with Agent Pulse</div>
+                      <p style="font-size:13px;line-height:1.5;color:var(--text-secondary);margin:0;">Instrument an agent and explore its behavior in Agent Pulse.</p>
+                    </div>
+                    <div style="display:flex;align-items:center;gap:6px;font-size:13px;font-weight:600;color:var(--cw-blue-700);">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="9" y="9" width="11" height="11" rx="1.5"></rect><path d="M5 15V5a1.5 1.5 0 0 1 1.5-1.5H15"></path></svg>Make a copy
+                    </div>
+                  </div>
+                  <div onClick="{{ openCopy }}" style="background:#fff;border:1px solid var(--color-border);border-radius:var(--radius-md);padding:20px;display:flex;flex-direction:column;justify-content:space-between;gap:16px;min-height:160px;cursor:pointer;transition:border-color 120ms;" style-hover="border-color:var(--cw-blue-300);">
+                    <div style="display:flex;flex-direction:column;gap:8px;">
+                      <div style="font-size:16px;font-weight:700;line-height:1.25;">Train a robotics model with W&amp;B</div>
+                      <p style="font-size:13px;line-height:1.5;color:var(--text-secondary);margin:0;">Train and evaluate a robotics model with W&amp;B tracking.</p>
+                    </div>
+                    <div style="display:flex;align-items:center;gap:6px;font-size:13px;font-weight:600;color:var(--cw-blue-700);">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="9" y="9" width="11" height="11" rx="1.5"></rect><path d="M5 15V5a1.5 1.5 0 0 1 1.5-1.5H15"></path></svg>Make a copy
+                    </div>
+                  </div>
+              </div>
+              <div style="display:flex;justify-content:center;gap:10px;margin-top:28px;">
+                <x-import component-from-global-scope="CoreWeaveDesignSystem_a63cc0.Button" variant="support" appearance="outline" size="sm" hint-size="140px,34px">Documentation</x-import>
+                <x-import component-from-global-scope="CoreWeaveDesignSystem_a63cc0.Button" size="sm" icon-left="{{ plusIcon }}" on-click="{{ openCreate }}" hint-size="170px,34px">Create from scratch</x-import>
+              </div>
+            </sc-if>
+
+            <sc-if value="{{ isQuickstart }}" hint-placeholder-val="{{ false }}">
+              <div style="display:flex;flex-direction:column;gap:14px;margin-bottom:24px;">
+                <h1 style="font-size: 32px; font-weight: 600; line-height: 0.85; letter-spacing: -0.02em; text-transform: capitalize; margin: 0">Quickstart templates</h1>
+                <p style="font-size:14px;line-height:1.5;color:var(--text-secondary);margin:0;max-width:60ch;">Nine live Marimo notebooks for ML training and evaluation, pre-wired to your runs, artifacts, and datasets. Pick one and make a copy.</p>
+                <div style="display:flex;align-items:center;gap:10px;border:1px solid var(--cw-gray-300);background:#fff;border-radius:var(--radius-sm);padding:0 14px;height:40px;max-width:420px;">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--cw-gray-850)" stroke-width="1.8"><circle cx="11" cy="11" r="7"></circle><path d="M21 21l-4.3-4.3"></path></svg>
+                  <input value="{{ query }}" onChange="{{ onQuery }}" placeholder="Search quickstart templates" style="border:none;outline:none;font-family:var(--font-brand);font-size:14px;width:100%;background:transparent;color:var(--text-primary);">
+                </div>
+                <div style="display:flex;flex-wrap:wrap;gap:8px;">
+                  <sc-for list="{{ chips }}" as="ch" hint-placeholder-count="6">
+                    <x-import component-from-global-scope="CoreWeaveDesignSystem_a63cc0.Tag" selected="{{ ch.selected }}" on-click="{{ ch.pick }}" style="white-space:nowrap;flex-shrink:0;" hint-size="auto,32px"><span style="white-space:nowrap;">{{ ch.label }}</span></x-import>
+                  </sc-for>
+                </div>
+              </div>
+              <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:18px;">
+                <div onClick="{{ qt.scatter.open }}" onMouseEnter="{{ qt.scatter.enter }}" onMouseLeave="{{ qtLeave }}" style="background:#fff;border:1px solid var(--color-border);border-radius:var(--radius-md);overflow:hidden;cursor:pointer;display:{{ qt.scatter.display }};" style-hover="border-color:var(--cw-blue-300);">
+                  <div style="position:relative;height:120px;background:var(--cw-blue-50);padding:8px 12px;">
+                    <svg viewBox="0 0 160 100" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" style="display:block;"><line x1="14" y1="86" x2="140" y2="18" stroke="#9DC7FE" stroke-dasharray="3,3"></line><circle cx="40" cy="66" r="3.5" fill="#0541E9"></circle><circle cx="55" cy="58" r="3.5" fill="#0541E9"></circle><circle cx="70" cy="50" r="3.5" fill="#2374FF"></circle><circle cx="90" cy="46" r="3.5" fill="#2374FF"></circle><circle cx="105" cy="34" r="3.5" fill="#63A4FF"></circle><circle cx="120" cy="28" r="3.5" fill="#63A4FF"></circle><circle cx="60" cy="70" r="3.5" fill="#0541E9"></circle><circle cx="100" cy="40" r="3.5" fill="#2374FF"></circle></svg>
+                    <div style="position:absolute;inset:0;background:rgba(5,65,233,0.82);display:flex;align-items:center;justify-content:center;transition:opacity 120ms;opacity:{{ qt.scatter.overlay }};">
+                      <span style="background:#fff;color:var(--cw-blue-700);font-size:13px;font-weight:600;padding:8px 14px;border-radius:var(--radius-sm);">Open notebook</span>
+                    </div>
+                  </div>
+                  <div style="padding:14px 16px 16px;display:flex;flex-direction:column;gap:6px;">
+                    <div style="font-size:15px;font-weight:700;line-height:1.25;">Explore predictions vs. actual</div>
+                    <div style="font-family:var(--font-mono);font-size:11px;letter-spacing:0.06em;text-transform:uppercase;color:var(--text-secondary);">Post-training</div>
+                  </div>
+                </div>
+                <div onClick="{{ qt.eda.open }}" onMouseEnter="{{ qt.eda.enter }}" onMouseLeave="{{ qtLeave }}" style="background:#fff;border:1px solid var(--color-border);border-radius:var(--radius-md);overflow:hidden;cursor:pointer;display:{{ qt.eda.display }};" style-hover="border-color:var(--cw-blue-300);">
+                  <div style="position:relative;height:120px;background:var(--cw-blue-50);padding:8px 12px;">
+                    <svg viewBox="0 0 160 100" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" style="display:block;"><rect x="24" y="50" width="14" height="36" rx="2" fill="#0541E9" opacity="1.0"></rect><rect x="44" y="34" width="14" height="52" rx="2" fill="#0541E9" opacity="0.9"></rect><rect x="64" y="20" width="14" height="66" rx="2" fill="#0541E9" opacity="0.8"></rect><rect x="84" y="40" width="14" height="46" rx="2" fill="#2374FF" opacity="0.7"></rect><rect x="104" y="58" width="14" height="28" rx="2" fill="#2374FF" opacity="0.6"></rect><rect x="124" y="70" width="14" height="16" rx="2" fill="#2374FF" opacity="0.5"></rect></svg>
+                    <div style="position:absolute;inset:0;background:rgba(5,65,233,0.82);display:flex;align-items:center;justify-content:center;transition:opacity 120ms;opacity:{{ qt.eda.overlay }};">
+                      <span style="background:#fff;color:var(--cw-blue-700);font-size:13px;font-weight:600;padding:8px 14px;border-radius:var(--radius-sm);">Open notebook</span>
+                    </div>
+                  </div>
+                  <div style="padding:14px 16px 16px;display:flex;flex-direction:column;gap:6px;">
+                    <div style="font-size:15px;font-weight:700;line-height:1.25;">Profile a training dataset</div>
+                    <div style="font-family:var(--font-mono);font-size:11px;letter-spacing:0.06em;text-transform:uppercase;color:var(--text-secondary);">Data Exploration</div>
+                  </div>
+                </div>
+                <div onClick="{{ qt.filter.open }}" onMouseEnter="{{ qt.filter.enter }}" onMouseLeave="{{ qtLeave }}" style="background:#fff;border:1px solid var(--color-border);border-radius:var(--radius-md);overflow:hidden;cursor:pointer;display:{{ qt.filter.display }};" style-hover="border-color:var(--cw-blue-300);">
+                  <div style="position:relative;height:120px;background:var(--cw-blue-50);padding:8px 12px;">
+                    <svg viewBox="0 0 160 100" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" style="display:block;"><circle cx="24" cy="26" r="4" fill="#0541E9"></circle><line x1="34" y1="26" x2="130" y2="26" stroke="#9DC7FE" stroke-width="2"></line><circle cx="24" cy="46" r="4" fill="#2374FF"></circle><line x1="34" y1="46" x2="110" y2="46" stroke="#9DC7FE" stroke-width="2"></line><circle cx="24" cy="66" r="4" fill="#63A4FF"></circle><line x1="34" y1="66" x2="95" y2="66" stroke="#9DC7FE" stroke-width="2"></line><circle cx="24" cy="86" r="4" fill="#0541E9"></circle><line x1="34" y1="86" x2="120" y2="86" stroke="#9DC7FE" stroke-width="2"></line></svg>
+                    <div style="position:absolute;inset:0;background:rgba(5,65,233,0.82);display:flex;align-items:center;justify-content:center;transition:opacity 120ms;opacity:{{ qt.filter.overlay }};">
+                      <span style="background:#fff;color:var(--cw-blue-700);font-size:13px;font-weight:600;padding:8px 14px;border-radius:var(--radius-sm);">Open notebook</span>
+                    </div>
+                  </div>
+                  <div style="padding:14px 16px 16px;display:flex;flex-direction:column;gap:6px;">
+                    <div style="font-size:15px;font-weight:700;line-height:1.25;">Compare runs side-by-side</div>
+                    <div style="font-family:var(--font-mono);font-size:11px;letter-spacing:0.06em;text-transform:uppercase;color:var(--text-secondary);">Model Distillation</div>
+                  </div>
+                </div>
+                <div onClick="{{ qt.confusion.open }}" onMouseEnter="{{ qt.confusion.enter }}" onMouseLeave="{{ qtLeave }}" style="background:#fff;border:1px solid var(--color-border);border-radius:var(--radius-md);overflow:hidden;cursor:pointer;display:{{ qt.confusion.display }};" style-hover="border-color:var(--cw-blue-300);">
+                  <div style="position:relative;height:120px;background:var(--cw-blue-50);padding:8px 12px;">
+                    <svg viewBox="0 0 160 100" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" style="display:block;"><rect x="47" y="17" width="20" height="20" rx="3" fill="#0541E9" opacity="1"></rect><rect x="69" y="17" width="20" height="20" rx="3" fill="#0541E9" opacity="0.35"></rect><rect x="91" y="17" width="20" height="20" rx="3" fill="#0541E9" opacity="0.15"></rect><rect x="47" y="39" width="20" height="20" rx="3" fill="#0541E9" opacity="0.3"></rect><rect x="69" y="39" width="20" height="20" rx="3" fill="#0541E9" opacity="1"></rect><rect x="91" y="39" width="20" height="20" rx="3" fill="#0541E9" opacity="0.25"></rect><rect x="47" y="61" width="20" height="20" rx="3" fill="#0541E9" opacity="0.12"></rect><rect x="69" y="61" width="20" height="20" rx="3" fill="#0541E9" opacity="0.2"></rect><rect x="91" y="61" width="20" height="20" rx="3" fill="#0541E9" opacity="1"></rect></svg>
+                    <div style="position:absolute;inset:0;background:rgba(5,65,233,0.82);display:flex;align-items:center;justify-content:center;transition:opacity 120ms;opacity:{{ qt.confusion.overlay }};">
+                      <span style="background:#fff;color:var(--cw-blue-700);font-size:13px;font-weight:600;padding:8px 14px;border-radius:var(--radius-sm);">Open notebook</span>
+                    </div>
+                  </div>
+                  <div style="padding:14px 16px 16px;display:flex;flex-direction:column;gap:6px;">
+                    <div style="font-size:15px;font-weight:700;line-height:1.25;">Confusion matrix viewer</div>
+                    <div style="font-family:var(--font-mono);font-size:11px;letter-spacing:0.06em;text-transform:uppercase;color:var(--text-secondary);">Agent Evals</div>
+                  </div>
+                </div>
+                <div onClick="{{ qt.loss.open }}" onMouseEnter="{{ qt.loss.enter }}" onMouseLeave="{{ qtLeave }}" style="background:#fff;border:1px solid var(--color-border);border-radius:var(--radius-md);overflow:hidden;cursor:pointer;display:{{ qt.loss.display }};" style-hover="border-color:var(--cw-blue-300);">
+                  <div style="position:relative;height:120px;background:var(--cw-blue-50);padding:8px 12px;">
+                    <svg viewBox="0 0 160 100" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" style="display:block;"><path d="M14 20 Q60 30 90 65 T146 82" stroke="#0541E9" fill="none" stroke-width="2"></path><path d="M14 26 Q60 50 90 72 T146 88" stroke="#2374FF" fill="none" stroke-width="2"></path><path d="M14 18 Q55 22 85 58 T146 76" stroke="#63A4FF" fill="none" stroke-width="2"></path></svg>
+                    <div style="position:absolute;inset:0;background:rgba(5,65,233,0.82);display:flex;align-items:center;justify-content:center;transition:opacity 120ms;opacity:{{ qt.loss.overlay }};">
+                      <span style="background:#fff;color:var(--cw-blue-700);font-size:13px;font-weight:600;padding:8px 14px;border-radius:var(--radius-sm);">Open notebook</span>
+                    </div>
+                  </div>
+                  <div style="padding:14px 16px 16px;display:flex;flex-direction:column;gap:6px;">
+                    <div style="font-size:15px;font-weight:700;line-height:1.25;">Loss curve comparison</div>
+                    <div style="font-family:var(--font-mono);font-size:11px;letter-spacing:0.06em;text-transform:uppercase;color:var(--text-secondary);">Pretraining</div>
+                  </div>
+                </div>
+                <div onClick="{{ qt.feature.open }}" onMouseEnter="{{ qt.feature.enter }}" onMouseLeave="{{ qtLeave }}" style="background:#fff;border:1px solid var(--color-border);border-radius:var(--radius-md);overflow:hidden;cursor:pointer;display:{{ qt.feature.display }};" style-hover="border-color:var(--cw-blue-300);">
+                  <div style="position:relative;height:120px;background:var(--cw-blue-50);padding:8px 12px;">
+                    <svg viewBox="0 0 160 100" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" style="display:block;"><rect x="20" y="22" width="110" height="9" rx="2" fill="#0541E9" opacity="1.0"></rect><rect x="20" y="40" width="85" height="9" rx="2" fill="#0541E9" opacity="0.8"></rect><rect x="20" y="58" width="60" height="9" rx="2" fill="#0541E9" opacity="0.6"></rect><rect x="20" y="76" width="35" height="9" rx="2" fill="#0541E9" opacity="0.4"></rect></svg>
+                    <div style="position:absolute;inset:0;background:rgba(5,65,233,0.82);display:flex;align-items:center;justify-content:center;transition:opacity 120ms;opacity:{{ qt.feature.overlay }};">
+                      <span style="background:#fff;color:var(--cw-blue-700);font-size:13px;font-weight:600;padding:8px 14px;border-radius:var(--radius-sm);">Open notebook</span>
+                    </div>
+                  </div>
+                  <div style="padding:14px 16px 16px;display:flex;flex-direction:column;gap:6px;">
+                    <div style="font-size:15px;font-weight:700;line-height:1.25;">Feature importance ranker</div>
+                    <div style="font-family:var(--font-mono);font-size:11px;letter-spacing:0.06em;text-transform:uppercase;color:var(--text-secondary);">Post-training</div>
+                  </div>
+                </div>
+                <div onClick="{{ qt.embedding.open }}" onMouseEnter="{{ qt.embedding.enter }}" onMouseLeave="{{ qtLeave }}" style="background:#fff;border:1px solid var(--color-border);border-radius:var(--radius-md);overflow:hidden;cursor:pointer;display:{{ qt.embedding.display }};" style-hover="border-color:var(--cw-blue-300);">
+                  <div style="position:relative;height:120px;background:var(--cw-blue-50);padding:8px 12px;">
+                    <svg viewBox="0 0 160 100" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" style="display:block;"><circle cx="40" cy="35" r="3" fill="#0541E9"></circle><circle cx="48" cy="42" r="3" fill="#0541E9"></circle><circle cx="35" cy="48" r="3" fill="#0541E9"></circle><circle cx="52" cy="30" r="3" fill="#0541E9"></circle><circle cx="105" cy="55" r="3" fill="#2374FF"></circle><circle cx="115" cy="62" r="3" fill="#2374FF"></circle><circle cx="98" cy="65" r="3" fill="#2374FF"></circle><circle cx="118" cy="48" r="3" fill="#2374FF"></circle><circle cx="70" cy="75" r="3" fill="#63A4FF"></circle><circle cx="80" cy="80" r="3" fill="#63A4FF"></circle><circle cx="65" cy="82" r="3" fill="#63A4FF"></circle></svg>
+                    <div style="position:absolute;inset:0;background:rgba(5,65,233,0.82);display:flex;align-items:center;justify-content:center;transition:opacity 120ms;opacity:{{ qt.embedding.overlay }};">
+                      <span style="background:#fff;color:var(--cw-blue-700);font-size:13px;font-weight:600;padding:8px 14px;border-radius:var(--radius-sm);">Open notebook</span>
+                    </div>
+                  </div>
+                  <div style="padding:14px 16px 16px;display:flex;flex-direction:column;gap:6px;">
+                    <div style="font-size:15px;font-weight:700;line-height:1.25;">Embedding projector</div>
+                    <div style="font-family:var(--font-mono);font-size:11px;letter-spacing:0.06em;text-transform:uppercase;color:var(--text-secondary);">Data Exploration</div>
+                  </div>
+                </div>
+                <div onClick="{{ qt.sweep.open }}" onMouseEnter="{{ qt.sweep.enter }}" onMouseLeave="{{ qtLeave }}" style="background:#fff;border:1px solid var(--color-border);border-radius:var(--radius-md);overflow:hidden;cursor:pointer;display:{{ qt.sweep.display }};" style-hover="border-color:var(--cw-blue-300);">
+                  <div style="position:relative;height:120px;background:var(--cw-blue-50);padding:8px 12px;">
+                    <svg viewBox="0 0 160 100" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" style="display:block;"><circle cx="24" cy="70" r="4" fill="#2374FF" opacity="0.50"></circle><circle cx="40" cy="50" r="4" fill="#2374FF" opacity="0.56"></circle><circle cx="56" cy="60" r="4" fill="#2374FF" opacity="0.62"></circle><circle cx="72" cy="34" r="4" fill="#2374FF" opacity="0.68"></circle><circle cx="88" cy="44" r="4" fill="#2374FF" opacity="0.74"></circle><circle cx="104" cy="26" r="4" fill="#2374FF" opacity="0.80"></circle><circle cx="120" cy="38" r="4" fill="#2374FF" opacity="0.86"></circle><circle cx="136" cy="20" r="4" fill="#2374FF" opacity="0.92"></circle></svg>
+                    <div style="position:absolute;inset:0;background:rgba(5,65,233,0.82);display:flex;align-items:center;justify-content:center;transition:opacity 120ms;opacity:{{ qt.sweep.overlay }};">
+                      <span style="background:#fff;color:var(--cw-blue-700);font-size:13px;font-weight:600;padding:8px 14px;border-radius:var(--radius-sm);">Open notebook</span>
+                    </div>
+                  </div>
+                  <div style="padding:14px 16px 16px;display:flex;flex-direction:column;gap:6px;">
+                    <div style="font-size:15px;font-weight:700;line-height:1.25;">Sweep results explorer</div>
+                    <div style="font-family:var(--font-mono);font-size:11px;letter-spacing:0.06em;text-transform:uppercase;color:var(--text-secondary);">Pretraining</div>
+                  </div>
+                </div>
+                <div onClick="{{ qt.drift.open }}" onMouseEnter="{{ qt.drift.enter }}" onMouseLeave="{{ qtLeave }}" style="background:#fff;border:1px solid var(--color-border);border-radius:var(--radius-md);overflow:hidden;cursor:pointer;display:{{ qt.drift.display }};" style-hover="border-color:var(--cw-blue-300);">
+                  <div style="position:relative;height:120px;background:var(--cw-blue-50);padding:8px 12px;">
+                    <svg viewBox="0 0 160 100" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" style="display:block;"><path d="M14 80 Q40 20 65 80 T116 80" stroke="#0541E9" fill="none" stroke-width="2"></path><path d="M34 80 Q60 30 85 80 T146 80" stroke="#63A4FF" fill="none" stroke-width="2" stroke-dasharray="4,3"></path></svg>
+                    <div style="position:absolute;inset:0;background:rgba(5,65,233,0.82);display:flex;align-items:center;justify-content:center;transition:opacity 120ms;opacity:{{ qt.drift.overlay }};">
+                      <span style="background:#fff;color:var(--cw-blue-700);font-size:13px;font-weight:600;padding:8px 14px;border-radius:var(--radius-sm);">Open notebook</span>
+                    </div>
+                  </div>
+                  <div style="padding:14px 16px 16px;display:flex;flex-direction:column;gap:6px;">
+                    <div style="font-size:15px;font-weight:700;line-height:1.25;">Data drift monitor</div>
+                    <div style="font-family:var(--font-mono);font-size:11px;letter-spacing:0.06em;text-transform:uppercase;color:var(--text-secondary);">Data Exploration</div>
+                  </div>
+                </div>
+              </div>
+              <sc-if value="{{ qtEmpty }}" hint-placeholder-val="{{ false }}">
+                <p style="font-size:14px;color:var(--text-secondary);margin:24px 0 0;">No templates match your search.</p>
+              </sc-if>
+            </sc-if>
+
+
+            <sc-if value="{{ showTable }}" hint-placeholder-val="{{ true }}">
+              <div style="background:#fff;border:1px solid var(--color-border);border-radius:var(--radius-md);">
+                <table style="width:100%;border-collapse:collapse;">
+                  <thead>
+                    <tr>
+                      <th style="text-align:left;font-family:var(--font-mono);font-size:11px;font-weight:500;letter-spacing:0.06em;text-transform:uppercase;color:var(--text-secondary);padding:12px 16px;border-bottom:1px solid var(--color-border);">Notebook</th>
+                      <th style="text-align:left;font-family:var(--font-mono);font-size:11px;font-weight:500;letter-spacing:0.06em;text-transform:uppercase;color:var(--text-secondary);padding:12px 16px;border-bottom:1px solid var(--color-border);">Author</th>
+                      <th style="text-align:left;font-family:var(--font-mono);font-size:11px;font-weight:500;letter-spacing:0.06em;text-transform:uppercase;color:var(--text-secondary);padding:12px 16px;border-bottom:1px solid var(--color-border);">Project</th>
+                      <th style="text-align:left;font-family:var(--font-mono);font-size:11px;font-weight:500;letter-spacing:0.06em;text-transform:uppercase;color:var(--text-secondary);padding:12px 16px;border-bottom:1px solid var(--color-border);">Last updated</th>
+                      <th style="text-align:left;font-family:var(--font-mono);font-size:11px;font-weight:500;letter-spacing:0.06em;text-transform:uppercase;color:var(--text-secondary);padding:12px 16px;border-bottom:1px solid var(--color-border);">Created</th>
+                      <th style="border-bottom:1px solid var(--color-border);width:48px;"></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <sc-for list="{{ rows }}" as="r" hint-placeholder-count="4">
+                      <tr style="background:#fff;" style-hover="background:var(--cw-gray-50);">
+                        <td style="padding:12px 16px;border-bottom:1px solid var(--color-border);font-size:13px;font-weight:600;">{{ r.title }}</td>
+                        <td style="padding:12px 16px;border-bottom:1px solid var(--color-border);font-size:13px;">
+                          <div style="display:flex;align-items:center;gap:8px;">
+                            <span style="width:22px;height:22px;border-radius:50%;background:var(--cw-blue-100);color:var(--cw-blue-700);font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;">{{ r.initials }}</span>{{ r.author }}
+                          </div>
+                        </td>
+                        <td style="padding:12px 16px;border-bottom:1px solid var(--color-border);font-size:13px;font-family:var(--font-mono);color:var(--text-secondary);">{{ r.project }}</td>
+                        <td style="padding:12px 16px;border-bottom:1px solid var(--color-border);font-size:13px;color:var(--text-secondary);">{{ r.updated }}</td>
+                        <td style="padding:12px 16px;border-bottom:1px solid var(--color-border);font-size:13px;color:var(--text-secondary);">{{ r.created }}</td>
+                        <td style="padding:8px 12px;border-bottom:1px solid var(--color-border);position:relative;text-align:right;">
+                          <span onClick="{{ r.toggleMenu }}" style="display:inline-flex;padding:4px;border-radius:var(--radius-xs);color:var(--cw-gray-850);cursor:pointer;" style-hover="background:var(--cw-gray-100);">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="6" r="1.7"></circle><circle cx="12" cy="12" r="1.7"></circle><circle cx="12" cy="18" r="1.7"></circle></svg>
+                          </span>
+                          <sc-if value="{{ r.menuOpen }}" hint-placeholder-val="{{ false }}">
+                            <div onClick="{{ stop }}" style="position:absolute;right:14px;top:38px;background:#fff;border:1px solid var(--color-border);border-radius:var(--radius-sm);box-shadow:var(--shadow-md);z-index:20;min-width:200px;padding:4px;text-align:left;display:flex;flex-direction:column;">
+                              <div style="padding:9px 12px;font-size:13px;border-radius:var(--radius-xs);cursor:pointer;" style-hover="background:var(--cw-gray-100);">Rename notebook</div>
+                              <div style="padding:9px 12px;font-size:13px;border-radius:var(--radius-xs);cursor:pointer;" style-hover="background:var(--cw-gray-100);">Copy to project</div>
+                              <div style="padding:9px 12px;font-size:13px;border-radius:var(--radius-xs);cursor:pointer;" style-hover="background:var(--cw-gray-100);">Open in W&amp;B notebooks</div>
+                              <div style="padding:9px 12px;font-size:13px;border-radius:var(--radius-xs);cursor:pointer;" style-hover="background:var(--cw-gray-100);">Open in W&amp;B artifacts</div>
+                              <div style="height:1px;background:var(--color-border);margin:4px 0;"></div>
+                              <div onClick="{{ r.remove }}" style="padding:9px 12px;font-size:13px;font-weight:600;border-radius:var(--radius-xs);cursor:pointer;color:var(--cw-blue-700);" style-hover="background:var(--cw-blue-50);">Delete notebook</div>
+                            </div>
+                          </sc-if>
+                        </td>
+                      </tr>
+                    </sc-for>
+                  </tbody>
+                </table>
+              </div>
+              <sc-if value="{{ isNotebooks }}" hint-placeholder-val="{{ false }}">
+                <div style="text-align:right;font-size:12px;color:var(--text-secondary);margin-top:10px;font-family:var(--font-mono);">{{ pagination }}</div>
+              </sc-if>
+            </sc-if>
+          </div>
+        </div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ isTutorial }}" hint-placeholder-val="{{ false }}">
+      <div data-screen-label="Tutorial">
+        <div style="display:flex;align-items:center;gap:10px;padding:12px 20px;border-bottom:1px solid var(--color-border);">
+          <div onClick="{{ closeTutorial }}" style="display:flex;align-items:center;gap:4px;font-size:13px;font-weight:600;color:var(--text-secondary);cursor:pointer;" style-hover="color:var(--cw-blue-700);">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M15 18l-6-6 6-6"></path></svg>Notebooks
+          </div>
+          <div style="font-size:13px;font-family:var(--font-mono);color:var(--text-secondary);">/ <b style="color:var(--text-primary);font-weight:600;">{{ tut.crumb }}</b></div>
+          <div style="flex:1;"></div>
+          <x-import component-from-global-scope="CoreWeaveDesignSystem_a63cc0.Button" size="sm" icon-left="{{ playIcon }}" on-click="{{ runFromTutorial }}" hint-size="140px,34px">Run notebook</x-import>
+        </div>
+        <div style="padding:48px 48px 72px;max-width:760px;display:flex;flex-direction:column;gap:12px;">
+          <div style="font-family:var(--font-mono);font-size:11px;letter-spacing:0.06em;text-transform:uppercase;color:var(--cw-blue-700);">Quickstart tutorial</div>
+          <h1 style="font-size:40px;font-weight:800;line-height:0.9;letter-spacing:-0.02em;text-transform:uppercase;margin:0 0 8px;text-wrap:balance;">{{ tut.title }}</h1>
+          <p style="font-size:15px;line-height:1.6;color:var(--text-secondary);margin:0;">{{ tut.intro0 }}<b style="color:var(--text-primary);">{{ tut.intro1 }}</b>{{ tut.intro2 }}</p>
+          <h3 style="font-size:20px;font-weight:700;margin:20px 0 0;">What you'll learn</h3>
+          <ul style="margin:0;padding-left:20px;display:flex;flex-direction:column;gap:6px;">
+            <sc-for list="{{ tut.learn }}" as="l" hint-placeholder-count="4">
+              <li style="font-size:14px;line-height:1.5;color:var(--text-secondary);">{{ l }}</li>
+            </sc-for>
+          </ul>
+          <p style="font-size:14px;line-height:1.6;color:var(--text-secondary);margin:8px 0 0;"><b style="color:var(--text-primary);">The example.</b> {{ tut.example }}</p>
+          <h3 style="font-size:20px;font-weight:700;margin:20px 0 0;">The Forge ecosystem you'll use</h3>
+          <ul style="margin:0;padding-left:20px;display:flex;flex-direction:column;gap:6px;">
+            <sc-for list="{{ tut.ecosystem }}" as="e" hint-placeholder-count="3">
+              <li style="font-size:14px;line-height:1.5;color:var(--text-secondary);">{{ e }}</li>
+            </sc-for>
+          </ul>
+          <div style="display:flex;align-items:center;gap:14px;background:var(--cw-blue-50);border-radius:var(--radius-md);padding:16px 18px;margin-top:20px;">
+            <div onClick="{{ toggleLog }}" style="width:36px;height:20px;border-radius:999px;position:relative;cursor:pointer;flex-shrink:0;transition:background 120ms;background:{{ logTrack }};">
+              <div style="position:absolute;top:2px;width:16px;height:16px;border-radius:50%;background:#fff;transition:left 120ms;left:{{ logThumb }};"></div>
+            </div>
+            <p style="font-size:13px;line-height:1.5;color:var(--cw-gray-950);margin:0;">This tutorial runs end-to-end on synthetic sample data, so you can follow along without touching production. Turn on <b>Log to W&amp;B</b> to also record results in a real project.</p>
+          </div>
+          <h3 style="font-size:20px;font-weight:700;margin:20px 0 0;">Before you begin</h3>
+          <p style="font-size:14px;line-height:1.6;color:var(--text-secondary);margin:0;">In a real run you'd have a CoreWeave Forge account (your compute), plus the W&amp;B tools above where your model's activity is tracked. For this tutorial you need none of it — the data is synthetic. Set an entity/project below only if you want to log results.</p>
+          <input value="{{ tutProject }}" onChange="{{ onTutProject }}" style="height:36px;padding:0 12px;border:1px solid var(--cw-gray-300);border-radius:var(--radius-sm);font-family:var(--font-mono);font-size:12px;max-width:380px;width:100%;background:#fff;color:var(--text-primary);">
+        </div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ isNotebook }}" hint-placeholder-val="{{ false }}">
+      <div data-screen-label="Notebook">
+        <div style="display:flex;align-items:center;gap:10px;padding:12px 20px;border-bottom:1px solid var(--color-border);">
+          <div onClick="{{ backFromNotebook }}" style="display:flex;align-items:center;gap:4px;font-size:13px;font-weight:600;color:var(--text-secondary);cursor:pointer;" style-hover="color:var(--cw-blue-700);">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M15 18l-6-6 6-6"></path></svg>{{ backLabel }}
+          </div>
+          <div style="font-size:13px;font-family:var(--font-mono);color:var(--text-secondary);">/ <b style="color:var(--text-primary);font-weight:600;">{{ nb.file }}</b></div>
+          <div style="flex:1;"></div>
+          <x-import component-from-global-scope="CoreWeaveDesignSystem_a63cc0.Button" variant="support" appearance="outline" size="sm" icon-left="{{ codeIcon }}" on-click="{{ toggleCode }}" hint-size="120px,34px">{{ codeLabel }}</x-import>
+          <x-import component-from-global-scope="CoreWeaveDesignSystem_a63cc0.Button" size="sm" on-click="{{ forkNotebook }}" hint-size="120px,34px">Fork to edit</x-import>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;padding:8px 20px;background:var(--cw-blue-50);border-bottom:1px solid var(--color-border);font-size:12px;color:var(--cw-blue-700);">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+          <span><b>Read-only preview.</b> Controls run on sample data — fork to edit and save in your workspace.</span>
+        </div>
+        <div style="display:flex;border-bottom:1px solid var(--color-border);padding:0 20px;overflow-x:auto;">
+          <sc-for list="{{ nbTabs }}" as="tb" hint-placeholder-count="9">
+            <div onClick="{{ tb.pick }}" style="font-size:13px;padding:12px 14px;cursor:pointer;white-space:nowrap;margin-bottom:-1px;color:{{ tb.fg }};font-weight:{{ tb.fw }};border-bottom:2px solid {{ tb.line }};">{{ tb.label }}</div>
+          </sc-for>
+        </div>
+        <div style="background:var(--cw-gray-50);min-height:780px;">
+        <div style="max-width:780px;margin:0 auto;padding:40px 24px 72px;display:flex;flex-direction:column;gap:10px;">
+          <div style="background:#fff;border-radius:var(--radius-md);border:1px solid {{ cellBorder }};overflow:hidden;" style-hover="border-color:var(--cw-gray-400);">
+            <div style="padding:14px 18px;display:flex;flex-direction:column;gap:12px;">
+              <h1 style="font-size:32px;font-weight:800;letter-spacing:-0.02em;line-height:1.1;margin:0;">{{ nb.title }}</h1>
+            </div>
+          </div>
+          <div style="background:#fff;border-radius:var(--radius-md);border:1px solid {{ cellBorder }};overflow:hidden;" style-hover="border-color:var(--cw-gray-400);">
+            <div style="padding:14px 18px;display:flex;flex-direction:column;gap:12px;">
+              <p style="font-size:15px;line-height:1.6;color:var(--text-secondary);margin:0;max-width:62ch;">{{ nb.desc }} <b style="color:var(--text-primary);">{{ nb.tryIt }}</b></p>
+            </div>
+          </div>
+          <div style="background:#fff;border-radius:var(--radius-md);border:1px solid {{ cellBorder }};overflow:hidden;" style-hover="border-color:var(--cw-gray-400);">
+            <div style="padding:14px 18px;display:flex;flex-direction:column;gap:12px;">
+              <sc-for list="{{ nbFields }}" as="f" hint-placeholder-count="1">
+                <label style="display:flex;align-items:center;gap:12px;">
+                  <span style="font-size:13px;color:var(--text-primary);white-space:nowrap;">{{ f.label }}</span>
+                  <input value="{{ f.value }}" onChange="{{ f.change }}" style="flex:1;min-width:0;height:34px;padding:0 10px;border:1px solid var(--cw-gray-300);border-radius:var(--radius-sm);font-family:var(--font-mono);font-size:12px;background:#fff;color:var(--text-primary);">
+                </label>
+              </sc-for>
+            </div>
+            <sc-if value="{{ showCode }}" hint-placeholder-val="{{ false }}">
+              <pre style="margin:0;border-top:1px solid var(--color-border);background:var(--cw-gray-50);padding:12px 18px;font-family:var(--font-mono);font-size:12px;line-height:1.65;color:var(--cw-gray-950);white-space:pre;overflow-x:auto;">{{ fieldCode }}</pre>
+            </sc-if>
+          </div>
+          <div style="background:#fff;border-radius:var(--radius-md);border:1px solid {{ cellBorder }};overflow:hidden;" style-hover="border-color:var(--cw-gray-400);">
+            <div style="padding:14px 18px;display:flex;flex-direction:column;gap:12px;">
+              <div style="display:flex;align-items:center;gap:10px;background:var(--cw-blue-50);border:1px solid var(--cw-blue-200);border-radius:var(--radius-sm);padding:10px 14px;font-size:13px;color:var(--cw-blue-700);">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 6L9 17l-5-5"></path></svg>
+                <span style="font-family:var(--font-mono);font-size:12px;">{{ nb.status }}</span>
+              </div>
+            </div>
+            <sc-if value="{{ showCode }}" hint-placeholder-val="{{ false }}">
+              <pre style="margin:0;border-top:1px solid var(--color-border);background:var(--cw-gray-50);padding:12px 18px;font-family:var(--font-mono);font-size:12px;line-height:1.65;color:var(--cw-gray-950);white-space:pre;overflow-x:auto;">{{ nb.code1 }}</pre>
+            </sc-if>
+          </div>
+          <sc-if value="{{ hasControls }}" hint-placeholder-val="{{ true }}">
+          <div style="background:#fff;border-radius:var(--radius-md);border:1px solid {{ cellBorder }};overflow:hidden;" style-hover="border-color:var(--cw-gray-400);">
+            <div style="padding:14px 18px;display:flex;flex-direction:column;gap:12px;">
+                <sc-if value="{{ t.scatter }}" hint-placeholder-val="{{ false }}">
+                  <div style="display:flex;flex-wrap:wrap;gap:18px;">
+                    <div style="display:flex;flex-direction:column;gap:6px;"><span style="font-family:var(--font-mono);font-size:11px;color:var(--text-secondary);">x axis</span><select style="height:34px;padding:0 10px;border:1px solid var(--cw-gray-300);border-radius:var(--radius-sm);background:#fff;font-family:var(--font-brand);font-size:13px;min-width:180px;"><option>actual_price</option></select></div>
+                    <div style="display:flex;flex-direction:column;gap:6px;"><span style="font-family:var(--font-mono);font-size:11px;color:var(--text-secondary);">y axis</span><select style="height:34px;padding:0 10px;border:1px solid var(--cw-gray-300);border-radius:var(--radius-sm);background:#fff;font-family:var(--font-brand);font-size:13px;min-width:180px;"><option>predicted_price</option></select></div>
+                    <div style="display:flex;flex-direction:column;gap:6px;"><span style="font-family:var(--font-mono);font-size:11px;color:var(--text-secondary);">color by</span>
+                      <select value="{{ sColor }}" onChange="{{ onSColor }}" style="height:34px;padding:0 10px;border:1px solid var(--cw-gray-300);border-radius:var(--radius-sm);background:#fff;font-family:var(--font-brand);font-size:13px;min-width:180px;"><option value="none">(none)</option><option value="model_version">model_version</option></select>
+                    </div>
+                  </div>
+                </sc-if>
+                <sc-if value="{{ t.eda }}" hint-placeholder-val="{{ false }}">
+                  <div style="font-size:13px;color:var(--text-secondary);"><b style="color:var(--text-primary);">300</b> rows × <b style="color:var(--text-primary);">5</b> columns</div>
+                  <div style="display:flex;flex-direction:column;gap:6px;"><span style="font-family:var(--font-mono);font-size:11px;color:var(--text-secondary);">column to inspect</span>
+                    <select value="{{ edaCol }}" onChange="{{ onEdaCol }}" style="height:34px;padding:0 10px;border:1px solid var(--cw-gray-300);border-radius:var(--radius-sm);background:#fff;font-family:var(--font-brand);font-size:13px;width:180px;"><option value="age">age</option><option value="income">income</option><option value="tenure_months">tenure_months</option></select>
+                  </div>
+                </sc-if>
+                <sc-if value="{{ t.filter }}" hint-placeholder-val="{{ false }}">
+                  <div style="display:flex;flex-wrap:wrap;gap:24px;align-items:flex-end;">
+                    <div style="display:flex;flex-direction:column;gap:6px;"><span style="font-family:var(--font-mono);font-size:11px;color:var(--text-secondary);">status</span>
+                      <select value="{{ fStatus }}" onChange="{{ onFStatus }}" style="height:34px;padding:0 10px;border:1px solid var(--cw-gray-300);border-radius:var(--radius-sm);background:#fff;font-family:var(--font-brand);font-size:13px;min-width:180px;"><option value="all">(all)</option><option value="finished">finished</option><option value="running">running</option><option value="failed">failed</option></select>
+                    </div>
+                    <div style="display:flex;flex-direction:column;gap:6px;"><span style="font-family:var(--font-mono);font-size:11px;color:var(--text-secondary);">min accuracy · {{ fAccLabel }}</span>
+                      <input type="range" min="0" max="95" value="{{ fAcc }}" onChange="{{ onFAcc }}" style="width:220px;accent-color:var(--cw-blue-500);">
+                    </div>
+                  </div>
+                </sc-if>
+                <sc-if value="{{ t.confusion }}" hint-placeholder-val="{{ false }}">
+                  <div style="display:flex;flex-direction:column;gap:6px;"><span style="font-family:var(--font-mono);font-size:11px;color:var(--text-secondary);">normalize by</span>
+                    <select value="{{ cmNorm }}" onChange="{{ onCmNorm }}" style="height:34px;padding:0 10px;border:1px solid var(--cw-gray-300);border-radius:var(--radius-sm);background:#fff;font-family:var(--font-brand);font-size:13px;width:200px;"><option value="none">none</option><option value="row">row (recall)</option><option value="col">column (precision)</option></select>
+                  </div>
+                </sc-if>
+                <sc-if value="{{ t.loss }}" hint-placeholder-val="{{ false }}">
+                  <div style="display:flex;flex-wrap:wrap;gap:18px;">
+                    <sc-for list="{{ lossToggles }}" as="lt" hint-placeholder-count="4">
+                      <label style="display:flex;align-items:center;gap:6px;font-size:13px;font-family:var(--font-mono);cursor:pointer;">
+                        <input type="checkbox" checked="{{ lt.on }}" onChange="{{ lt.toggle }}" style="accent-color:var(--cw-blue-500);">
+                        <span style="width:8px;height:8px;border-radius:50%;background:{{ lt.color }};"></span>{{ lt.name }}
+                      </label>
+                    </sc-for>
+                  </div>
+                </sc-if>
+                <sc-if value="{{ t.feature }}" hint-placeholder-val="{{ false }}">
+                  <div style="display:flex;flex-direction:column;gap:6px;"><span style="font-family:var(--font-mono);font-size:11px;color:var(--text-secondary);">top N features · {{ fiTopN }}</span>
+                    <input type="range" min="3" max="10" value="{{ fiTopN }}" onChange="{{ onFiTopN }}" style="width:220px;accent-color:var(--cw-blue-500);">
+                  </div>
+                </sc-if>
+                <sc-if value="{{ t.embedding }}" hint-placeholder-val="{{ false }}">
+                  <div style="display:flex;flex-direction:column;gap:6px;"><span style="font-family:var(--font-mono);font-size:11px;color:var(--text-secondary);">color by</span>
+                    <select style="height:34px;padding:0 10px;border:1px solid var(--cw-gray-300);border-radius:var(--radius-sm);background:#fff;font-family:var(--font-brand);font-size:13px;width:180px;"><option>plan</option></select>
+                  </div>
+                </sc-if>
+                <sc-if value="{{ t.sweep }}" hint-placeholder-val="{{ false }}">
+                  <div style="display:flex;flex-direction:column;gap:6px;"><span style="font-family:var(--font-mono);font-size:11px;color:var(--text-secondary);">hyperparameter</span>
+                    <select value="{{ swParam }}" onChange="{{ onSwParam }}" style="height:34px;padding:0 10px;border:1px solid var(--cw-gray-300);border-radius:var(--radius-sm);background:#fff;font-family:var(--font-brand);font-size:13px;width:180px;"><option value="lr">learning_rate</option><option value="batch">batch_size</option></select>
+                  </div>
+                </sc-if>
+            </div>
+            <sc-if value="{{ showCode }}" hint-placeholder-val="{{ false }}">
+              <pre style="margin:0;border-top:1px solid var(--color-border);background:var(--cw-gray-50);padding:12px 18px;font-family:var(--font-mono);font-size:12px;line-height:1.65;color:var(--cw-gray-950);white-space:pre;overflow-x:auto;">{{ ctrlCode }}</pre>
+            </sc-if>
+          </div>
+          </sc-if>
+          <div style="background:#fff;border-radius:var(--radius-md);border:1px solid {{ cellBorder }};overflow:hidden;" style-hover="border-color:var(--cw-gray-400);">
+            <div style="padding:14px 18px;display:flex;flex-direction:column;gap:12px;">
+              <sc-if value="{{ t.drift }}" hint-placeholder-val="{{ false }}">
+                <div style="font-size:14px;color:var(--text-secondary);">Mean shift in <b style="color:var(--text-primary);font-family:var(--font-mono);">income</b>: <b style="color:var(--cw-blue-700);">+15.5%</b> — notable shift</div>
+              </sc-if>
+              <sc-if value="{{ t.filter }}" hint-placeholder-val="{{ false }}">
+                          <div style="font-size:13px;color:var(--text-secondary);"><b style="color:var(--text-primary);">{{ fCount }}</b> runs match your filters</div>
+                          <div style="background:#fff;border:1px solid var(--color-border);border-radius:var(--radius-md);padding:6px 10px;overflow-x:auto;">
+                            <table style="width:100%;border-collapse:collapse;font-size:13px;">
+                              <thead><tr>
+                                <th style="text-align:left;font-family:var(--font-mono);font-weight:500;font-size:11px;color:var(--text-secondary);padding:8px;border-bottom:1px solid var(--color-border);">run</th>
+                                <th style="text-align:left;font-family:var(--font-mono);font-weight:500;font-size:11px;color:var(--text-secondary);padding:8px;border-bottom:1px solid var(--color-border);">lr</th>
+                                <th style="text-align:left;font-family:var(--font-mono);font-weight:500;font-size:11px;color:var(--text-secondary);padding:8px;border-bottom:1px solid var(--color-border);">batch size</th>
+                                <th style="text-align:left;font-family:var(--font-mono);font-weight:500;font-size:11px;color:var(--text-secondary);padding:8px;border-bottom:1px solid var(--color-border);">accuracy</th>
+                                <th style="text-align:left;font-family:var(--font-mono);font-weight:500;font-size:11px;color:var(--text-secondary);padding:8px;border-bottom:1px solid var(--color-border);">loss</th>
+                                <th style="text-align:left;font-family:var(--font-mono);font-weight:500;font-size:11px;color:var(--text-secondary);padding:8px;border-bottom:1px solid var(--color-border);">status</th>
+                              </tr></thead>
+                              <tbody>
+                                <sc-for list="{{ fRows }}" as="fr" hint-placeholder-count="8">
+                                  <tr>
+                                    <td style="padding:8px;border-bottom:1px solid var(--color-border);font-family:var(--font-mono);font-size:12px;"><span style="display:inline-block;width:7px;height:7px;border-radius:50%;margin-right:8px;background:{{ fr.color }};"></span>{{ fr.run }}</td>
+                                    <td style="padding:8px;border-bottom:1px solid var(--color-border);font-variant-numeric:tabular-nums;">{{ fr.lr }}</td>
+                                    <td style="padding:8px;border-bottom:1px solid var(--color-border);font-variant-numeric:tabular-nums;">{{ fr.batch }}</td>
+                                    <td style="padding:8px;border-bottom:1px solid var(--color-border);font-variant-numeric:tabular-nums;">{{ fr.accText }}</td>
+                                    <td style="padding:8px;border-bottom:1px solid var(--color-border);font-variant-numeric:tabular-nums;">{{ fr.lossText }}</td>
+                                    <td style="padding:8px;border-bottom:1px solid var(--color-border);">
+                                      <x-import component-from-global-scope="CoreWeaveDesignSystem_a63cc0.Badge" tone="{{ fr.tone }}" solid="{{ fr.solid }}" hint-size="70px,22px">{{ fr.status }}</x-import>
+                                    </td>
+                                  </tr>
+                                </sc-for>
+                              </tbody>
+                            </table>
+                          </div>
+                        </sc-if>
+              <sc-if value="{{ hasChart }}" hint-placeholder-val="{{ true }}">
+                {{ chart }}
+                <div style="display:flex;gap:14px;flex-wrap:wrap;">
+                  <sc-for list="{{ legend }}" as="lg" hint-placeholder-count="0">
+                    <span style="display:flex;align-items:center;gap:6px;font-size:12px;font-family:var(--font-mono);color:var(--text-secondary);"><span style="width:8px;height:8px;border-radius:50%;background:{{ lg.color }};"></span>{{ lg.name }}</span>
+                  </sc-for>
+                </div>
+              </sc-if>
+            </div>
+            <sc-if value="{{ showCode }}" hint-placeholder-val="{{ false }}">
+              <pre style="margin:0;border-top:1px solid var(--color-border);background:var(--cw-gray-50);padding:12px 18px;font-family:var(--font-mono);font-size:12px;line-height:1.65;color:var(--cw-gray-950);white-space:pre;overflow-x:auto;">{{ nb.code2 }}</pre>
+            </sc-if>
+          </div>
+        </div>
+        </div>
+      </div>
+    </sc-if>
+  </div>
+
+  <sc-if value="{{ panelOpen }}" hint-placeholder-val="{{ false }}">
+    <div onClick="{{ onPanelBackdrop }}" style="position:absolute;inset:0;background:rgba(0,0,0,0.32);display:flex;justify-content:flex-end;z-index:60;">
+      <div style="height:100%;max-width:1360px;background:var(--cw-gray-50);box-shadow:var(--shadow-lg);display:flex;flex-direction:column;position:relative;width:{{ panelWidth }};">
+        <div onMouseDown="{{ startResize }}" style="position: absolute; left: -4px; top: 0; bottom: 0; width: 0px; cursor: col-resize; z-index: 2; overflow: auto" style-hover="background:var(--cw-blue-100);"></div>
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:16px 24px;border-bottom:1px solid var(--color-border);background:#fff;">
+          <span style="font-weight:700;font-size:16px;">Quickstart templates</span>
+          <div style="display:flex;align-items:center;gap:6px;">
+            <span onClick="{{ expandPanel }}" title="Open full page" style="display:flex;padding:6px;border-radius:var(--radius-xs);color:var(--cw-gray-850);cursor:pointer;" style-hover="color:var(--cw-blue-700);background:var(--cw-blue-50);">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 3H3v6M15 3h6v6M9 21H3v-6M15 21h6v-6"></path></svg>
+            </span>
+            <span onClick="{{ closePanel }}" title="Close" style="display:flex;padding:6px;border-radius:var(--radius-xs);color:var(--cw-gray-850);cursor:pointer;" style-hover="color:var(--cw-blue-700);background:var(--cw-blue-50);">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 6l12 12M18 6L6 18"></path></svg>
+            </span>
+          </div>
+        </div>
+        <div style="flex:1;overflow-y:auto;padding:24px 28px;">
+          <div style="display:flex;flex-direction:column;gap:14px;margin-bottom:22px;">
+            <p style="font-size:14px;line-height:1.5;color:var(--text-secondary);margin:0;max-width:60ch;">Nine live Marimo notebooks for ML training and evaluation, pre-wired to your runs, artifacts, and datasets.</p>
+            <div style="display:flex;align-items:center;gap:10px;border:1px solid var(--cw-gray-300);background:#fff;border-radius:var(--radius-sm);padding:0 14px;height:40px;max-width:420px;">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--cw-gray-850)" stroke-width="1.8"><circle cx="11" cy="11" r="7"></circle><path d="M21 21l-4.3-4.3"></path></svg>
+              <input value="{{ query }}" onChange="{{ onQuery }}" placeholder="Search quickstart templates" style="border:none;outline:none;font-family:var(--font-brand);font-size:14px;width:100%;background:transparent;color:var(--text-primary);">
+            </div>
+            <div style="display:flex;flex-wrap:wrap;gap:8px;">
+              <sc-for list="{{ chips }}" as="ch" hint-placeholder-count="6">
+                <x-import component-from-global-scope="CoreWeaveDesignSystem_a63cc0.Tag" selected="{{ ch.selected }}" on-click="{{ ch.pick }}" style="white-space:nowrap;flex-shrink:0;" hint-size="auto,32px"><span style="white-space:nowrap;">{{ ch.label }}</span></x-import>
+              </sc-for>
+            </div>
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px;">
+              <div onClick="{{ qt.scatter.open }}" onMouseEnter="{{ qt.scatter.enter }}" onMouseLeave="{{ qtLeave }}" style="background:#fff;border:1px solid var(--color-border);border-radius:var(--radius-md);overflow:hidden;cursor:pointer;display:{{ qt.scatter.display }};" style-hover="border-color:var(--cw-blue-300);">
+                <div style="position:relative;height:110px;background:var(--cw-blue-50);padding:8px 12px;">
+                  <svg viewBox="0 0 160 100" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" style="display:block;"><line x1="14" y1="86" x2="140" y2="18" stroke="#9DC7FE" stroke-dasharray="3,3"></line><circle cx="40" cy="66" r="3.5" fill="#0541E9"></circle><circle cx="55" cy="58" r="3.5" fill="#0541E9"></circle><circle cx="70" cy="50" r="3.5" fill="#2374FF"></circle><circle cx="90" cy="46" r="3.5" fill="#2374FF"></circle><circle cx="105" cy="34" r="3.5" fill="#63A4FF"></circle><circle cx="120" cy="28" r="3.5" fill="#63A4FF"></circle><circle cx="60" cy="70" r="3.5" fill="#0541E9"></circle><circle cx="100" cy="40" r="3.5" fill="#2374FF"></circle></svg>
+                  <div style="position:absolute;inset:0;background:rgba(5,65,233,0.82);display:flex;align-items:center;justify-content:center;transition:opacity 120ms;opacity:{{ qt.scatter.overlay }};">
+                    <span style="background:#fff;color:var(--cw-blue-700);font-size:13px;font-weight:600;padding:8px 14px;border-radius:var(--radius-sm);">Open notebook</span>
+                  </div>
+                </div>
+                <div style="padding:12px 14px 14px;display:flex;flex-direction:column;gap:6px;">
+                  <div style="font-size:14px;font-weight:700;line-height:1.25;">Explore predictions vs. actual</div>
+                  <div style="font-family:var(--font-mono);font-size:11px;letter-spacing:0.06em;text-transform:uppercase;color:var(--text-secondary);">Post-training</div>
+                </div>
+              </div>
+              <div onClick="{{ qt.eda.open }}" onMouseEnter="{{ qt.eda.enter }}" onMouseLeave="{{ qtLeave }}" style="background:#fff;border:1px solid var(--color-border);border-radius:var(--radius-md);overflow:hidden;cursor:pointer;display:{{ qt.eda.display }};" style-hover="border-color:var(--cw-blue-300);">
+                <div style="position:relative;height:110px;background:var(--cw-blue-50);padding:8px 12px;">
+                  <svg viewBox="0 0 160 100" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" style="display:block;"><rect x="24" y="50" width="14" height="36" rx="2" fill="#0541E9" opacity="1.0"></rect><rect x="44" y="34" width="14" height="52" rx="2" fill="#0541E9" opacity="0.9"></rect><rect x="64" y="20" width="14" height="66" rx="2" fill="#0541E9" opacity="0.8"></rect><rect x="84" y="40" width="14" height="46" rx="2" fill="#2374FF" opacity="0.7"></rect><rect x="104" y="58" width="14" height="28" rx="2" fill="#2374FF" opacity="0.6"></rect><rect x="124" y="70" width="14" height="16" rx="2" fill="#2374FF" opacity="0.5"></rect></svg>
+                  <div style="position:absolute;inset:0;background:rgba(5,65,233,0.82);display:flex;align-items:center;justify-content:center;transition:opacity 120ms;opacity:{{ qt.eda.overlay }};">
+                    <span style="background:#fff;color:var(--cw-blue-700);font-size:13px;font-weight:600;padding:8px 14px;border-radius:var(--radius-sm);">Open notebook</span>
+                  </div>
+                </div>
+                <div style="padding:12px 14px 14px;display:flex;flex-direction:column;gap:6px;">
+                  <div style="font-size:14px;font-weight:700;line-height:1.25;">Profile a training dataset</div>
+                  <div style="font-family:var(--font-mono);font-size:11px;letter-spacing:0.06em;text-transform:uppercase;color:var(--text-secondary);">Data Exploration</div>
+                </div>
+              </div>
+              <div onClick="{{ qt.filter.open }}" onMouseEnter="{{ qt.filter.enter }}" onMouseLeave="{{ qtLeave }}" style="background:#fff;border:1px solid var(--color-border);border-radius:var(--radius-md);overflow:hidden;cursor:pointer;display:{{ qt.filter.display }};" style-hover="border-color:var(--cw-blue-300);">
+                <div style="position:relative;height:110px;background:var(--cw-blue-50);padding:8px 12px;">
+                  <svg viewBox="0 0 160 100" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" style="display:block;"><circle cx="24" cy="26" r="4" fill="#0541E9"></circle><line x1="34" y1="26" x2="130" y2="26" stroke="#9DC7FE" stroke-width="2"></line><circle cx="24" cy="46" r="4" fill="#2374FF"></circle><line x1="34" y1="46" x2="110" y2="46" stroke="#9DC7FE" stroke-width="2"></line><circle cx="24" cy="66" r="4" fill="#63A4FF"></circle><line x1="34" y1="66" x2="95" y2="66" stroke="#9DC7FE" stroke-width="2"></line><circle cx="24" cy="86" r="4" fill="#0541E9"></circle><line x1="34" y1="86" x2="120" y2="86" stroke="#9DC7FE" stroke-width="2"></line></svg>
+                  <div style="position:absolute;inset:0;background:rgba(5,65,233,0.82);display:flex;align-items:center;justify-content:center;transition:opacity 120ms;opacity:{{ qt.filter.overlay }};">
+                    <span style="background:#fff;color:var(--cw-blue-700);font-size:13px;font-weight:600;padding:8px 14px;border-radius:var(--radius-sm);">Open notebook</span>
+                  </div>
+                </div>
+                <div style="padding:12px 14px 14px;display:flex;flex-direction:column;gap:6px;">
+                  <div style="font-size:14px;font-weight:700;line-height:1.25;">Compare runs side-by-side</div>
+                  <div style="font-family:var(--font-mono);font-size:11px;letter-spacing:0.06em;text-transform:uppercase;color:var(--text-secondary);">Model Distillation</div>
+                </div>
+              </div>
+              <div onClick="{{ qt.confusion.open }}" onMouseEnter="{{ qt.confusion.enter }}" onMouseLeave="{{ qtLeave }}" style="background:#fff;border:1px solid var(--color-border);border-radius:var(--radius-md);overflow:hidden;cursor:pointer;display:{{ qt.confusion.display }};" style-hover="border-color:var(--cw-blue-300);">
+                <div style="position:relative;height:110px;background:var(--cw-blue-50);padding:8px 12px;">
+                  <svg viewBox="0 0 160 100" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" style="display:block;"><rect x="47" y="17" width="20" height="20" rx="3" fill="#0541E9" opacity="1"></rect><rect x="69" y="17" width="20" height="20" rx="3" fill="#0541E9" opacity="0.35"></rect><rect x="91" y="17" width="20" height="20" rx="3" fill="#0541E9" opacity="0.15"></rect><rect x="47" y="39" width="20" height="20" rx="3" fill="#0541E9" opacity="0.3"></rect><rect x="69" y="39" width="20" height="20" rx="3" fill="#0541E9" opacity="1"></rect><rect x="91" y="39" width="20" height="20" rx="3" fill="#0541E9" opacity="0.25"></rect><rect x="47" y="61" width="20" height="20" rx="3" fill="#0541E9" opacity="0.12"></rect><rect x="69" y="61" width="20" height="20" rx="3" fill="#0541E9" opacity="0.2"></rect><rect x="91" y="61" width="20" height="20" rx="3" fill="#0541E9" opacity="1"></rect></svg>
+                  <div style="position:absolute;inset:0;background:rgba(5,65,233,0.82);display:flex;align-items:center;justify-content:center;transition:opacity 120ms;opacity:{{ qt.confusion.overlay }};">
+                    <span style="background:#fff;color:var(--cw-blue-700);font-size:13px;font-weight:600;padding:8px 14px;border-radius:var(--radius-sm);">Open notebook</span>
+                  </div>
+                </div>
+                <div style="padding:12px 14px 14px;display:flex;flex-direction:column;gap:6px;">
+                  <div style="font-size:14px;font-weight:700;line-height:1.25;">Confusion matrix viewer</div>
+                  <div style="font-family:var(--font-mono);font-size:11px;letter-spacing:0.06em;text-transform:uppercase;color:var(--text-secondary);">Agent Evals</div>
+                </div>
+              </div>
+              <div onClick="{{ qt.loss.open }}" onMouseEnter="{{ qt.loss.enter }}" onMouseLeave="{{ qtLeave }}" style="background:#fff;border:1px solid var(--color-border);border-radius:var(--radius-md);overflow:hidden;cursor:pointer;display:{{ qt.loss.display }};" style-hover="border-color:var(--cw-blue-300);">
+                <div style="position:relative;height:110px;background:var(--cw-blue-50);padding:8px 12px;">
+                  <svg viewBox="0 0 160 100" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" style="display:block;"><path d="M14 20 Q60 30 90 65 T146 82" stroke="#0541E9" fill="none" stroke-width="2"></path><path d="M14 26 Q60 50 90 72 T146 88" stroke="#2374FF" fill="none" stroke-width="2"></path><path d="M14 18 Q55 22 85 58 T146 76" stroke="#63A4FF" fill="none" stroke-width="2"></path></svg>
+                  <div style="position:absolute;inset:0;background:rgba(5,65,233,0.82);display:flex;align-items:center;justify-content:center;transition:opacity 120ms;opacity:{{ qt.loss.overlay }};">
+                    <span style="background:#fff;color:var(--cw-blue-700);font-size:13px;font-weight:600;padding:8px 14px;border-radius:var(--radius-sm);">Open notebook</span>
+                  </div>
+                </div>
+                <div style="padding:12px 14px 14px;display:flex;flex-direction:column;gap:6px;">
+                  <div style="font-size:14px;font-weight:700;line-height:1.25;">Loss curve comparison</div>
+                  <div style="font-family:var(--font-mono);font-size:11px;letter-spacing:0.06em;text-transform:uppercase;color:var(--text-secondary);">Pretraining</div>
+                </div>
+              </div>
+              <div onClick="{{ qt.feature.open }}" onMouseEnter="{{ qt.feature.enter }}" onMouseLeave="{{ qtLeave }}" style="background:#fff;border:1px solid var(--color-border);border-radius:var(--radius-md);overflow:hidden;cursor:pointer;display:{{ qt.feature.display }};" style-hover="border-color:var(--cw-blue-300);">
+                <div style="position:relative;height:110px;background:var(--cw-blue-50);padding:8px 12px;">
+                  <svg viewBox="0 0 160 100" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" style="display:block;"><rect x="20" y="22" width="110" height="9" rx="2" fill="#0541E9" opacity="1.0"></rect><rect x="20" y="40" width="85" height="9" rx="2" fill="#0541E9" opacity="0.8"></rect><rect x="20" y="58" width="60" height="9" rx="2" fill="#0541E9" opacity="0.6"></rect><rect x="20" y="76" width="35" height="9" rx="2" fill="#0541E9" opacity="0.4"></rect></svg>
+                  <div style="position:absolute;inset:0;background:rgba(5,65,233,0.82);display:flex;align-items:center;justify-content:center;transition:opacity 120ms;opacity:{{ qt.feature.overlay }};">
+                    <span style="background:#fff;color:var(--cw-blue-700);font-size:13px;font-weight:600;padding:8px 14px;border-radius:var(--radius-sm);">Open notebook</span>
+                  </div>
+                </div>
+                <div style="padding:12px 14px 14px;display:flex;flex-direction:column;gap:6px;">
+                  <div style="font-size:14px;font-weight:700;line-height:1.25;">Feature importance ranker</div>
+                  <div style="font-family:var(--font-mono);font-size:11px;letter-spacing:0.06em;text-transform:uppercase;color:var(--text-secondary);">Post-training</div>
+                </div>
+              </div>
+              <div onClick="{{ qt.embedding.open }}" onMouseEnter="{{ qt.embedding.enter }}" onMouseLeave="{{ qtLeave }}" style="background:#fff;border:1px solid var(--color-border);border-radius:var(--radius-md);overflow:hidden;cursor:pointer;display:{{ qt.embedding.display }};" style-hover="border-color:var(--cw-blue-300);">
+                <div style="position:relative;height:110px;background:var(--cw-blue-50);padding:8px 12px;">
+                  <svg viewBox="0 0 160 100" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" style="display:block;"><circle cx="40" cy="35" r="3" fill="#0541E9"></circle><circle cx="48" cy="42" r="3" fill="#0541E9"></circle><circle cx="35" cy="48" r="3" fill="#0541E9"></circle><circle cx="52" cy="30" r="3" fill="#0541E9"></circle><circle cx="105" cy="55" r="3" fill="#2374FF"></circle><circle cx="115" cy="62" r="3" fill="#2374FF"></circle><circle cx="98" cy="65" r="3" fill="#2374FF"></circle><circle cx="118" cy="48" r="3" fill="#2374FF"></circle><circle cx="70" cy="75" r="3" fill="#63A4FF"></circle><circle cx="80" cy="80" r="3" fill="#63A4FF"></circle><circle cx="65" cy="82" r="3" fill="#63A4FF"></circle></svg>
+                  <div style="position:absolute;inset:0;background:rgba(5,65,233,0.82);display:flex;align-items:center;justify-content:center;transition:opacity 120ms;opacity:{{ qt.embedding.overlay }};">
+                    <span style="background:#fff;color:var(--cw-blue-700);font-size:13px;font-weight:600;padding:8px 14px;border-radius:var(--radius-sm);">Open notebook</span>
+                  </div>
+                </div>
+                <div style="padding:12px 14px 14px;display:flex;flex-direction:column;gap:6px;">
+                  <div style="font-size:14px;font-weight:700;line-height:1.25;">Embedding projector</div>
+                  <div style="font-family:var(--font-mono);font-size:11px;letter-spacing:0.06em;text-transform:uppercase;color:var(--text-secondary);">Data Exploration</div>
+                </div>
+              </div>
+              <div onClick="{{ qt.sweep.open }}" onMouseEnter="{{ qt.sweep.enter }}" onMouseLeave="{{ qtLeave }}" style="background:#fff;border:1px solid var(--color-border);border-radius:var(--radius-md);overflow:hidden;cursor:pointer;display:{{ qt.sweep.display }};" style-hover="border-color:var(--cw-blue-300);">
+                <div style="position:relative;height:110px;background:var(--cw-blue-50);padding:8px 12px;">
+                  <svg viewBox="0 0 160 100" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" style="display:block;"><circle cx="24" cy="70" r="4" fill="#2374FF" opacity="0.50"></circle><circle cx="40" cy="50" r="4" fill="#2374FF" opacity="0.56"></circle><circle cx="56" cy="60" r="4" fill="#2374FF" opacity="0.62"></circle><circle cx="72" cy="34" r="4" fill="#2374FF" opacity="0.68"></circle><circle cx="88" cy="44" r="4" fill="#2374FF" opacity="0.74"></circle><circle cx="104" cy="26" r="4" fill="#2374FF" opacity="0.80"></circle><circle cx="120" cy="38" r="4" fill="#2374FF" opacity="0.86"></circle><circle cx="136" cy="20" r="4" fill="#2374FF" opacity="0.92"></circle></svg>
+                  <div style="position:absolute;inset:0;background:rgba(5,65,233,0.82);display:flex;align-items:center;justify-content:center;transition:opacity 120ms;opacity:{{ qt.sweep.overlay }};">
+                    <span style="background:#fff;color:var(--cw-blue-700);font-size:13px;font-weight:600;padding:8px 14px;border-radius:var(--radius-sm);">Open notebook</span>
+                  </div>
+                </div>
+                <div style="padding:12px 14px 14px;display:flex;flex-direction:column;gap:6px;">
+                  <div style="font-size:14px;font-weight:700;line-height:1.25;">Sweep results explorer</div>
+                  <div style="font-family:var(--font-mono);font-size:11px;letter-spacing:0.06em;text-transform:uppercase;color:var(--text-secondary);">Pretraining</div>
+                </div>
+              </div>
+              <div onClick="{{ qt.drift.open }}" onMouseEnter="{{ qt.drift.enter }}" onMouseLeave="{{ qtLeave }}" style="background:#fff;border:1px solid var(--color-border);border-radius:var(--radius-md);overflow:hidden;cursor:pointer;display:{{ qt.drift.display }};" style-hover="border-color:var(--cw-blue-300);">
+                <div style="position:relative;height:110px;background:var(--cw-blue-50);padding:8px 12px;">
+                  <svg viewBox="0 0 160 100" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" style="display:block;"><path d="M14 80 Q40 20 65 80 T116 80" stroke="#0541E9" fill="none" stroke-width="2"></path><path d="M34 80 Q60 30 85 80 T146 80" stroke="#63A4FF" fill="none" stroke-width="2" stroke-dasharray="4,3"></path></svg>
+                  <div style="position:absolute;inset:0;background:rgba(5,65,233,0.82);display:flex;align-items:center;justify-content:center;transition:opacity 120ms;opacity:{{ qt.drift.overlay }};">
+                    <span style="background:#fff;color:var(--cw-blue-700);font-size:13px;font-weight:600;padding:8px 14px;border-radius:var(--radius-sm);">Open notebook</span>
+                  </div>
+                </div>
+                <div style="padding:12px 14px 14px;display:flex;flex-direction:column;gap:6px;">
+                  <div style="font-size:14px;font-weight:700;line-height:1.25;">Data drift monitor</div>
+                  <div style="font-family:var(--font-mono);font-size:11px;letter-spacing:0.06em;text-transform:uppercase;color:var(--text-secondary);">Data Exploration</div>
+                </div>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ modalOpen }}" hint-placeholder-val="{{ false }}">
+    <div style="position:absolute;inset:0;background:rgba(0,0,0,0.4);display:flex;align-items:center;justify-content:center;z-index:80;">
+      <div style="background:#fff;border-radius:var(--radius-lg);width:400px;max-width:calc(100vw - 32px);box-shadow:var(--shadow-lg);overflow:hidden;">
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:18px 20px;border-bottom:1px solid var(--color-border);">
+          <span style="font-weight:700;font-size:16px;">{{ modalTitle }}</span>
+          <span onClick="{{ closeModal }}" style="display:flex;padding:4px;color:var(--cw-gray-850);cursor:pointer;" style-hover="color:var(--cw-blue-700);">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 6l12 12M18 6L6 18"></path></svg>
+          </span>
+        </div>
+        <div style="padding:20px;display:flex;flex-direction:column;gap:12px;">
+          <p style="font-size:14px;color:var(--text-secondary);margin:0;">Your new notebook will be created within a project.</p>
+          <div style="display:flex;flex-direction:column;gap:6px;">
+            <span style="font-size:12px;font-weight:600;">Project</span>
+            <select style="height:38px;padding:0 10px;border:1px solid var(--cw-gray-300);border-radius:var(--radius-sm);background:#fff;font-family:var(--font-mono);font-size:13px;width:100%;"><option>asteroid-detection</option><option>acme-labs/churn-predictor</option><option>lab-ops/eval-suite</option></select>
+          </div>
+          <a href="#" style="font-size:13px;font-weight:600;">+ Create a new project</a>
+        </div>
+        <div style="display:flex;justify-content:flex-end;gap:10px;padding:14px 20px;border-top:1px solid var(--color-border);">
+          <x-import component-from-global-scope="CoreWeaveDesignSystem_a63cc0.Button" variant="support" appearance="outline" size="sm" on-click="{{ closeModal }}" hint-size="80px,34px">Cancel</x-import>
+          <x-import component-from-global-scope="CoreWeaveDesignSystem_a63cc0.Button" size="sm" on-click="{{ confirmModal }}" hint-size="80px,34px">Create</x-import>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:948},&quot;initialView&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;home&quot;,&quot;templates&quot;,&quot;quickstart&quot;],&quot;default&quot;:&quot;home&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;showCode&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;}}">
+const h = React.createElement;
+const C = ['#0541E9', '#2374FF', '#63A4FF', '#686D73'];
+const rng = (seed) => { let s = seed; return () => { s = (s * 9301 + 49297) % 233280; return s / 233280; }; };
+const icon = (paths, fill) => h('svg', { width: 14, height: 14, viewBox: '0 0 24 24', fill: fill || 'none', stroke: fill ? 'none' : 'currentColor', strokeWidth: 2, strokeLinecap: 'round' }, paths.map((d, i) => h('path', { key: i, d })));
+
+const TPLS = [
+  { id: 'scatter', title: 'Explore predictions vs. actual', cat: 'Post-training' },
+  { id: 'eda', title: 'Profile a training dataset', cat: 'Data Exploration' },
+  { id: 'filter', title: 'Compare runs side-by-side', cat: 'Model Distillation' },
+  { id: 'confusion', title: 'Confusion matrix viewer', cat: 'Agent Evals' },
+  { id: 'loss', title: 'Loss curve comparison', cat: 'Pretraining' },
+  { id: 'feature', title: 'Feature importance ranker', cat: 'Post-training' },
+  { id: 'embedding', title: 'Embedding projector', cat: 'Data Exploration' },
+  { id: 'sweep', title: 'Sweep results explorer', cat: 'Pretraining' },
+  { id: 'drift', title: 'Data drift monitor', cat: 'Data Exploration' }
+];
+const CATS = ['Pretraining', 'Post-training', 'Model Distillation', 'Agent Evals', 'Data Exploration'];
+const TAB_LABELS = { scatter: 'Prediction vs. Actual', eda: 'Training Data Profile', filter: 'Run Comparison', confusion: 'Confusion Matrix', loss: 'Loss Curves', feature: 'Feature Importance', embedding: 'Embeddings', sweep: 'Sweep Results', drift: 'Data Drift' };
+
+const TUT = {
+  scatter: { crumb: 'Explore predictions vs. actual', title: 'Catch prediction drift before it ships', intro: ['Welcome! This is a hands-on template for teams shipping a model who want to ', 'catch systematic prediction errors before they reach production', '.'], learn: ['How to pull predictions straight from a logged W&B run', 'How to spot bias by coloring residuals by model version', 'How to read a calibration line (predicted = actual) at a glance', 'How to flag a run as regressed before you promote it'], example: "You have three model versions logged as W&B runs. We'll plot predicted vs. actual price for each, colored by version, so you can see which version tightens the error band — no notebook boilerplate required.", ecosystem: ["Eval run — the run's logged prediction table", 'W&B Runs API — pulls predictions in two lines of code', 'Marimo — reactive cells re-plot instantly as you change the run'], project: 'acme-labs/churn-predictor/eval-run-482' },
+  eda: { crumb: 'Profile a training dataset', title: 'Catch a bad dataset before it trains a bad model', intro: ['Welcome! This is a hands-on template for teams about to kick off a training run who want to ', 'sanity-check the data first', '.'], learn: ['How shape, types, and missing values reveal a dirty export', 'How to spot skew before it biases your model', 'How to decide if a column needs cleaning or dropping', 'How to do all of this without writing pandas boilerplate'], example: "You have a churn dataset artifact with a handful of missing income values. We'll profile it end to end — shape, dtypes, missingness, and per-column distributions — in four cells.", ecosystem: ['Dataset artifact — versioned data you logged to W&B', 'W&B Artifacts API — downloads the exact version you point at', 'Marimo — reactive cells recompute the moment you swap columns'], project: 'acme-labs/churn-predictor/churn-dataset:v6' },
+  filter: { crumb: 'Compare runs side-by-side', title: 'Stop scrolling the runs table by hand', intro: ['Welcome! This is a hands-on template for teams with a growing pile of runs who want to ', 'find the one worth promoting without eyeballing a spreadsheet', '.'], learn: ['How filters generate themselves from your run history', 'How to slice by status and a minimum accuracy threshold', 'How to spot the run worth promoting at a glance', 'How to do this without leaving your notebook'], example: "You have eight runs from a recent sweep. We'll filter by status and accuracy so only the finished, high-performing runs are left on screen.", ecosystem: ["W&B project — the run history you're comparing", 'W&B Runs API — pulls config and summary metrics per run', 'Marimo — filters rebuild the table reactively as you move a slider'], project: 'acme-labs/churn-predictor' },
+  confusion: { crumb: 'Confusion matrix viewer', title: 'See exactly where your classifier gets confused', intro: ['Welcome! This is a hands-on template for teams evaluating a classifier who want to ', 'see which classes get confused for which', ', not just an accuracy number.'], learn: ["How to build a confusion matrix from a run's logged predictions", 'How normalizing by row (recall) or column (precision) changes the story', 'How to spot a systematically confused class pair', 'How to do this without a wandb.plot call already logged'], example: "Your churn-tier classifier confuses adjacent plans more than it should. We'll build the matrix from the run's logged predictions and let you toggle normalization to see recall vs. precision.", ecosystem: ["Eval run — the run's logged actual/predicted columns", 'W&B Runs API — pulls the prediction table directly', 'Marimo — the matrix and normalization recompute reactively'], project: 'acme-labs/churn-predictor/eval-run-482' },
+  loss: { crumb: 'Loss curve comparison', title: 'See which configuration actually converges faster', intro: ['Welcome! This is a hands-on template for teams running several training configs at once who want to ', 'see which one actually converges faster', ', not just which one finished first.'], learn: ['How to overlay loss curves from multiple runs at once', 'How to toggle individual runs on and off', 'How a log-scale y-axis reveals late-training differences', 'How to do this without exporting anything to a spreadsheet'], example: "You have four runs with different learning rates. We'll overlay their loss curves so it's obvious which configuration is actually winning, not just which logged first.", ecosystem: ["W&B project — the run history you're comparing", "W&B Runs API — pulls each run's logged history", 'Marimo — the chart redraws as you toggle runs on and off'], project: 'acme-labs/churn-predictor' },
+  feature: { crumb: 'Feature importance ranker', title: 'Know what your model is actually using', intro: ["Welcome! This is a hands-on template for teams who've trained a model and want to ", "know what it's actually paying attention to", ' before they ship it.'], learn: ['How to rank features by logged importance scores', 'How to slice down to just the top N that matter', 'How sort order changes what jumps out first', 'How to do this from an artifact instead of re-running training'], example: "You have a feature-importance table logged as an artifact after training. We'll rank it and let you control how many features to show.", ecosystem: ['Feature-importance artifact — exported from model.feature_importances_', 'W&B Artifacts API — downloads the exact version you point at', 'Marimo — the ranking reacts instantly to the slider'], project: 'acme-labs/churn-predictor/feature-importance:v3' },
+  embedding: { crumb: 'Embedding projector', title: 'See whether your embeddings actually separate', intro: ["Welcome! This is a hands-on template for teams who've logged a 2D projection (UMAP, PCA, t-SNE) and want to ", 'see whether it actually separates the classes it should', '.'], learn: ['How to visualize a 2D embedding projection', 'How coloring by label reveals cluster separation (or the lack of it)', "How to spot the outlier that doesn't belong to any cluster", 'How to do this from an artifact table, no re-computation needed'], example: "You have a UMAP projection of customer embeddings logged as an artifact. We'll plot it and color by plan tier to see whether the tiers actually separate.", ecosystem: ['Embeddings artifact — your logged 2D projection table', 'W&B Artifacts API — downloads the exact version you point at', 'Marimo — recolor by any label column reactively'], project: 'acme-labs/churn-predictor/embeddings-umap:v2' },
+  sweep: { crumb: 'Sweep results explorer', title: 'Find the hyperparameter that actually mattered', intro: ['Welcome! This is a hands-on template for teams who just ran a sweep and want to ', 'see which hyperparameter actually moved the metric', ', not just which run won.'], learn: ['How to plot a hyperparameter against your target metric across a whole sweep', 'How a log-scale x-axis reveals patterns a linear one hides', 'How to switch between hyperparameters without re-querying', 'How to do this straight from the sweep object'], example: "You just ran a 36-run sweep over learning rate and batch size. We'll plot accuracy against each hyperparameter so the pattern is obvious at a glance.", ecosystem: ['W&B sweep — the sweep object holding every child run', 'W&B Sweeps API — pulls config + summary for each run', 'Marimo — the scatter redraws as you switch hyperparameters'], project: 'acme-labs/churn-predictor/sweeps/9f3k2la1' },
+  drift: { crumb: 'Data drift monitor', title: 'Check your model still holds up in production', intro: ['Welcome! This is a hands-on template for teams with a model already in production who want to ', "check the incoming data hasn't quietly drifted", ' out from under it.'], learn: ["How to compare a feature's distribution across two dataset versions", 'How a mean-shift percentage flags drift at a glance', "How to switch which column you're checking without re-running anything", 'How to do this from two artifact versions, no production access needed'], example: "Your reference dataset is from three months ago; your current one is from this week. We'll overlay the income distribution and flag whether the shift is notable.", ecosystem: ['Two dataset artifacts — reference vs. current versions', 'W&B Artifacts API — downloads both versions to compare', 'Marimo — the shift stat and chart recompute as you change columns'], project: 'acme-labs/churn-predictor/churn-dataset:v6' }
+};
+
+const NB = {
+  scatter: { file: 'explore_predictions_vs_actual.py', title: 'Prediction vs. Actual Explorer', desc: "Pulls predictions straight from a run's logged table. Compare model versions at a glance, or point it at any eval run in this project.", fields: [['W&B run path (entity/project/run_id)', 'acme-labs/churn-predictor/eval-run-482']], status: 'connected to acme-labs/churn-predictor/eval-run-482',
+    code1: 'try:\n    import wandb\n    api = wandb.Api()\n    run = api.run(run_path.value)\n    history_df = run.history()\n    df = history_df[["actual_price", "predicted_price", "model_version"]].dropna()\n    source_label = f"connected to {run_path.value}"\nexcept Exception:\n    df = make_sample()',
+    code2: 'fig, ax = plt.subplots(figsize=(7, 5))\nax.plot([lo, hi], [lo, hi], linestyle="--", color="#C2C6CC", linewidth=1)\n\nfor group, sub in df.groupby(color_dropdown.value):\n    ax.scatter(sub[x_dropdown.value], sub[y_dropdown.value],\n               label=str(group), alpha=0.8, color=palette.get(group))\nax.legend(title=color_dropdown.value)\nfig' },
+  eda: { file: 'profile_training_dataset.py', title: 'Training Data Profile', desc: 'A sanity check before you kick off a run: shape, types, missing values, and distributions.', fields: [['W&B artifact path (entity/project/name:version)', 'acme-labs/churn-predictor/churn-dataset:v6']], status: 'connected to acme-labs/churn-predictor/churn-dataset:v6',
+    code1: 'try:\n    import wandb\n    api = wandb.Api()\n    artifact = api.artifact(artifact_path.value)\n    artifact_dir = artifact.download()\n    df = pd.read_csv(f"{artifact_dir}/dataset.csv")\n    source_label = f"connected to {artifact_path.value}"\nexcept Exception:\n    df = make_sample()',
+    code2: 'fig, ax = plt.subplots(figsize=(7, 4))\ndf[col_picker.value].dropna().hist(bins=30, ax=ax, color="#0541E9")\nax.set_title(f"Distribution of {col_picker.value}")\nfig' },
+  filter: { file: 'compare_runs_side_by_side.py', title: 'Run Comparison', desc: 'Filters generate themselves from your run history. Slice down to the runs worth digging into.', fields: [['W&B project path (entity/project)', 'acme-labs/churn-predictor']], status: 'connected to acme-labs/churn-predictor',
+    code1: 'try:\n    import wandb\n    api = wandb.Api()\n    wb_runs = api.runs(project_path.value)\n    rows = [{\n        "run": r.name,\n        "lr": r.config.get("learning_rate"),\n        "batch": r.config.get("batch_size"),\n        "acc": r.summary.get("accuracy"),\n        "loss": r.summary.get("loss"),\n        "status": r.state,\n    } for r in wb_runs]\n    df = pd.DataFrame(rows)\nexcept Exception:\n    df = make_sample()',
+    code2: 'filtered = df.copy()\nif status_filter.value != "(all)":\n    filtered = filtered[filtered["status"] == status_filter.value]\nfiltered = filtered[filtered["acc"].fillna(-1) >= acc_filter.value]\nmo.ui.table(filtered, label="Matching runs", page_size=10)' },
+  confusion: { file: 'confusion_matrix_viewer.py', title: 'Confusion Matrix Viewer', desc: "Builds the matrix locally from a run's logged predictions, so it works whether or not you logged a chart directly.", fields: [['W&B run path', 'acme-labs/churn-predictor/eval-run-482']], status: 'connected',
+    code1: 'try:\n    import wandb\n    api = wandb.Api()\n    run = api.run(run_path.value)\n    df = run.history()[["actual_class", "predicted_class"]].dropna()\nexcept Exception:\n    df = make_sample()\n\nmatrix = pd.crosstab(df["actual_class"], df["predicted_class"], dropna=False)\nmatrix = matrix.reindex(index=classes, columns=classes, fill_value=0)',
+    code2: 'if normalize.value == "row (recall)":\n    display_matrix = matrix.div(matrix.sum(axis=1), axis=0).fillna(0)\nelif normalize.value == "column (precision)":\n    display_matrix = matrix.div(matrix.sum(axis=0), axis=1).fillna(0)\nelse:\n    display_matrix = matrix\n\nim = ax.imshow(display_matrix.values, cmap="Blues")\nfig.colorbar(im, ax=ax)' },
+  loss: { file: 'loss_curve_comparison.py', title: 'Loss Curve Comparison', desc: 'Overlay training loss across multiple runs to see which configuration actually converges faster.', fields: [['W&B project path', 'acme-labs/churn-predictor']], status: 'connected',
+    code1: 'try:\n    import wandb\n    api = wandb.Api()\n    wb_runs = api.runs(project_path.value)\n    frames = []\n    for r in wb_runs:\n        h = r.history(keys=["loss"])\n        h = h[["_step", "loss"]].rename(columns={"_step": "step"})\n        h["run"] = r.name\n        frames.append(h)\n    df = pd.concat(frames, ignore_index=True)\nexcept Exception:\n    df = make_sample()',
+    code2: 'fig, ax = plt.subplots(figsize=(7.5, 4.5))\nfor i, name in enumerate(run_picker.value):\n    sub = df[df["run"] == name].sort_values("step")\n    ax.plot(sub["step"], sub["loss"], label=name, color=palette[i % len(palette)])\nif log_scale.value:\n    ax.set_yscale("log")\nax.legend(fontsize=8)\nfig' },
+  feature: { file: 'feature_importance_ranker.py', title: 'Feature Importance Ranker', desc: 'Points at a feature-importance table logged as an artifact — ranks and slices it down to the top N.', fields: [['W&B artifact path', 'acme-labs/churn-predictor/feature-importance:v3']], status: 'connected',
+    code1: 'try:\n    import wandb\n    api = wandb.Api()\n    artifact = api.artifact(artifact_path.value)\n    artifact_dir = artifact.download()\n    df = pd.read_csv(f"{artifact_dir}/feature_importance.csv")\nexcept Exception:\n    df = make_sample()',
+    code2: 'ascending = sort_order.value == "ascending"\nranked = df.sort_values("importance", ascending=ascending).head(top_n.value)\n\nfig, ax = plt.subplots(figsize=(7, 4.5))\nax.barh(ranked["feature"], ranked["importance"], color="#0541E9")\nfig' },
+  embedding: { file: 'embedding_projector.py', title: 'Embedding Projector', desc: 'Visualizes a 2D projection of your embeddings (UMAP/PCA/t-SNE), colored by whichever label column you pick.', fields: [['W&B artifact path', 'acme-labs/churn-predictor/embeddings-umap:v2']], status: 'connected',
+    code1: 'try:\n    import wandb\n    api = wandb.Api()\n    artifact = api.artifact(artifact_path.value)\n    artifact_dir = artifact.download()\n    df = pd.read_csv(f"{artifact_dir}/embeddings.csv")\nexcept Exception:\n    df = make_sample()',
+    code2: 'fig, ax = plt.subplots(figsize=(7, 6))\nfor i, (group, sub) in enumerate(df.groupby(color_by.value)):\n    ax.scatter(sub["x"], sub["y"], label=str(group),\n               alpha=0.7, s=20, color=palette[i % len(palette)])\nax.legend(title=color_by.value, fontsize=8)\nfig' },
+  sweep: { file: 'sweep_results_explorer.py', title: 'Sweep Results Explorer', desc: 'Plots a hyperparameter against your target metric across every run in a sweep.', fields: [['W&B sweep path', 'acme-labs/churn-predictor/sweeps/9f3k2la1']], status: 'connected',
+    code1: 'try:\n    import wandb\n    api = wandb.Api()\n    sweep = api.sweep(sweep_path.value)\n    rows = [{\n        "learning_rate": r.config.get("learning_rate"),\n        "batch_size": r.config.get("batch_size"),\n        "accuracy": r.summary.get("accuracy"),\n    } for r in sweep.runs]\n    df = pd.DataFrame(rows).dropna()\nexcept Exception:\n    df = make_sample()',
+    code2: 'fig, ax = plt.subplots(figsize=(7, 4.5))\nsc = ax.scatter(df[x_param.value], df["accuracy"], c=df["accuracy"], cmap="Blues")\nif log_x.value:\n    ax.set_xscale("log")\nfig.colorbar(sc, ax=ax, label="accuracy")\nfig' },
+  drift: { file: 'data_drift_monitor.py', title: 'Data Drift Monitor', desc: "Compares a feature's distribution between a reference dataset and a current one.", fields: [['Reference artifact', 'acme-labs/churn-predictor/churn-dataset:v3'], ['Current artifact', 'acme-labs/churn-predictor/churn-dataset:v6']], status: 'connected',
+    code1: 'try:\n    import wandb\n    api = wandb.Api()\n    ref_dir = api.artifact(reference_path.value).download()\n    cur_dir = api.artifact(current_path.value).download()\n    ref = pd.read_csv(f"{ref_dir}/dataset.csv")\n    cur = pd.read_csv(f"{cur_dir}/dataset.csv")\nexcept Exception:\n    ref, cur = make_sample()\n\nmean_shift = cur_vals.mean() - ref_vals.mean()\npct_shift = mean_shift / ref_vals.mean() * 100\nflag = "notable shift" if abs(pct_shift) > 10 else "within normal range"',
+    code2: 'fig, ax = plt.subplots(figsize=(7, 4.5))\nax.hist(ref_vals, bins=30, alpha=0.6, label="reference", color="#0541E9")\nax.hist(cur_vals, bins=30, alpha=0.6, label="current", color="#63A4FF")\nax.legend()\nfig' }
+};
+
+const VARS = {"scatter":["run_path"],"eda":["artifact_path"],"filter":["project_path"],"confusion":["run_path"],"loss":["project_path"],"feature":["artifact_path"],"embedding":["artifact_path"],"sweep":["sweep_path"],"drift":["reference_path","current_path"]};
+const CTRL = {"scatter":"x_dropdown = mo.ui.dropdown(numeric_cols, value=\"actual_price\", label=\"x axis\")\ny_dropdown = mo.ui.dropdown(numeric_cols, value=\"predicted_price\", label=\"y axis\")\ncolor_dropdown = mo.ui.dropdown([\"(none)\", \"model_version\"], value=\"model_version\", label=\"color by\")\nmo.hstack([x_dropdown, y_dropdown, color_dropdown], justify=\"start\")","eda":"mo.md(f\"**{len(df)}** rows × **{df.shape[1]}** columns\")\ncol_picker = mo.ui.dropdown(numeric_cols, value=\"income\", label=\"column to inspect\")\ncol_picker","filter":"status_filter = mo.ui.dropdown([\"(all)\", \"finished\", \"running\", \"failed\"], value=\"(all)\", label=\"status\")\nacc_filter = mo.ui.slider(0, 95, value=0, label=\"min accuracy\", show_value=True)\nmo.hstack([status_filter, acc_filter], justify=\"start\")","confusion":"normalize = mo.ui.dropdown([\"none\", \"row (recall)\", \"column (precision)\"], value=\"none\", label=\"normalize by\")\nnormalize","loss":"run_picker = mo.ui.multiselect(df[\"run\"].unique().tolist(), value=df[\"run\"].unique().tolist(), label=\"runs\")\nrun_picker","feature":"top_n = mo.ui.slider(3, 10, value=8, label=\"top N features\", show_value=True)\ntop_n","embedding":"color_by = mo.ui.dropdown([\"plan\"], value=\"plan\", label=\"color by\")\ncolor_by","sweep":"x_param = mo.ui.dropdown({\"learning_rate\": \"learning_rate\", \"batch_size\": \"batch_size\"}, value=\"learning_rate\", label=\"hyperparameter\")\nx_param"};
+const TRY = {"scatter":"Try switching the color-by control!","eda":"Try inspecting a different column!","filter":"Try moving the accuracy slider!","confusion":"Try normalizing by row or column!","loss":"Try toggling runs on and off!","feature":"Try dragging the top-N slider!","embedding":"Look for points that sit outside their cluster.","sweep":"Try switching hyperparameters!","drift":"Compare the two distributions below."};
+const ROWS = [
+  { title: 'Copy of Fine-tune an LLM with W&B…', author: 'Matt Smith', project: 'production/service-monitor', updated: '1m ago', created: 'Just now' },
+  { title: 'Quick Data Cleaning for Eval Set', author: 'Zara Davis', project: 'zara.davis/temp-data-prep', updated: '2h ago', created: '3 minutes ago' },
+  { title: 'Team Image Labeling Tool v3', author: 'Sarah Miller', project: 'lab-ops/dataset-labeling', updated: '3d ago', created: '2 hours ago' },
+  { title: 'Real-Time Monitoring Dashboard', author: 'Dave Kim', project: 'production/service-monitor', updated: '1w ago', created: '4 days ago' }
+];
+const GS = [
+  { title: 'Fine-tune an LLM with W&B, Agent Pulse, Training and Inference', desc: 'Fine-tune, track, evaluate, and run inference on an LLM.' },
+  { title: 'Monitor an agent with Agent Pulse', desc: 'Instrument an agent and explore its behavior in Agent Pulse.' },
+  { title: 'Train a robotics model with W&B', desc: 'Train and evaluate a robotics model with W&B tracking.' }
+];
+
+const SCATTER = (() => { const r = rng(11), pts = []; ['v1', 'v2', 'v3'].forEach((v, vi) => { for (let i = 0; i < 12; i++) { const b = 30 + r() * 330; pts.push({ x: b, y: b + (r() - 0.5) * (3 - vi) * 10 - 10, v: vi }); } }); return pts; })();
+const HIST = { age: [10, 18, 28, 34, 30, 22, 14, 8], income: [4, 9, 20, 32, 38, 28, 16, 7], tenure_months: [26, 22, 19, 17, 14, 12, 10, 9] };
+const RUNS = [
+  { run: 'giddy-forest-12', lr: 0.01, batch: 32, acc: 88.4, loss: 0.31, status: 'finished', c: 1 },
+  { run: 'swift-cedar-9', lr: 0.003, batch: 64, acc: 91.2, loss: 0.24, status: 'finished', c: 2 },
+  { run: 'lucky-tide-21', lr: 0.05, batch: 16, acc: 71.0, loss: 0.58, status: 'failed', c: 0 },
+  { run: 'calm-river-4', lr: 0.001, batch: 128, acc: 93.6, loss: 0.19, status: 'finished', c: 3 },
+  { run: 'bright-orbit-17', lr: 0.01, batch: 32, acc: 0, loss: 0, status: 'running', c: 1 },
+  { run: 'quiet-storm-3', lr: 0.02, batch: 64, acc: 84.9, loss: 0.36, status: 'finished', c: 0 },
+  { run: 'sharp-comet-8', lr: 0.003, batch: 32, acc: 89.7, loss: 0.27, status: 'finished', c: 2 },
+  { run: 'plain-ember-15', lr: 0.08, batch: 16, acc: 63.5, loss: 0.71, status: 'failed', c: 0 }
+];
+const CM = [[98, 10, 2], [14, 86, 6], [3, 7, 54]];
+const CM_CLS = ['Basic', 'Pro', 'Enterprise'];
+const LOSS_RUNS = [['giddy-forest-12', 0.02], ['swift-cedar-9', 0.035], ['calm-river-4', 0.05], ['quiet-storm-3', 0.015]];
+const FI = [['tenure_months', 0.24], ['monthly_charges', 0.19], ['contract_type', 0.16], ['support_tickets', 0.12], ['plan', 0.09], ['age', 0.07], ['payment_method', 0.05], ['add_ons', 0.04], ['signup_channel', 0.02], ['region', 0.02]];
+const EMB = (() => { const r = rng(41), pts = []; [['Basic', 0, 0], ['Pro', 6, 4], ['Enterprise', 3, -5]].forEach(([l, cx, cy], ci) => { for (let i = 0; i < 24; i++) pts.push({ x: cx + (r() - 0.5) * 3.6, y: cy + (r() - 0.5) * 3.6, c: ci }); }); return pts; })();
+const SWEEP = (() => { const r = rng(71), pts = []; for (let i = 0; i < 36; i++) { const lr = Math.pow(10, -4 + r() * 3); const batch = [16, 32, 64, 128][Math.floor(r() * 4)]; const acc = Math.min(97, Math.max(40, 95 - 8 * Math.log10(lr / 1e-4) + (r() - 0.5) * 10)); pts.push({ lr, batch, acc }); } return pts; })();
+const gauss = (mean, std, n, bins, lo, hi) => { const r = rng(mean * 7 + std * 3), c = new Array(bins).fill(0); for (let i = 0; i < n; i++) { const z = Math.sqrt(-2 * Math.log(r() || 1e-4)) * Math.cos(2 * Math.PI * r()); const idx = Math.floor(((mean + z * std - lo) / (hi - lo)) * bins); if (idx >= 0 && idx < bins) c[idx]++; } return c; };
+const DRIFT_REF = gauss(58000, 16000, 400, 24, 10000, 120000);
+const DRIFT_CUR = gauss(67000, 21000, 400, 24, 10000, 120000);
+
+const svg = (vb, height, kids, width) => h('svg', { viewBox: vb, width: width || '100%', height, style: { display: 'block', overflow: 'visible' } }, kids);
+const axes = (bottom) => [h('line', { key: 'ay', x1: 28, y1: 10, x2: 28, y2: bottom, stroke: '#E2E6EB' }), h('line', { key: 'ax', x1: 28, y1: bottom, x2: 400, y2: bottom, stroke: '#E2E6EB' })];
+
+function thumb(id) {
+  const k = [];
+  const B = '#0541E9', M = '#2374FF', L = '#63A4FF', S = '#9DC7FE';
+  if (id === 'scatter') { k.push(h('line', { key: 'd', x1: 14, y1: 86, x2: 140, y2: 18, stroke: S, strokeDasharray: '3,3' })); [[40, 66, B], [55, 58, B], [70, 50, M], [90, 46, M], [105, 34, L], [120, 28, L], [60, 70, B], [100, 40, M]].forEach(([x, y, c], i) => k.push(h('circle', { key: i, cx: x, cy: y, r: 3.5, fill: c }))); }
+  if (id === 'eda') [50, 34, 20, 40, 58, 70].forEach((y, i) => k.push(h('rect', { key: i, x: 24 + i * 20, y, width: 14, height: 86 - y, rx: 2, fill: i < 3 ? B : M, opacity: 1 - i * 0.1 })));
+  if (id === 'filter') [[26, 130, B], [46, 110, M], [66, 95, L], [86, 120, B]].forEach(([y, x2, c], i) => { k.push(h('circle', { key: 'c' + i, cx: 24, cy: y, r: 4, fill: c })); k.push(h('line', { key: 'l' + i, x1: 34, y1: y, x2, y2: y, stroke: S, strokeWidth: 2 })); });
+  if (id === 'confusion') { const op = [[1, .35, .15], [.3, 1, .25], [.12, .2, 1]]; op.forEach((row, i) => row.forEach((o, j) => k.push(h('rect', { key: i + '' + j, x: 47 + j * 22, y: 17 + i * 22, width: 20, height: 20, rx: 3, fill: B, opacity: o })))); }
+  if (id === 'loss') [['M14 20 Q60 30 90 65 T146 82', B], ['M14 26 Q60 50 90 72 T146 88', M], ['M14 18 Q55 22 85 58 T146 76', L]].forEach(([d, c], i) => k.push(h('path', { key: i, d, stroke: c, fill: 'none', strokeWidth: 2 })));
+  if (id === 'feature') [110, 85, 60, 35].forEach((w, i) => k.push(h('rect', { key: i, x: 20, y: 22 + i * 18, width: w, height: 9, rx: 2, fill: B, opacity: 1 - i * 0.2 })));
+  if (id === 'embedding') [[40, 35, B], [48, 42, B], [35, 48, B], [52, 30, B], [105, 55, M], [115, 62, M], [98, 65, M], [118, 48, M], [70, 75, L], [80, 80, L], [65, 82, L]].forEach(([x, y, c], i) => k.push(h('circle', { key: i, cx: x, cy: y, r: 3, fill: c })));
+  if (id === 'sweep') [[24, 70], [40, 50], [56, 60], [72, 34], [88, 44], [104, 26], [120, 38], [136, 20]].forEach(([x, y], i) => k.push(h('circle', { key: i, cx: x, cy: y, r: 4, fill: M, opacity: 0.5 + i * 0.06 })));
+  if (id === 'drift') { k.push(h('path', { key: 'a', d: 'M14 80 Q40 20 65 80 T116 80', stroke: B, fill: 'none', strokeWidth: 2 })); k.push(h('path', { key: 'b', d: 'M34 80 Q60 30 85 80 T146 80', stroke: L, fill: 'none', strokeWidth: 2, strokeDasharray: '4,3' })); }
+  return h('svg', { viewBox: '0 0 160 100', width: '100%', height: '100%', preserveAspectRatio: 'xMidYMid meet', style: { display: 'block' } }, k);
+}
+
+class Component extends DCLogic {
+  state = {
+    screen: 'gallery', view: this.props.initialView ?? 'home', panelOpen: false, panelW: 880,
+    modal: null, pendingTpl: null, tpl: 'scatter', nbSource: 'tutorial', showCode: this.props.showCode ?? false,
+    chip: 'all', query: '', gsOpen: false, gq: '', nbQuery: '', filtersOpen: false, fProject: 'all', fAuthor: 'all', hovered: null, rows: ROWS, menu: null, logWandb: false, tutProject: '', paths: {},
+    sColor: 'model_version', edaCol: 'income', fStatus: 'all', fAcc: 0, cmNorm: 'none',
+    lossOn: { 'giddy-forest-12': true, 'swift-cedar-9': true, 'calm-river-4': true, 'quiet-storm-3': true },
+    fiTopN: 8, swParam: 'lr'
+  };
+  gsRef = React.createRef();
+  componentDidMount() {
+    this._move = (e) => { if (!this._drag) return; this.setState({ panelW: Math.min(Math.max(this._right - e.clientX, 380), 1360) }); };
+    this._up = () => { if (this._drag) { this._drag = false; document.body.style.userSelect = ''; } };
+    this._click = () => { if (this.state.menu !== null) this.setState({ menu: null }); if (this.state.gsOpen) this.setState({ gsOpen: false, gq: '' }); };
+    document.addEventListener('mousemove', this._move);
+    document.addEventListener('mouseup', this._up);
+    document.addEventListener('click', this._click);
+  }
+  componentWillUnmount() {
+    document.removeEventListener('mousemove', this._move);
+    document.removeEventListener('mouseup', this._up);
+    document.removeEventListener('click', this._click);
+  }
+  go(view) { this.setState({ view, screen: 'gallery', panelOpen: false }); }
+  openNotebook(id, source) {
+    const src = source || (this.state.panelOpen ? 'panel' : (this.state.view === 'quickstart' ? 'quickstart' : 'tutorial'));
+    this.setState({ tpl: id, nbSource: src, screen: 'notebook', panelOpen: false, hovered: null });
+  }
+  openTutorial(id) { this.setState({ tpl: id, screen: 'tutorial', tutProject: TUT[id].project }); }
+  backFromNotebook() {
+    const s = this.state.nbSource;
+    if (s === 'quickstart') this.go('quickstart');
+    else if (s === 'panel') this.setState({ screen: 'gallery', view: 'home', panelOpen: true });
+    else if (s === 'home') this.go('home');
+    else this.openTutorial(this.state.tpl);
+  }
+
+  chart(tab) {
+    const st = this.state;
+    if (tab === 'scatter') return svg('0 0 420 200', 200, [...axes(185), h('line', { key: 'd', x1: 28, y1: 185, x2: 380, y2: 20, stroke: '#C2C6CC', strokeDasharray: '3,4' }), ...SCATTER.map((p, i) => h('circle', { key: i, cx: p.x, cy: 195 - p.y * 0.5, r: 4, fill: st.sColor === 'model_version' ? C[p.v] : C[0], opacity: 0.85 }))]);
+    if (tab === 'eda') { const v = HIST[st.edaCol], m = Math.max(...v); return svg('0 0 420 160', 160, [h('line', { key: 'b', x1: 20, y1: 150, x2: 410, y2: 150, stroke: '#E2E6EB' }), ...v.map((x, i) => { const hh = (x / m) * 130; return h('rect', { key: i, x: 30 + i * 48, y: 150 - hh, width: 40, height: hh, rx: 3, fill: C[0] }); })]); }
+    if (tab === 'confusion') {
+      let m = CM;
+      if (st.cmNorm === 'row') m = CM.map(r => { const s = r.reduce((a, b) => a + b, 0); return r.map(v => v / s); });
+      if (st.cmNorm === 'col') { const cs = [0, 0, 0]; CM.forEach(r => r.forEach((v, j) => cs[j] += v)); m = CM.map(r => r.map((v, j) => v / cs[j])); }
+      const max = Math.max(...m.flat()), cell = 60, ox = 80, oy = 24, k = [];
+      m.forEach((row, i) => row.forEach((val, j) => {
+        const a = val / max;
+        k.push(h('rect', { key: 'r' + i + j, x: ox + j * cell, y: oy + i * cell, width: cell - 3, height: cell - 3, rx: 6, fill: `rgba(5,65,233,${0.08 + 0.92 * a})` }));
+        k.push(h('text', { key: 't' + i + j, x: ox + j * cell + (cell - 3) / 2, y: oy + i * cell + (cell - 3) / 2 + 4, textAnchor: 'middle', fontSize: 13, fontWeight: 600, fontFamily: 'var(--font-mono)', fill: a > 0.5 ? '#fff' : '#16181C' }, st.cmNorm === 'none' ? val : val.toFixed(2)));
+      }));
+      CM_CLS.forEach((c, j) => k.push(h('text', { key: 'cx' + j, x: ox + j * cell + (cell - 3) / 2, y: oy - 8, textAnchor: 'middle', fontSize: 11, fill: '#555B61' }, c)));
+      CM_CLS.forEach((c, i) => k.push(h('text', { key: 'cy' + i, x: ox - 8, y: oy + i * cell + (cell - 3) / 2 + 4, textAnchor: 'end', fontSize: 11, fill: '#555B61' }, c)));
+      return svg('0 0 280 210', 210, k, 280);
+    }
+    if (tab === 'loss') {
+      const k = [...axes(195)];
+      LOSS_RUNS.forEach(([n, d], i) => { if (!st.lossOn[n]) return; const pts = Array.from({ length: 60 }, (_, j) => { const v = 1.2 * Math.exp(-d * j * 3.3) + 0.05; return `${28 + (j / 59) * 370},${195 - (v / 1.3) * 180}`; }).join(' '); k.push(h('polyline', { key: n, points: pts, fill: 'none', stroke: C[i], strokeWidth: 2 })); });
+      return svg('0 0 420 205', 205, k);
+    }
+    if (tab === 'feature') { const r = FI.slice(0, st.fiTopN), m = r[0][1], k = []; r.forEach(([f, v], i) => { const y = 6 + i * 24; k.push(h('rect', { key: 'b' + i, x: 130, y, width: (v / m) * 260, height: 18, rx: 3, fill: C[0], opacity: 1 - i * 0.06 })); k.push(h('text', { key: 't' + i, x: 122, y: y + 13, textAnchor: 'end', fontSize: 11, fontFamily: 'var(--font-mono)', fill: '#16181C' }, f)); }); return svg(`0 0 420 ${r.length * 24 + 8}`, r.length * 24 + 8, k); }
+    if (tab === 'embedding') return svg('0 0 420 250', 250, EMB.map((p, i) => h('circle', { key: i, cx: 210 + p.x * 22 - 60, cy: 125 - p.y * 14, r: 4, fill: C[p.c], opacity: 0.85 })));
+    if (tab === 'sweep') {
+      const lg = st.swParam === 'lr', vals = SWEEP.map(d => lg ? Math.log10(d.lr) : d.batch), mn = Math.min(...vals), mx = Math.max(...vals);
+      return svg('0 0 420 205', 205, [...axes(195), ...SWEEP.map((d, i) => { const a = (d.acc - 40) / 57; return h('circle', { key: i, cx: 32 + ((vals[i] - mn) / (mx - mn)) * 360, cy: 195 - a * 180, r: 4.5, fill: `rgba(5,65,233,${0.25 + 0.7 * a})` }); })]);
+    }
+    if (tab === 'drift') { const m = Math.max(...DRIFT_REF, ...DRIFT_CUR), bw = 380 / 24, k = [h('line', { key: 'b', x1: 20, y1: 170, x2: 410, y2: 170, stroke: '#E2E6EB' })]; for (let i = 0; i < 24; i++) { const a = (DRIFT_REF[i] / m) * 150, b = (DRIFT_CUR[i] / m) * 150, x = 20 + i * bw; k.push(h('rect', { key: 'r' + i, x, y: 170 - a, width: bw * 0.45, height: a, fill: C[0] })); k.push(h('rect', { key: 'c' + i, x: x + bw * 0.48, y: 170 - b, width: bw * 0.45, height: b, fill: C[2] })); } return svg('0 0 420 180', 180, k); }
+    return null;
+  }
+
+  renderVals() {
+    const st = this.state, tab = st.tpl;
+    const navItem = (v) => ({ go: () => this.go(v), bg: st.view === v ? 'var(--cw-blue-50)' : 'transparent', fg: st.view === v ? 'var(--cw-blue-700)' : 'var(--text-secondary)', fw: st.view === v ? 600 : 500 });
+    const q = st.query.trim().toLowerCase();
+    const qtCards = TPLS.filter(t => (st.chip === 'all' || t.cat === st.chip) && (!q || t.title.toLowerCase().includes(q)));
+    const fRows = RUNS.filter(r => (st.fStatus === 'all' || r.status === st.fStatus) && r.acc >= st.fAcc).map(r => ({
+      ...r, color: C[r.c], accText: r.acc ? r.acc.toFixed(1) + '%' : '—', lossText: r.loss || '—',
+      tone: r.status === 'finished' ? 'brand' : (r.status === 'running' ? 'info' : 'neutral'), solid: r.status !== 'finished'
+    }));
+    let legend = [];
+    if (tab === 'scatter' && st.sColor === 'model_version') legend = ['v1', 'v2', 'v3'].map((n, i) => ({ name: n, color: C[i] }));
+    if (tab === 'loss') legend = LOSS_RUNS.map(([n], i) => ({ name: n, color: C[i], on: st.lossOn[n] })).filter(l => l.on);
+    if (tab === 'embedding') legend = CM_CLS.map((n, i) => ({ name: n, color: C[i] }));
+    if (tab === 'drift') legend = [{ name: 'reference', color: C[0] }, { name: 'current', color: C[2] }];
+    const nq0 = st.nbQuery.trim().toLowerCase();
+    this._visible = st.rows.filter(r => (!nq0 || (r.title + ' ' + r.author + ' ' + r.project).toLowerCase().includes(nq0)) && (st.fProject === 'all' || r.project === st.fProject) && (st.fAuthor === 'all' || r.author === st.fAuthor)).length;
+    const nb = NB[tab], tut = TUT[tab];
+    const t = {}; Object.keys(NB).forEach(k => t[k] = k === tab);
+    return {
+      isGallery: st.screen === 'gallery', isTutorial: st.screen === 'tutorial', isNotebook: st.screen === 'notebook',
+      isHome: st.view === 'home', isTemplates: st.view === 'templates', isQuickstart: st.view === 'quickstart', isNotebooks: st.view === 'notebooks',
+      showTable: st.view === 'home',
+      nav: { home: navItem('home'), templates: navItem('templates'), quickstart: navItem('quickstart') },
+      sparkIcon: icon(['M12 2l1.8 5.6L19 9l-5.2 1.4L12 16l-1.8-5.6L5 9l5.2-1.4z'], 'currentColor'),
+      plusIcon: icon(['M12 5v14M5 12h14']), playIcon: icon(['M6 4l14 8-14 8z'], 'currentColor'), codeIcon: icon(['M8 4l-6 8 6 8M16 4l6 8-6 8']),
+      homeOpen: Object.fromEntries(['loss', 'scatter', 'filter', 'confusion'].map(id => [id, () => this.openNotebook(id, 'home')])),
+      openCreate: () => this.setState({ modal: 'create', pendingTpl: null }),
+      openCopy: () => this.setState({ modal: 'copy', pendingTpl: null }),
+      openPanel: () => this.setState({ panelOpen: true }),
+      closePanel: () => this.setState({ panelOpen: false }),
+      expandPanel: () => this.go('quickstart'),
+      onPanelBackdrop: (e) => { if (e.target === e.currentTarget) this.setState({ panelOpen: false }); },
+      startResize: (e) => { this._right = e.currentTarget.parentElement.getBoundingClientRect().right; this._drag = true; document.body.style.userSelect = 'none'; e.preventDefault(); },
+      panelOpen: st.panelOpen, panelWidth: st.panelW + 'px',
+      query: st.query, onQuery: (e) => this.setState({ query: e.target.value }),
+      chips: [{ label: 'All templates', v: 'all' }, ...CATS.map(c => ({ label: c, v: c }))].map(c => ({ label: c.label, selected: st.chip === c.v, pick: () => this.setState({ chip: c.v }) })),
+      qt: Object.fromEntries(TPLS.map(x => { const vis = qtCards.some(c => c.id === x.id); return [x.id, { display: vis ? 'block' : 'none', overlay: st.hovered === x.id ? 1 : 0, open: () => this.openNotebook(x.id), enter: () => this.setState({ hovered: x.id }) }]; })),
+      qtLeave: () => this.setState({ hovered: null }), qtEmpty: qtCards.length === 0,
+      rows: st.rows.map((r, i) => ({ r, i })).filter(({ r }) => { const nq = st.nbQuery.trim().toLowerCase(); return (!nq || (r.title + ' ' + r.author + ' ' + r.project).toLowerCase().includes(nq)) && (st.fProject === 'all' || r.project === st.fProject) && (st.fAuthor === 'all' || r.author === st.fAuthor); }).map(({ r, i }) => ({
+        ...r, initials: r.author.split(' ').map(w => w[0]).join(''), menuOpen: st.menu === i,
+        toggleMenu: (e) => { e.stopPropagation(); this.setState({ menu: st.menu === i ? null : i }); },
+        remove: (e) => { e.stopPropagation(); this.setState(s => ({ rows: s.rows.filter((_, j) => j !== i), menu: null })); }
+      })),
+      stop: (e) => e.stopPropagation(),
+      pagination: (() => { const n = this._visible; return n ? `${n} of ${st.rows.length} notebooks` : 'No matching notebooks'; })(),
+      gsOpen: st.gsOpen, gsClosed: !st.gsOpen, gq: st.gq, gsRef: this.gsRef,
+      openGs: () => this.setState({ gsOpen: true }, () => this.gsRef.current && this.gsRef.current.focus()),
+      closeGs: () => this.setState({ gsOpen: false, gq: '' }),
+      onGq: (e) => this.setState({ gq: e.target.value }),
+      onGqKey: (e) => { if (e.key === 'Escape') this.setState({ gsOpen: false, gq: '' }); },
+      ...(() => {
+        const g = st.gq.trim().toLowerCase();
+        const tp = g ? TPLS.filter(x => (x.title + ' ' + x.cat).toLowerCase().includes(g)).map(x => ({ ...x, open: () => { this.setState({ gsOpen: false, gq: '' }); this.openNotebook(x.id, 'home'); } })) : [];
+        const nbs = g ? st.rows.filter(r => (r.title + ' ' + r.author + ' ' + r.project).toLowerCase().includes(g)).map(r => ({ ...r, open: () => this.setState({ gsOpen: false, gq: '', screen: 'gallery', view: 'home', panelOpen: false, nbQuery: r.title }) })) : [];
+        return { gsHasQuery: !!g, gsTpl: tp, gsNb: nbs, gsHasTpl: tp.length > 0, gsHasNb: nbs.length > 0, gsEmpty: !!g && !tp.length && !nbs.length };
+      })(),
+      nbQuery: st.nbQuery, onNbQuery: (e) => this.setState({ nbQuery: e.target.value }),
+      filtersOpen: st.filtersOpen, toggleFilters: () => this.setState({ filtersOpen: !st.filtersOpen }),
+      filterLabel: 'Filters', filterBtnVariant: (st.fProject !== 'all' || st.fAuthor !== 'all') ? 'primary' : 'support',
+      filterIcon: icon(['M4 6h16M7 12h10M10 18h4']),
+      fProject: st.fProject, onFProject: (e) => this.setState({ fProject: e.target.value }),
+      fAuthor: st.fAuthor, onFAuthor: (e) => this.setState({ fAuthor: e.target.value }),
+      projectOpts: [{ v: 'all', label: 'All projects' }, ...[...new Set(st.rows.map(r => r.project))].map(p => ({ v: p, label: p }))],
+      authorOpts: [{ v: 'all', label: 'All authors' }, ...[...new Set(st.rows.map(r => r.author))].map(p => ({ v: p, label: p }))],
+      hasActiveFilters: st.fProject !== 'all' || st.fAuthor !== 'all',
+      clearFilters: () => this.setState({ fProject: 'all', fAuthor: 'all' }),
+      modalOpen: !!st.modal, modalTitle: st.modal === 'copy' ? 'Make a copy' : 'Create a notebook',
+      closeModal: () => this.setState({ modal: null }),
+      confirmModal: () => { const p = st.pendingTpl; this.setState({ modal: null }); if (p) this.openTutorial(p); },
+      tut: { ...tut, intro0: tut.intro[0], intro1: tut.intro[1], intro2: tut.intro[2] },
+      closeTutorial: () => this.setState({ screen: 'gallery' }),
+      runFromTutorial: () => this.openNotebook(st.tpl, 'tutorial'),
+      toggleLog: () => this.setState({ logWandb: !st.logWandb }),
+      logTrack: st.logWandb ? 'var(--cw-blue-500)' : 'var(--cw-gray-500)', logThumb: st.logWandb ? '18px' : '2px',
+      tutProject: st.tutProject, onTutProject: (e) => this.setState({ tutProject: e.target.value }),
+      nb: { ...nb, tryIt: TRY[tab] }, t, cellBorder: st.showCode ? 'var(--color-border)' : 'transparent',
+      hasControls: tab !== 'drift', ctrlCode: CTRL[tab] || '',
+      fieldCode: nb.fields.map(([label, def], i) => `${VARS[tab][i]} = mo.ui.text(\n    value="${st.paths[tab + i] ?? def}",\n    label="${label}",\n    full_width=True,\n)`).join('\n') + '\n' + (VARS[tab].length > 1 ? 'mo.vstack([' + VARS[tab].join(', ') + '])' : VARS[tab][0]),
+      forkNotebook: () => this.setState({ modal: 'copy', pendingTpl: tab }),
+      backFromNotebook: () => this.backFromNotebook(),
+      backLabel: { quickstart: 'Quickstart templates', panel: 'Templates', home: 'Overview', tutorial: 'Tutorial' }[st.nbSource],
+      nbFields: nb.fields.map(([label, def], i) => { const key = tab + i; return { label, value: st.paths[key] ?? def, change: (e) => this.setState(s => ({ paths: { ...s.paths, [key]: e.target.value } })) }; }),
+      nbTabs: Object.keys(TAB_LABELS).map(k => ({ label: TAB_LABELS[k], fg: k === tab ? 'var(--text-primary)' : 'var(--text-secondary)', fw: k === tab ? 600 : 400, line: k === tab ? 'var(--cw-blue-500)' : 'transparent', pick: () => this.setState({ tpl: k }) })),
+      showCode: st.showCode, toggleCode: () => this.setState({ showCode: !st.showCode }), codeLabel: st.showCode ? 'Hide code' : 'Show code',
+      sColor: st.sColor, onSColor: (e) => this.setState({ sColor: e.target.value }),
+      edaCol: st.edaCol, onEdaCol: (e) => this.setState({ edaCol: e.target.value }),
+      fStatus: st.fStatus, onFStatus: (e) => this.setState({ fStatus: e.target.value }),
+      fAcc: st.fAcc, fAccLabel: st.fAcc + '%', onFAcc: (e) => this.setState({ fAcc: +e.target.value }),
+      fRows, fCount: fRows.length,
+      cmNorm: st.cmNorm, onCmNorm: (e) => this.setState({ cmNorm: e.target.value }),
+      lossToggles: LOSS_RUNS.map(([n], i) => ({ name: n, color: C[i], on: !!st.lossOn[n], toggle: () => this.setState(s => ({ lossOn: { ...s.lossOn, [n]: !s.lossOn[n] } })) })),
+      fiTopN: st.fiTopN, onFiTopN: (e) => this.setState({ fiTopN: +e.target.value }),
+      swParam: st.swParam, onSwParam: (e) => this.setState({ swParam: e.target.value }),
+      hasChart: tab !== 'filter', chart: this.chart(tab), legend
+    };
+  }
+}
+</script>
+</body>
+</html>

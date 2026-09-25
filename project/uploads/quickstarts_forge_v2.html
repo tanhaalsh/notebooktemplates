@@ -1,0 +1,2131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Forge — Quickstart Templates</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,500;8..60,600;8..60,700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg-canvas:#F7F8FA;
+    --bg-white:#FFFFFF;
+    --border:#E5E7EB;
+    --text:#181A3D;
+    --muted:#6B7280;
+    --indigo:#3D4FD1;
+    --indigo-tint:#EAECFB;
+    --indigo-dark:#2E3EB8;
+    --violet:#6C63FF;
+    --teal:#14B8A6;
+    --coral:#F97066;
+    --green:#22C55E;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:#E9EAEE;
+    color:var(--text);
+    font-family:'Inter', sans-serif;
+    min-height:100vh;
+    display:flex;
+    align-items:flex-start;
+    justify-content:center;
+    padding:36px 20px;
+  }
+  .app{
+    width:100%;
+    max-width:1220px;
+    background:var(--bg-white);
+    border:1px solid var(--border);
+    border-radius:8px;
+    overflow:hidden;
+    box-shadow:0 20px 60px rgba(20,22,50,0.12);
+  }
+
+  /* ---- top bar (shared) ---- */
+  .topbar{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:12px 20px; border-bottom:1px solid var(--border);
+  }
+  .tb-left{display:flex; align-items:center; gap:18px;}
+  .grid-icon{color:#9CA3AF;}
+  .brand{display:flex; align-items:center; gap:8px;}
+  .brand .mark{
+    width:22px;height:22px;border-radius:5px;
+    background:linear-gradient(135deg,var(--indigo),var(--violet));
+    display:flex;align-items:center;justify-content:center;
+    color:#fff; font-size:10px; font-weight:700; font-family:'Inter';
+  }
+  .brand .name{font-weight:700; font-size:15px; color:var(--text);}
+  .tb-tab{font-weight:600; font-size:14.5px; color:var(--text); margin-left:6px;}
+  .tb-right{display:flex; align-items:center; gap:18px;}
+  .tb-icon{color:#9CA3AF; cursor:pointer;}
+  .aria-btn{
+    display:flex; align-items:center; gap:6px;
+    background:var(--indigo-tint); color:var(--indigo);
+    font-weight:600; font-size:13px; padding:7px 14px; border-radius:7px; cursor:pointer;
+  }
+  .user{display:flex; align-items:center; gap:10px;}
+  .user .u-text{text-align:right; line-height:1.25;}
+  .user .u-name{font-size:13.5px; font-weight:600; color:var(--text);}
+  .user .u-org{font-size:11.5px; color:var(--muted);}
+  .user .avatar{width:30px;height:30px;border-radius:50%; background:linear-gradient(135deg,#F97066,#6C63FF);}
+
+  /* ---- page header ---- */
+  .page-header{
+    padding:32px 32px 0;
+  }
+  h1.gallery-title{
+    font-family:'Source Serif 4', serif;
+    font-size:28px; font-weight:600; margin:0 0 6px;
+  }
+  p.gallery-sub{
+    font-size:14px; color:var(--muted); margin:0 0 22px; max-width:60ch;
+  }
+  .search-row{
+    display:flex; align-items:center; gap:10px;
+    border:1px solid var(--border);
+    border-radius:8px;
+    padding:10px 14px;
+    max-width:420px;
+    margin-bottom:24px;
+  }
+  .search-row svg{width:16px;height:16px; color:#9CA3AF; flex-shrink:0;}
+  .search-row input{
+    border:none; outline:none; font-size:13.5px; font-family:'Inter'; width:100%;
+    color:var(--text); background:transparent;
+  }
+  .search-row input::placeholder{color:#9CA3AF;}
+
+  /* ---- body layout ---- */
+  .body{display:flex;}
+  .sidebar{
+    width:210px; flex-shrink:0;
+    border-right:1px solid var(--border);
+    padding:0 14px 24px;
+  }
+  .cat-item{
+    display:flex; align-items:center; justify-content:space-between; gap:10px;
+    padding:8px 10px; border-radius:6px; font-size:13.5px;
+    color:var(--muted); cursor:pointer; margin-bottom:2px;
+  }
+  .cat-item .cat-label{display:flex; align-items:center; gap:9px;}
+  .cat-item svg{width:15px;height:15px; flex-shrink:0;}
+  .cat-item .count{font-size:11.5px; color:#9CA3AF; font-family:'IBM Plex Mono', monospace;}
+  .cat-item.active{background:var(--indigo-tint); color:var(--indigo); font-weight:600;}
+  .cat-item.active .count{color:var(--indigo);}
+  .cat-item:hover:not(.active){background:#F3F4F6;}
+
+  .gallery-main{flex:1; min-width:0; padding:40px 32px 48px; background:var(--bg-canvas); overflow-y:auto;}
+
+  .hero-block{text-align:center; max-width:600px; margin:0 auto 34px;}
+  .hero-icon{
+    width:48px;height:48px; border-radius:50%;
+    background:#EEF0F3; color:#4B5060;
+    display:flex; align-items:center; justify-content:center;
+    margin:0 auto 18px;
+  }
+  h1.gallery-title{
+    font-family:'Source Serif 4', serif;
+    font-size:26px; font-weight:600; margin:0 0 12px; color:var(--text);
+  }
+  p.gallery-sub{
+    font-size:13.5px; line-height:1.6; color:var(--muted); margin:0;
+  }
+
+  .card-grid{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:16px;
+    max-width:900px;
+    margin:0 auto;
+  }
+  .tpl-card{
+    background:var(--bg-white);
+    border:1px solid var(--border);
+    border-radius:8px;
+    padding:16px;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+    min-height:150px;
+    cursor:pointer;
+    transition:border-color .15s ease;
+  }
+  .tpl-card:hover{border-color:#C7CBE8;}
+  .tpl-title{
+    font-family:'Source Serif 4', serif;
+    font-size:15px; font-weight:600; margin-bottom:8px; line-height:1.3;
+  }
+  .tpl-desc{
+    font-size:12.5px; line-height:1.55; color:var(--muted); margin:0;
+  }
+  .tpl-copy-row{
+    display:flex; align-items:center; gap:6px;
+    font-size:12px; color:#4B5060; font-weight:500;
+    margin-top:14px;
+  }
+  .tpl-copy-row svg{width:13px;height:13px; color:#9CA3AF;}
+
+  .actions{display:flex; justify-content:center; gap:10px; margin-top:26px; max-width:900px; margin-left:auto; margin-right:auto;}
+
+  /* ---- Quickstart Templates page (Miro-style) ---- */
+  .qt-header{margin-bottom:22px;}
+  h1.qt-title{font-family:'Source Serif 4', serif; font-size:24px; font-weight:600; margin:0 0 8px;}
+  p.qt-sub{font-size:13.5px; color:var(--muted); margin:0 0 16px; max-width:60ch;}
+  .chip-row{display:flex; flex-wrap:wrap; gap:8px; margin-top:14px;}
+  .chip{
+    font-size:12.5px; color:var(--muted); background:var(--bg-white);
+    border:1px solid var(--border); border-radius:999px;
+    padding:6px 14px; cursor:pointer;
+  }
+  .chip:hover{border-color:#C7CBE8;}
+  .chip.active{background:var(--indigo); color:#fff; border-color:var(--indigo);}
+
+  .qt-grid{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:18px;
+  }
+  .qt-card{
+    background:var(--bg-white);
+    border:1px solid var(--border);
+    border-radius:10px;
+    overflow:hidden;
+    cursor:pointer;
+    transition:box-shadow .15s ease, border-color .15s ease;
+  }
+  .qt-card:hover{border-color:#C7CBE8; box-shadow:0 6px 18px rgba(61,79,209,0.12);}
+  .qt-thumb{position:relative; height:118px; display:flex; align-items:center; justify-content:center; overflow:hidden;}
+  .qt-thumb svg{width:100%; height:100%;}
+  .qt-overlay{
+    position:absolute; inset:0; background:rgba(24,26,61,0.55);
+    display:flex; align-items:center; justify-content:center;
+    opacity:0; transition:opacity .15s ease;
+  }
+  .qt-card:hover .qt-overlay{opacity:1;}
+  .qt-copy-btn{background:#fff; color:var(--indigo); font-size:12.5px; font-weight:600; padding:7px 14px; border-radius:6px;}
+  .qt-meta{padding:12px 14px 14px;}
+  .qt-card-title{font-family:'Source Serif 4', serif; font-size:14.5px; font-weight:600; margin-bottom:5px; line-height:1.3;}
+  .qt-tag{font-size:10.5px; color:var(--muted); font-family:'IBM Plex Mono', monospace;}
+
+  /* ---- Home screen ---- */
+  .home-panel{
+    display:flex; gap:14px; flex-wrap:wrap;
+    background:#FAFBFC; border:1px solid var(--border); border-radius:10px;
+    padding:16px; margin-bottom:28px;
+  }
+  .home-card{
+    width:140px; cursor:pointer;
+  }
+  .home-card-thumb{
+    width:140px; height:100px; border-radius:8px;
+    background:var(--bg-white); border:1px solid var(--border);
+    display:flex; align-items:center; justify-content:center;
+    overflow:hidden; margin-bottom:8px;
+    transition:border-color .15s ease;
+  }
+  .home-card:hover .home-card-thumb{border-color:#C7CBE8;}
+  .home-card-thumb.blank-thumb{color:#9CA3AF;}
+  .home-card-thumb.from-gallery-thumb{color:var(--indigo); background:var(--indigo-tint); border:none;}
+  .home-card-label{font-size:12.5px; color:var(--text); font-weight:500;}
+  .home-row-header{display:flex; align-items:center; gap:10px; margin-bottom:14px;}
+  h2.home-section-title{font-size:17px; font-weight:600; margin:0; color:var(--text);}
+
+  /* ---- templates slide-in panel ---- */
+  .panel-overlay{
+    position:fixed; inset:0; background:rgba(24,26,61,0.35);
+    display:flex; justify-content:flex-end; z-index:60;
+  }
+  .panel-box{
+    width:min(880px, 92vw); height:100%;
+    background:var(--bg-canvas);
+    box-shadow:-12px 0 40px rgba(20,22,50,0.2);
+    display:flex; flex-direction:column;
+    animation:slideIn .2s ease;
+    position:relative;
+  }
+  .panel-resize-handle{
+    position:absolute; left:-4px; top:0; bottom:0; width:8px;
+    cursor:col-resize; z-index:2;
+  }
+  .panel-resize-handle:hover{background:var(--indigo-tint);}
+  .panel-resize-handle.dragging{background:var(--indigo-tint);}
+  .panel-icon-btn{
+    display:flex; align-items:center; justify-content:center;
+    color:var(--muted); cursor:pointer; padding:2px;
+  }
+  .panel-icon-btn:hover{color:var(--indigo);}
+  @keyframes slideIn{from{transform:translateX(24px); opacity:0;} to{transform:translateX(0); opacity:1;}}
+  .panel-box-header{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:16px 24px; border-bottom:1px solid var(--border);
+    font-weight:600; font-size:15px; background:var(--bg-white);
+  }
+  .panel-box-body{flex:1; overflow-y:auto; padding:24px 28px;}
+
+  /* ---- notebook view (shared) ---- */
+  .notebook-view{display:none;}
+  .notebook-view.active{display:block;}
+  .gallery-view.hidden{display:none;}
+
+  .nb-topbar{display:flex; align-items:center; gap:10px; padding:12px 20px; border-bottom:1px solid var(--border);}
+  .nb-back{display:flex; align-items:center; gap:5px; font-size:13px; color:var(--muted); cursor:pointer;}
+  .nb-crumb{font-size:13px; color:var(--muted); font-family:'IBM Plex Mono', monospace;}
+  .nb-crumb b{color:var(--text); font-weight:600;}
+
+  .nb-tabs{display:flex; border-bottom:1px solid var(--border); padding:0 20px; overflow-x:auto; white-space:nowrap;}
+  .nb-tab{font-family:'IBM Plex Mono', monospace; font-size:12px; color:var(--muted); padding:11px 14px; cursor:pointer; position:relative;}
+  .nb-tab.active{color:var(--text);}
+  .nb-tab.active::after{content:""; position:absolute; left:14px; right:14px; bottom:-1px; height:2px; background:var(--indigo);}
+
+  .nb-body{padding:26px 32px 40px; max-width:760px;}
+  .cell{margin-bottom:6px;}
+  .cell-body{padding:10px 0 20px;}
+  .code-toggle{
+    display:flex; align-items:center; gap:6px;
+    font-family:'IBM Plex Mono', monospace; font-size:12px;
+    color:var(--muted); border:1px solid var(--border); border-radius:6px;
+    padding:6px 12px; cursor:pointer; margin-right:8px;
+  }
+  .code-toggle:hover{border-color:#C7CBE8; color:var(--text);}
+  .code-toggle svg{width:13px;height:13px;}
+  .code-snippet{
+    display:none;
+    background:#F6F8FA; border:1px solid var(--border); border-radius:6px;
+    padding:12px 14px; margin:2px 0 20px;
+    font-family:'IBM Plex Mono', monospace; font-size:11.5px; line-height:1.6;
+    color:#3B3E5C; white-space:pre; overflow-x:auto;
+  }
+  .notebook-view.show-code .code-snippet{display:block;}
+  h2.cell-title{font-family:'Source Serif 4', serif; font-size:19px; font-weight:600; margin:0 0 6px;}
+  p.cell-body-text{font-size:13px; line-height:1.6; color:var(--muted); margin:0; max-width:56ch;}
+
+  .source-picker{border:1px solid var(--border); border-radius:6px; background:#F9FAFB; padding:12px 14px;}
+  .source-row{display:flex; align-items:center; justify-content:space-between; gap:10px;}
+  .source-row .lbl{font-size:12px; color:var(--muted);}
+  select.mock-select{background:#fff; color:var(--text); border:1px solid var(--border); border-radius:5px; padding:6px 9px; font-size:12.5px; min-width:170px;}
+  .status-live{font-family:'IBM Plex Mono', monospace; font-size:10.5px; color:var(--green);}
+  input.mock-text{background:#fff; color:var(--text); border:1px solid var(--border); border-radius:5px; padding:6px 9px; font-size:12.5px; font-family:'IBM Plex Mono', monospace; width:100%;}
+  input.mock-text:focus{outline:2px solid var(--indigo); outline-offset:1px;}
+
+  .controls{display:flex; flex-wrap:wrap; gap:18px; margin-top:2px;}
+  .field{display:flex; flex-direction:column; gap:5px;}
+  .field label{font-size:10.5px; color:var(--muted); font-family:'IBM Plex Mono', monospace;}
+  input[type=range]{width:200px; accent-color:var(--indigo);}
+  .range-value{font-family:'IBM Plex Mono', monospace; font-size:11.5px; color:var(--text);}
+
+  .out-panel{background:#F9FAFB; border:1px solid var(--border); border-radius:6px; padding:14px; margin-top:6px;}
+  .legend{display:flex; gap:12px; flex-wrap:wrap; margin-top:8px; font-size:11px; color:var(--muted);}
+  .legend span{display:flex; align-items:center; gap:5px;}
+  .swatch{width:7px;height:7px;border-radius:50%;display:inline-block;}
+
+  table.mock-table{width:100%; border-collapse:collapse; font-size:12px;}
+  table.mock-table th{text-align:left; font-family:'IBM Plex Mono', monospace; font-weight:400; font-size:10px; color:var(--muted); padding:6px 8px; border-bottom:1px solid var(--border);}
+  table.mock-table td{padding:6px 8px; border-bottom:1px solid var(--border); color:var(--text);}
+  table.mock-table tr.hidden{display:none;}
+  .run-dot{width:6px;height:6px;border-radius:50%;display:inline-block;margin-right:6px;}
+  .status-pill{font-family:'IBM Plex Mono', monospace; font-size:9.5px; padding:2px 6px; border-radius:3px;}
+  .status-pill.finished{background:#DCFCE7; color:#15803D;}
+  .status-pill.running{background:#EAECFB; color:var(--indigo);}
+  .status-pill.failed{background:#FEE2E2; color:#B91C1C;}
+  .stat-line{font-size:12px; color:var(--muted); margin-bottom:8px;}
+  .stat-line b{color:var(--text); font-weight:600;}
+
+  /* ---- notebooks table (Overview) ---- */
+  .notebooks-toolbar{display:flex; align-items:center; gap:12px; margin-bottom:16px;}
+  .filters-btn{
+    display:flex; align-items:center; gap:6px;
+    border:1px solid var(--border); border-radius:6px;
+    padding:8px 12px; font-size:12.5px; color:var(--muted); cursor:pointer;
+  }
+  .filters-btn svg{width:14px;height:14px;}
+  table.nb-table{width:100%; border-collapse:collapse; background:var(--bg-white); border:1px solid var(--border); border-radius:8px; overflow:hidden;}
+  table.nb-table th{
+    text-align:left; font-size:11px; text-transform:uppercase; letter-spacing:0.03em;
+    color:var(--muted); font-weight:500; padding:10px 14px; border-bottom:1px solid var(--border);
+    background:#FAFBFC;
+  }
+  table.nb-table td{padding:11px 14px; border-bottom:1px solid var(--border); font-size:13px; color:var(--text);}
+  table.nb-table tr{cursor:pointer;}
+  table.nb-table tr:last-child td{border-bottom:none;}
+  table.nb-table tr:hover td{background:#FAFBFC;}
+  .nb-author{display:flex; align-items:center; gap:8px;}
+  .nb-author .mini-avatar{width:20px;height:20px;border-radius:50%; background:linear-gradient(135deg,#6C63FF,#14B8A6); flex-shrink:0;}
+  .row-menu-btn{color:#9CA3AF; cursor:pointer; padding:4px; border-radius:4px;}
+  .row-menu-btn:hover{background:#F3F4F6;}
+  .row-menu{
+    position:absolute; background:#fff; border:1px solid var(--border); border-radius:6px;
+    box-shadow:0 8px 24px rgba(20,22,50,0.15); z-index:20; min-width:190px; overflow:hidden;
+  }
+  .row-menu-item{padding:9px 14px; font-size:12.5px; color:var(--text); cursor:pointer;}
+  .row-menu-item:hover{background:#F3F4F6;}
+  .row-menu-item.danger{color:#B91C1C;}
+  .table-pagination{text-align:right; font-size:11.5px; color:var(--muted); margin-top:10px;}
+
+  /* ---- modal ---- */
+  .modal-overlay{
+    position:fixed; inset:0; background:rgba(24,26,61,0.45);
+    display:flex; align-items:center; justify-content:center; z-index:50;
+  }
+  .modal-box{
+    background:#fff; border-radius:10px; width:380px;
+    box-shadow:0 24px 60px rgba(20,22,50,0.25); overflow:hidden;
+  }
+  .modal-header{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:16px 18px; border-bottom:1px solid var(--border);
+    font-weight:600; font-size:14.5px;
+  }
+  .modal-close{color:#9CA3AF; cursor:pointer; font-size:13px;}
+  .modal-body{padding:18px;}
+  .modal-sub{font-size:13px; color:var(--muted); margin:0 0 14px;}
+  .modal-new-project{font-size:12.5px; color:var(--indigo); cursor:pointer; text-decoration:none;}
+  .modal-footer{
+    display:flex; justify-content:flex-end; gap:10px;
+    padding:14px 18px; border-top:1px solid var(--border);
+  }
+
+  /* ---- tutorial / null-state ---- */
+  .tutorial-view{display:none;}
+  .tutorial-view.active{display:block;}
+  .run-btn{
+    display:flex; align-items:center; gap:6px;
+    background:var(--indigo); color:#fff;
+    font-size:12.5px; font-weight:600;
+    padding:7px 14px; border-radius:6px; cursor:pointer;
+  }
+  .tutorial-body{padding:32px 40px 60px; max-width:680px;}
+  h1.tut-title{font-family:'Source Serif 4', serif; font-size:25px; font-weight:600; margin:0 0 14px;}
+  h3.tut-h3{font-size:14.5px; font-weight:600; margin:24px 0 10px;}
+  p.tut-p{font-size:13.5px; line-height:1.7; color:#3B3E5C; margin:0 0 4px;}
+  ul.tut-ul{margin:0 0 4px; padding-left:20px;}
+  ul.tut-ul li{font-size:13.5px; line-height:1.7; color:#3B3E5C; margin-bottom:4px;}
+  p.tut-note{
+    font-size:12.5px; color:var(--muted); line-height:1.7;
+    background:#F9FAFB; border:1px solid var(--border); border-radius:6px;
+    padding:12px 14px; margin:22px 0 6px; display:flex; flex-wrap:wrap; align-items:center; gap:6px;
+  }
+  .toggle{display:inline-flex; align-items:center; cursor:pointer;}
+  .toggle input{display:none;}
+  .toggle-track{
+    width:32px; height:18px; background:#D1D5DB; border-radius:10px;
+    position:relative; display:inline-block; transition:background .15s ease;
+  }
+  .toggle-thumb{
+    position:absolute; top:2px; left:2px; width:14px; height:14px; border-radius:50%;
+    background:#fff; transition:left .15s ease;
+  }
+  .toggle input:checked + .toggle-track{background:var(--indigo);}
+  .toggle input:checked + .toggle-track .toggle-thumb{left:16px;}
+
+  .ghost-btn, .solid-btn{
+    display:flex; align-items:center; gap:7px;
+    font-size:13px; font-weight:600;
+    padding:8px 16px; border-radius:7px; cursor:pointer;
+  }
+  .ghost-btn{border:1px solid var(--border); color:var(--muted); background:var(--bg-white);}
+  .solid-btn{background:var(--indigo); color:#fff; border:none;}
+  .solid-btn:hover{background:var(--indigo-dark);}
+  .ghost-btn svg, .solid-btn svg{width:14px;height:14px;}
+</style>
+</head>
+<body>
+
+<div class="app">
+
+  <!-- ============ GALLERY VIEW ============ -->
+  <div class="gallery-view" id="gallery">
+    <div class="topbar">
+      <div class="tb-left">
+        <svg class="grid-icon" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><circle cx="5" cy="5" r="1.6"/><circle cx="12" cy="5" r="1.6"/><circle cx="19" cy="5" r="1.6"/><circle cx="5" cy="12" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="19" cy="12" r="1.6"/><circle cx="5" cy="19" r="1.6"/><circle cx="12" cy="19" r="1.6"/><circle cx="19" cy="19" r="1.6"/></svg>
+        <div class="brand"><div class="mark">CW</div><div class="name">Forge</div></div>
+        <div class="tb-tab">Notebooks</div>
+      </div>
+      <div class="tb-right">
+        <svg class="tb-icon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+        <svg class="tb-icon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.5 2.5 0 1 1 3.5 2.3c-.8.4-1 .9-1 1.7" stroke-linecap="round"/><circle cx="12" cy="17" r="0.6" fill="currentColor" stroke="none"/></svg>
+        <div class="aria-btn"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l1.8 5.6L19 9l-5.2 1.4L12 16l-1.8-5.6L5 9l5.2-1.4z"/></svg>Ask ARIA</div>
+        <div class="user">
+          <div class="u-text"><div class="u-name">Tanha Alsheikhdallah</div><div class="u-org">wandb</div></div>
+          <div class="avatar"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="body">
+      <div class="sidebar">
+        <div class="cat-item active" data-view="home" onclick="showSidebarView('home')">
+          <span class="cat-label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 11l9-7 9 7"/><path d="M5 10v9h14v-9"/></svg>Home</span>
+        </div>
+        <div class="cat-item" data-view="templates" onclick="showSidebarView('templates')">
+          <span class="cat-label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>Getting Started</span>
+        </div>
+        <div class="cat-item" data-view="quickstart" onclick="showSidebarView('quickstart')">
+          <span class="cat-label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="6" rx="1"/><rect x="3" y="12" width="8" height="9" rx="1"/><rect x="13" y="12" width="8" height="9" rx="1"/></svg>Quickstart Templates</span>
+        </div>
+        <div class="cat-item" data-view="notebooks" onclick="showSidebarView('notebooks')">
+          <span class="cat-label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 3h9l5 5v13H6z"/><path d="M9 12h6M9 16h6M9 8h3"/></svg>Overview</span>
+        </div>
+      </div>
+
+      <div class="gallery-main">
+        <div id="view-home">
+          <div class="home-panel">
+            <div class="home-card" onclick="openModal('create', null)">
+              <div class="home-card-thumb blank-thumb">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+              </div>
+              <div class="home-card-label">Blank notebook</div>
+            </div>
+            <div class="home-card" onclick="openNotebook('loss','home')">
+              <div class="home-card-thumb" style="background:#EAF9F5;">
+                <svg viewBox="0 0 160 100" width="100%" height="100%">
+                  <path d="M14 20 Q60 30 90 65 T146 82" stroke="#6C63FF" fill="none" stroke-width="2"/>
+                  <path d="M14 26 Q60 50 90 72 T146 88" stroke="#14B8A6" fill="none" stroke-width="2"/>
+                </svg>
+              </div>
+              <div class="home-card-label">Loss Curve Comparison</div>
+            </div>
+            <div class="home-card" onclick="openNotebook('scatter','home')">
+              <div class="home-card-thumb" style="background:#EFEDFF;">
+                <svg viewBox="0 0 160 100" width="100%" height="100%">
+                  <line x1="14" y1="86" x2="140" y2="18" stroke="#B9B2FF" stroke-dasharray="3,3"/>
+                  <circle cx="40" cy="66" r="4" fill="#6C63FF"/><circle cx="70" cy="50" r="4" fill="#14B8A6"/><circle cx="105" cy="34" r="4" fill="#F97066"/>
+                </svg>
+              </div>
+              <div class="home-card-label">Predictions vs. Actual</div>
+            </div>
+            <div class="home-card" onclick="openNotebook('filter','home')">
+              <div class="home-card-thumb" style="background:#FDECEA;">
+                <svg viewBox="0 0 160 100" width="100%" height="100%">
+                  <circle cx="24" cy="30" r="5" fill="#6C63FF"/><line x1="36" y1="30" x2="130" y2="30" stroke="#F6C9C3"/>
+                  <circle cx="24" cy="55" r="5" fill="#14B8A6"/><line x1="36" y1="55" x2="110" y2="55" stroke="#F6C9C3"/>
+                  <circle cx="24" cy="80" r="5" fill="#F97066"/><line x1="36" y1="80" x2="95" y2="80" stroke="#F6C9C3"/>
+                </svg>
+              </div>
+              <div class="home-card-label">Compare Runs</div>
+            </div>
+            <div class="home-card" onclick="openNotebook('confusion','home')">
+              <div class="home-card-thumb" style="background:#F1EDFB;">
+                <svg viewBox="0 0 160 100" width="100%" height="100%">
+                  <g fill="#6C63FF">
+                    <rect x="50" y="25" width="20" height="20"/><rect x="72" y="25" width="20" height="20" opacity="0.3"/>
+                    <rect x="50" y="47" width="20" height="20" opacity="0.3"/><rect x="72" y="47" width="20" height="20"/>
+                  </g>
+                </svg>
+              </div>
+              <div class="home-card-label">Confusion Matrix</div>
+            </div>
+            <div class="home-card" onclick="openTemplatesPanel()">
+              <div class="home-card-thumb from-gallery-thumb">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="6" rx="1"/><rect x="3" y="12" width="8" height="9" rx="1"/><rect x="13" y="12" width="8" height="9" rx="1"/></svg>
+              </div>
+              <div class="home-card-label">View more →</div>
+            </div>
+          </div>
+
+          <div class="home-row-header">
+            <h2 class="home-section-title">Notebooks in this team</h2>
+            <div style="flex:1;"></div>
+            <div class="ghost-btn" onclick="openTemplatesPanel()">Explore templates</div>
+            <div class="solid-btn" onclick="openModal('create', null)"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2"><path d="M12 5v14M5 12h14"/></svg>Create new</div>
+          </div>
+
+          <table class="nb-table">
+            <thead><tr><th>Notebook</th><th>Author</th><th>Project</th><th>Last updated</th><th>Created</th><th></th></tr></thead>
+            <tbody id="home-notebooks-tbody"></tbody>
+          </table>
+        </div>
+
+        <div id="view-templates" style="display:none;">
+        <div class="hero-block">
+          <div class="hero-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 3h9l5 5v13H6z"/><path d="M9 12h6M9 16h6M9 8h3"/></svg>
+          </div>
+          <h1 class="gallery-title">Get started with notebooks</h1>
+          <p class="gallery-sub">Welcome to Marimo notebooks. Create, find, and manage live Marimo powered Python notebooks for seamless support of exploratory work and data apps.</p>
+        </div>
+
+        <div class="card-grid" id="card-grid">
+
+          <div class="tpl-card" onclick="openModal('copy', null)">
+            <div class="tpl-card-body">
+              <div class="tpl-title">Fine-tune an LLM with W&amp;B, Agent Pulse, Training and Inf...</div>
+              <p class="tpl-desc">Fine-tune, track, evaluate, and run inference on an LLM.</p>
+            </div>
+            <div class="tpl-copy-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="9" y="9" width="11" height="11" rx="1.5"/><path d="M5 15V5a1.5 1.5 0 0 1 1.5-1.5H15"/></svg>Make a copy</div>
+          </div>
+
+          <div class="tpl-card" onclick="openModal('copy', null)">
+            <div class="tpl-card-body">
+              <div class="tpl-title">Monitor an agent with Agent Pulse</div>
+              <p class="tpl-desc">Instrument an agent and explore its behavior in Agent Pulse.</p>
+            </div>
+            <div class="tpl-copy-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="9" y="9" width="11" height="11" rx="1.5"/><path d="M5 15V5a1.5 1.5 0 0 1 1.5-1.5H15"/></svg>Make a copy</div>
+          </div>
+
+          <div class="tpl-card" onclick="openModal('copy', null)">
+            <div class="tpl-card-body">
+              <div class="tpl-title">Train a robotics model with W&amp;B</div>
+              <p class="tpl-desc">Train and evaluate a robotics model with W&amp;B tracking.</p>
+            </div>
+            <div class="tpl-copy-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="9" y="9" width="11" height="11" rx="1.5"/><path d="M5 15V5a1.5 1.5 0 0 1 1.5-1.5H15"/></svg>Make a copy</div>
+          </div>
+
+        </div>
+        <div class="actions">
+          <div class="ghost-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 3h9l5 5v13H6z"/><path d="M9 12h6M9 16h6M9 8h3"/></svg>Documentation</div>
+          <div class="solid-btn" onclick="openModal('create', null)"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2"><path d="M12 5v14M5 12h14"/></svg>Create from scratch</div>
+        </div>
+        </div>
+
+        <div id="view-quickstart" style="display:none;">
+          <div class="qt-header">
+            <h1 class="qt-title">Quickstart templates</h1>
+            <p class="qt-sub">Nine live Marimo notebooks for ML training and evaluation, pre-wired to your runs, artifacts, and datasets. Pick one and make a copy.</p>
+            <div class="search-row" style="max-width:420px;">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+              <input id="qt-search-input" placeholder="Search quickstart templates">
+            </div>
+            <div class="chip-row" id="chip-row">
+              <div class="chip active" data-cat="all">All templates</div>
+              <div class="chip" data-cat="Pretraining">Pretraining</div>
+              <div class="chip" data-cat="Post-training">Post-training</div>
+              <div class="chip" data-cat="Model Distillation">Model Distillation</div>
+              <div class="chip" data-cat="Agent Evals">Agent Evals</div>
+              <div class="chip" data-cat="Data Exploration">Data Exploration</div>
+            </div>
+          </div>
+
+          <div class="qt-grid" id="qt-grid">
+
+            <div class="qt-card" data-cat="Post-training" data-title="explore predictions vs. actual" onclick="openNotebook('scatter','quickstart')">
+              <div class="qt-thumb" style="background:#EFEDFF;">
+                <svg viewBox="0 0 160 100">
+                  <line x1="14" y1="86" x2="14" y2="14" stroke="#D8D4FF"/>
+                  <line x1="14" y1="86" x2="150" y2="86" stroke="#D8D4FF"/>
+                  <line x1="14" y1="86" x2="140" y2="18" stroke="#B9B2FF" stroke-dasharray="3,3"/>
+                  <circle cx="40" cy="66" r="3.5" fill="#6C63FF"/><circle cx="55" cy="58" r="3.5" fill="#6C63FF"/>
+                  <circle cx="70" cy="50" r="3.5" fill="#14B8A6"/><circle cx="90" cy="46" r="3.5" fill="#14B8A6"/>
+                  <circle cx="105" cy="34" r="3.5" fill="#F97066"/><circle cx="120" cy="28" r="3.5" fill="#F97066"/>
+                  <circle cx="60" cy="70" r="3.5" fill="#6C63FF"/><circle cx="100" cy="40" r="3.5" fill="#14B8A6"/>
+                </svg>
+                <div class="qt-overlay"><div class="qt-copy-btn">Open notebook</div></div>
+              </div>
+              <div class="qt-meta">
+                <div class="qt-card-title">Explore predictions vs. actual</div>
+                <div class="qt-tag">Post-training</div>
+              </div>
+            </div>
+
+            <div class="qt-card" data-cat="Data Exploration" data-title="profile a training dataset" onclick="openNotebook('eda','quickstart')">
+              <div class="qt-thumb" style="background:#E4F8F4;">
+                <svg viewBox="0 0 160 100">
+                  <line x1="14" y1="86" x2="150" y2="86" stroke="#BEEEE3"/>
+                  <rect x="24" y="50" width="14" height="36" fill="#14B8A6" opacity="0.9"/>
+                  <rect x="44" y="34" width="14" height="52" fill="#14B8A6" opacity="0.9"/>
+                  <rect x="64" y="20" width="14" height="66" fill="#14B8A6" opacity="0.9"/>
+                  <rect x="84" y="40" width="14" height="46" fill="#14B8A6" opacity="0.7"/>
+                  <rect x="104" y="58" width="14" height="28" fill="#14B8A6" opacity="0.5"/>
+                  <rect x="124" y="70" width="14" height="16" fill="#14B8A6" opacity="0.35"/>
+                </svg>
+                <div class="qt-overlay"><div class="qt-copy-btn">Open notebook</div></div>
+              </div>
+              <div class="qt-meta">
+                <div class="qt-card-title">Profile a training dataset</div>
+                <div class="qt-tag">Data Exploration</div>
+              </div>
+            </div>
+
+            <div class="qt-card" data-cat="Model Distillation" data-title="compare runs side-by-side" onclick="openNotebook('filter','quickstart')">
+              <div class="qt-thumb" style="background:#FDECEA;">
+                <svg viewBox="0 0 160 100">
+                  <circle cx="24" cy="26" r="4" fill="#6C63FF"/><line x1="34" y1="26" x2="130" y2="26" stroke="#F6C9C3"/>
+                  <circle cx="24" cy="46" r="4" fill="#14B8A6"/><line x1="34" y1="46" x2="110" y2="46" stroke="#F6C9C3"/>
+                  <circle cx="24" cy="66" r="4" fill="#F97066"/><line x1="34" y1="66" x2="95" y2="66" stroke="#F6C9C3"/>
+                  <circle cx="24" cy="86" r="4" fill="#22C55E"/><line x1="34" y1="86" x2="120" y2="86" stroke="#F6C9C3"/>
+                </svg>
+                <div class="qt-overlay"><div class="qt-copy-btn">Open notebook</div></div>
+              </div>
+              <div class="qt-meta">
+                <div class="qt-card-title">Compare runs side-by-side</div>
+                <div class="qt-tag">Model Distillation</div>
+              </div>
+            </div>
+
+            <div class="qt-card" data-cat="Agent Evals" data-title="confusion matrix viewer" onclick="openNotebook('confusion','quickstart')">
+              <div class="qt-thumb" style="background:#F1EDFB;">
+                <svg viewBox="0 0 160 100">
+                  <g fill="#6C63FF">
+                    <rect x="45" y="20" width="20" height="20"/><rect x="67" y="20" width="20" height="20" opacity="0.35"/><rect x="89" y="20" width="20" height="20" opacity="0.15"/>
+                    <rect x="45" y="42" width="20" height="20" opacity="0.3"/><rect x="67" y="42" width="20" height="20"/><rect x="89" y="42" width="20" height="20" opacity="0.25"/>
+                    <rect x="45" y="64" width="20" height="20" opacity="0.12"/><rect x="67" y="64" width="20" height="20" opacity="0.2"/><rect x="89" y="64" width="20" height="20"/>
+                  </g>
+                </svg>
+                <div class="qt-overlay"><div class="qt-copy-btn">Open notebook</div></div>
+              </div>
+              <div class="qt-meta">
+                <div class="qt-card-title">Confusion matrix viewer</div>
+                <div class="qt-tag">Agent Evals</div>
+              </div>
+            </div>
+
+            <div class="qt-card" data-cat="Pretraining" data-title="loss curve comparison" onclick="openNotebook('loss','quickstart')">
+              <div class="qt-thumb" style="background:#EAF9F5;">
+                <svg viewBox="0 0 160 100">
+                  <path d="M14 20 Q60 30 90 65 T146 82" stroke="#6C63FF" fill="none" stroke-width="2"/>
+                  <path d="M14 26 Q60 50 90 72 T146 88" stroke="#14B8A6" fill="none" stroke-width="2"/>
+                  <path d="M14 18 Q55 22 85 58 T146 76" stroke="#F97066" fill="none" stroke-width="2"/>
+                </svg>
+                <div class="qt-overlay"><div class="qt-copy-btn">Open notebook</div></div>
+              </div>
+              <div class="qt-meta">
+                <div class="qt-card-title">Loss curve comparison</div>
+                <div class="qt-tag">Pretraining</div>
+              </div>
+            </div>
+
+            <div class="qt-card" data-cat="Post-training" data-title="feature importance ranker" onclick="openNotebook('feature','quickstart')">
+              <div class="qt-thumb" style="background:#E4F8F4;">
+                <svg viewBox="0 0 160 100">
+                  <rect x="20" y="22" width="110" height="9" fill="#6C63FF"/>
+                  <rect x="20" y="40" width="85" height="9" fill="#6C63FF" opacity="0.8"/>
+                  <rect x="20" y="58" width="60" height="9" fill="#6C63FF" opacity="0.6"/>
+                  <rect x="20" y="76" width="35" height="9" fill="#6C63FF" opacity="0.4"/>
+                </svg>
+                <div class="qt-overlay"><div class="qt-copy-btn">Open notebook</div></div>
+              </div>
+              <div class="qt-meta">
+                <div class="qt-card-title">Feature importance ranker</div>
+                <div class="qt-tag">Post-training</div>
+              </div>
+            </div>
+
+            <div class="qt-card" data-cat="Data Exploration" data-title="embedding projector" onclick="openNotebook('embedding','quickstart')">
+              <div class="qt-thumb" style="background:#F1EDFB;">
+                <svg viewBox="0 0 160 100">
+                  <g>
+                    <circle cx="40" cy="35" r="3" fill="#6C63FF"/><circle cx="48" cy="42" r="3" fill="#6C63FF"/><circle cx="35" cy="48" r="3" fill="#6C63FF"/><circle cx="52" cy="30" r="3" fill="#6C63FF"/>
+                    <circle cx="105" cy="55" r="3" fill="#14B8A6"/><circle cx="115" cy="62" r="3" fill="#14B8A6"/><circle cx="98" cy="65" r="3" fill="#14B8A6"/><circle cx="118" cy="48" r="3" fill="#14B8A6"/>
+                    <circle cx="70" cy="75" r="3" fill="#F97066"/><circle cx="80" cy="80" r="3" fill="#F97066"/><circle cx="65" cy="82" r="3" fill="#F97066"/>
+                  </g>
+                </svg>
+                <div class="qt-overlay"><div class="qt-copy-btn">Open notebook</div></div>
+              </div>
+              <div class="qt-meta">
+                <div class="qt-card-title">Embedding projector</div>
+                <div class="qt-tag">Data Exploration</div>
+              </div>
+            </div>
+
+            <div class="qt-card" data-cat="Pretraining" data-title="sweep results explorer" onclick="openNotebook('sweep','quickstart')">
+              <div class="qt-thumb" style="background:#FDECEA;">
+                <svg viewBox="0 0 160 100">
+                  <g fill="#F97066">
+                    <circle cx="24" cy="70" r="4"/><circle cx="40" cy="50" r="4"/><circle cx="56" cy="60" r="4"/><circle cx="72" cy="34" r="4"/>
+                    <circle cx="88" cy="44" r="4"/><circle cx="104" cy="26" r="4"/><circle cx="120" cy="38" r="4"/><circle cx="136" cy="20" r="4"/>
+                  </g>
+                </svg>
+                <div class="qt-overlay"><div class="qt-copy-btn">Open notebook</div></div>
+              </div>
+              <div class="qt-meta">
+                <div class="qt-card-title">Sweep results explorer</div>
+                <div class="qt-tag">Pretraining</div>
+              </div>
+            </div>
+
+            <div class="qt-card" data-cat="Data Exploration" data-title="data drift monitor" onclick="openNotebook('drift','quickstart')">
+              <div class="qt-thumb" style="background:#EAF9F5;">
+                <svg viewBox="0 0 160 100">
+                  <path d="M14 80 Q40 20 65 80 T116 80" stroke="#3D4FD1" fill="none" stroke-width="2"/>
+                  <path d="M34 80 Q60 30 85 80 T146 80" stroke="#F97066" fill="none" stroke-width="2" stroke-dasharray="4,3"/>
+                </svg>
+                <div class="qt-overlay"><div class="qt-copy-btn">Open notebook</div></div>
+              </div>
+              <div class="qt-meta">
+                <div class="qt-card-title">Data drift monitor</div>
+                <div class="qt-tag">Data Exploration</div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <div id="view-notebooks" style="display:none;">
+          <div class="notebooks-toolbar">
+            <div class="search-row" style="margin-bottom:0; max-width:320px;">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+              <input placeholder="Search notebooks">
+            </div>
+            <div class="filters-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 6h16M7 12h10M10 18h4"/></svg>Filters</div>
+            <div style="flex:1;"></div>
+            <div class="solid-btn" onclick="openModal('create', null)"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2"><path d="M12 5v14M5 12h14"/></svg>Create notebook</div>
+          </div>
+          <table class="nb-table">
+            <thead><tr><th>Notebook</th><th>Author</th><th>Project</th><th>Last updated</th><th>Created</th><th></th></tr></thead>
+            <tbody id="notebooks-tbody"></tbody>
+          </table>
+          <div class="table-pagination">1–4 of 4</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ MAKE A COPY / CREATE MODAL ============ -->
+  <!-- ============ TEMPLATES PANEL (slide-in from Home) ============ -->
+  <div class="panel-overlay" id="templates-panel-overlay" style="display:none;" onclick="if(event.target===this) closeTemplatesPanel()">
+    <div class="panel-box" id="panel-box">
+      <div class="panel-resize-handle" id="panel-resize-handle"></div>
+      <div class="panel-box-header">
+        <span>Quickstart templates</span>
+        <div style="display:flex; align-items:center; gap:14px;">
+          <span class="panel-icon-btn" onclick="expandTemplatesPanel()" title="Open full page">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 3H3v6M15 3h6v6M9 21H3v-6M15 21h6v-6"/></svg>
+          </span>
+          <span class="modal-close" onclick="closeTemplatesPanel()">✕</span>
+        </div>
+      </div>
+      <div class="panel-box-body" id="templates-panel-body"></div>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="modal-overlay" style="display:none;">
+    <div class="modal-box">
+      <div class="modal-header">
+        <span id="modal-title">Make a copy</span>
+        <span class="modal-close" onclick="closeModal()">✕</span>
+      </div>
+      <div class="modal-body">
+        <p class="modal-sub" id="modal-sub">Your new notebook will be created within a project.</p>
+        <div class="field" style="margin-bottom:10px;">
+          <label style="font-family:'Inter'; text-transform:none; font-size:12px;">Project</label>
+          <select class="mock-select" id="modal-project" style="min-width:100%; margin-top:4px;">
+            <option>asteroid-detection</option>
+            <option>acme-labs/churn-predictor</option>
+            <option>lab-ops/eval-suite</option>
+          </select>
+        </div>
+        <a class="modal-new-project">+ Create a new project</a>
+      </div>
+      <div class="modal-footer">
+        <div class="ghost-btn" onclick="closeModal()">Cancel</div>
+        <div class="solid-btn" onclick="confirmModal()">Create</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ TUTORIAL / NULL-STATE VIEW ============ -->
+  <div class="tutorial-view" id="tutorial">
+    <div class="nb-topbar">
+      <div class="nb-back" onclick="closeTutorial()">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+        Notebooks
+      </div>
+      <div class="nb-crumb">/ <b id="tut-crumb"></b></div>
+      <div style="flex:1;"></div>
+      <div class="run-btn" onclick="runFromTutorial()">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M6 4l14 8-14 8z"/></svg>
+        Run notebook
+      </div>
+    </div>
+    <div class="tutorial-body">
+      <h1 class="tut-title" id="tut-title"></h1>
+      <p class="tut-p" id="tut-intro"></p>
+
+      <h3 class="tut-h3">What you'll learn</h3>
+      <ul class="tut-ul" id="tut-learn"></ul>
+
+      <p class="tut-p" id="tut-example"></p>
+
+      <h3 class="tut-h3">The Forge ecosystem you'll use</h3>
+      <ul class="tut-ul" id="tut-ecosystem"></ul>
+
+      <p class="tut-note">
+        This tutorial runs end-to-end on synthetic sample data, so you can follow along without touching production.
+        <label class="toggle"><input type="checkbox" id="log-wandb-toggle"><span class="toggle-track"><span class="toggle-thumb"></span></span></label>
+        Log to W&amp;B below to also record results in a real project.
+      </p>
+
+      <h3 class="tut-h3">Before you begin</h3>
+      <p class="tut-p">In a real run you'd have a CoreWeave Forge account (your compute), plus the W&amp;B tools above where your model's activity is tracked. For this tutorial you need none of it — the data is synthetic. Set an entity/project below only if you want to log results.</p>
+      <input class="mock-text" id="tut-project-input" style="max-width:360px;">
+    </div>
+  </div>
+
+  <!-- ============ NOTEBOOK VIEW ============ -->
+  <div class="notebook-view" id="notebook">
+    <div class="nb-topbar">
+      <div class="nb-back" onclick="backToTutorial()">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+        Tutorial
+      </div>
+      <div class="nb-crumb">/ <b id="nb-name">explore_predictions_vs_actual.py</b></div>
+      <div style="flex:1;"></div>
+      <div class="code-toggle" onclick="toggleShowCode()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M8 4l-6 8 6 8M16 4l6 8-6 8"/></svg>
+        Show code
+      </div>
+    </div>
+
+    <div class="nb-tabs">
+      <div class="nb-tab active" data-tab="scatter">Prediction vs. Actual</div>
+      <div class="nb-tab" data-tab="eda">Training Data Profile</div>
+      <div class="nb-tab" data-tab="filter">Run Comparison</div>
+      <div class="nb-tab" data-tab="confusion">Confusion Matrix</div>
+      <div class="nb-tab" data-tab="loss">Loss Curves</div>
+      <div class="nb-tab" data-tab="feature">Feature Importance</div>
+      <div class="nb-tab" data-tab="embedding">Embeddings</div>
+      <div class="nb-tab" data-tab="sweep">Sweep Results</div>
+      <div class="nb-tab" data-tab="drift">Data Drift</div>
+    </div>
+
+    <div class="nb-body">
+
+      <!-- PREDICTION VS ACTUAL -->
+      <div class="nb-view active" id="nbview-scatter">
+        <div class="cell">
+          <div class="cell-body">
+            <h2 class="cell-title">Prediction vs. Actual Explorer</h2>
+            <p class="cell-body-text">Pulls predictions straight from a run's logged table. Compare model versions at a glance, or point it at any eval run in this project.</p>
+          </div>
+        </div>
+        <div class="cell">
+          <div class="cell-body">
+            <div class="source-picker">
+              <div style="margin-bottom:6px;">
+                <div class="lbl" style="margin-bottom:5px;">W&amp;B run path (entity/project/run_id)</div>
+                <input class="mock-text" value="acme-labs/churn-predictor/eval-run-482">
+              </div>
+              <div class="source-row" style="margin-top:8px;">
+                <span class="status-live">● connected to acme-labs/churn-predictor/eval-run-482</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="code-snippet">try:
+    import wandb
+    api = wandb.Api()
+    run = api.run(run_path.value)
+    history_df = run.history()
+    df = history_df[["actual_price", "predicted_price", "model_version"]].dropna()
+    source_label = f"connected to {run_path.value}"
+except Exception:
+    df = make_sample()</div>
+        <div class="cell">
+          <div class="cell-body">
+            <div class="controls">
+              <div class="field"><label>x axis</label><select class="mock-select"><option>actual_price</option></select></div>
+              <div class="field"><label>y axis</label><select class="mock-select"><option selected>predicted_price</option></select></div>
+              <div class="field">
+                <label>color by</label>
+                <select class="mock-select" id="s-color">
+                  <option value="none">(none)</option>
+                  <option value="model_version" selected>model_version</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="cell">
+          <div class="cell-body">
+            <div class="out-panel">
+              <svg id="scatter-svg" viewBox="0 0 420 220" width="100%" height="220" style="overflow:visible">
+                <line x1="28" y1="10" x2="28" y2="185" stroke="#E5E7EB"/>
+                <line x1="28" y1="185" x2="400" y2="185" stroke="#E5E7EB"/>
+                <line x1="28" y1="185" x2="380" y2="20" stroke="#D1D5DB" stroke-dasharray="3,4"/>
+                <g id="scatter-points"></g>
+              </svg>
+              <div class="legend" id="scatter-legend"></div>
+            </div>
+          </div>
+        </div>
+        <div class="code-snippet">fig, ax = plt.subplots(figsize=(7, 5))
+ax.plot([lo, hi], [lo, hi], linestyle="--", color="#D1D5DB", linewidth=1)
+
+for group, sub in df.groupby(color_dropdown.value):
+    ax.scatter(sub[x_dropdown.value], sub[y_dropdown.value],
+               label=str(group), alpha=0.8, color=palette.get(group))
+ax.legend(title=color_dropdown.value)
+fig</div>
+      </div>
+
+      <!-- TRAINING DATA PROFILE -->
+      <div class="nb-view" id="nbview-eda">
+        <div class="cell">
+          <div class="cell-body">
+            <h2 class="cell-title">Training Data Profile</h2>
+            <p class="cell-body-text">A sanity check before you kick off a run: shape, types, missing values, and distributions.</p>
+          </div>
+        </div>
+        <div class="cell">
+          <div class="cell-body">
+            <div class="source-picker">
+              <div style="margin-bottom:6px;">
+                <div class="lbl" style="margin-bottom:5px;">W&amp;B artifact path (entity/project/name:version)</div>
+                <input class="mock-text" value="acme-labs/churn-predictor/churn-dataset:v6">
+              </div>
+              <div class="source-row" style="margin-top:8px;">
+                <span class="status-live">● connected to acme-labs/churn-predictor/churn-dataset:v6</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="code-snippet">try:
+    import wandb
+    api = wandb.Api()
+    artifact = api.artifact(artifact_path.value)
+    artifact_dir = artifact.download()
+    df = pd.read_csv(f"{artifact_dir}/dataset.csv")
+    source_label = f"connected to {artifact_path.value}"
+except Exception:
+    df = make_sample()</div>
+        <div class="cell">
+          <div class="cell-body">
+            <div class="stat-line"><b>300</b> rows × <b>5</b> columns</div>
+          </div>
+        </div>
+        <div class="cell">
+          <div class="cell-body">
+            <div class="controls">
+              <div class="field">
+                <label>column to inspect</label>
+                <select class="mock-select" id="eda-col">
+                  <option value="age">age</option>
+                  <option value="income" selected>income</option>
+                  <option value="tenure_months">tenure_months</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="cell">
+          <div class="cell-body">
+            <div class="out-panel">
+              <svg id="hist-svg" viewBox="0 0 420 180" width="100%" height="180">
+                <line x1="20" y1="150" x2="410" y2="150" stroke="#E5E7EB"/>
+                <g id="hist-bars"></g>
+              </svg>
+            </div>
+          </div>
+        </div>
+        <div class="code-snippet">fig, ax = plt.subplots(figsize=(7, 4))
+df[col_picker.value].dropna().hist(bins=30, ax=ax, color="#3D4FD1")
+ax.set_title(f"Distribution of {col_picker.value}")
+fig</div>
+      </div>
+
+      <!-- RUN COMPARISON -->
+      <div class="nb-view" id="nbview-filter">
+        <div class="cell">
+          <div class="cell-body">
+            <h2 class="cell-title">Run Comparison</h2>
+            <p class="cell-body-text">Filters generate themselves from your run history. Slice down to the runs worth digging into.</p>
+          </div>
+        </div>
+        <div class="cell">
+          <div class="cell-body">
+            <div class="source-picker" style="margin-bottom:16px;">
+              <div style="margin-bottom:6px;">
+                <div class="lbl" style="margin-bottom:5px;">W&amp;B project path (entity/project)</div>
+                <input class="mock-text" value="acme-labs/churn-predictor">
+              </div>
+              <div class="source-row" style="margin-top:8px;">
+                <span class="status-live">● connected to acme-labs/churn-predictor</span>
+              </div>
+            </div>
+            <div class="controls">
+              <div class="field">
+                <label>status</label>
+                <select class="mock-select" id="f-status">
+                  <option value="all">(all)</option>
+                  <option value="finished">finished</option>
+                  <option value="running">running</option>
+                  <option value="failed">failed</option>
+                </select>
+              </div>
+              <div class="field">
+                <label>min accuracy</label>
+                <input type="range" id="f-acc" min="0" max="95" value="0">
+                <span class="range-value" id="f-acc-val">0%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="code-snippet">try:
+    import wandb
+    api = wandb.Api()
+    wb_runs = api.runs(project_path.value)
+    rows = [{
+        "run": r.name,
+        "lr": r.config.get("learning_rate"),
+        "batch": r.config.get("batch_size"),
+        "acc": r.summary.get("accuracy"),
+        "loss": r.summary.get("loss"),
+        "status": r.state,
+    } for r in wb_runs]
+    df = pd.DataFrame(rows)
+except Exception:
+    df = make_sample()</div>
+        <div class="cell">
+          <div class="cell-body">
+            <div class="stat-line" id="f-count"><b>8</b> runs match your filters</div>
+            <div class="out-panel">
+              <table class="mock-table" id="f-table">
+                <thead><tr><th>run</th><th>lr</th><th>batch size</th><th>accuracy</th><th>loss</th><th>status</th></tr></thead>
+                <tbody></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div class="code-snippet">filtered = df.copy()
+if status_filter.value != "(all)":
+    filtered = filtered[filtered["status"] == status_filter.value]
+filtered = filtered[filtered["acc"].fillna(-1) >= acc_filter.value]
+mo.ui.table(filtered, label="Matching runs", page_size=10)</div>
+      </div>
+
+      <!-- CONFUSION MATRIX -->
+      <div class="nb-view" id="nbview-confusion">
+        <div class="cell">
+          <div class="cell-body">
+            <h2 class="cell-title">Confusion Matrix Viewer</h2>
+            <p class="cell-body-text">Builds the matrix locally from a run's logged predictions, so it works whether or not you logged a chart directly.</p>
+          </div>
+        </div>
+        <div class="cell">
+          <div class="cell-body">
+            <div class="source-picker">
+              <div style="margin-bottom:6px;">
+                <div class="lbl" style="margin-bottom:5px;">W&amp;B run path</div>
+                <input class="mock-text" value="acme-labs/churn-predictor/eval-run-482">
+              </div>
+              <div class="source-row" style="margin-top:8px;"><span class="status-live">● connected</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="code-snippet">try:
+    import wandb
+    api = wandb.Api()
+    run = api.run(run_path.value)
+    df = run.history()[["actual_class", "predicted_class"]].dropna()
+except Exception:
+    df = make_sample()
+
+matrix = pd.crosstab(df["actual_class"], df["predicted_class"], dropna=False)
+matrix = matrix.reindex(index=classes, columns=classes, fill_value=0)</div>
+        <div class="cell">
+          <div class="cell-body">
+            <div class="controls">
+              <div class="field">
+                <label>normalize by</label>
+                <select class="mock-select" id="cm-normalize">
+                  <option value="none">none</option>
+                  <option value="row">row (recall)</option>
+                  <option value="col">column (precision)</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="cell">
+          <div class="cell-body">
+            <div class="out-panel">
+              <svg id="cm-svg" viewBox="0 0 260 260" width="260" height="260"></svg>
+            </div>
+          </div>
+        </div>
+        <div class="code-snippet">if normalize.value == "row (recall)":
+    display_matrix = matrix.div(matrix.sum(axis=1), axis=0).fillna(0)
+elif normalize.value == "column (precision)":
+    display_matrix = matrix.div(matrix.sum(axis=0), axis=1).fillna(0)
+else:
+    display_matrix = matrix
+
+im = ax.imshow(display_matrix.values, cmap="Purples")
+fig.colorbar(im, ax=ax)</div>
+      </div>
+
+      <!-- LOSS CURVES -->
+      <div class="nb-view" id="nbview-loss">
+        <div class="cell">
+          <div class="cell-body">
+            <h2 class="cell-title">Loss Curve Comparison</h2>
+            <p class="cell-body-text">Overlay training loss across multiple runs to see which configuration actually converges faster.</p>
+          </div>
+        </div>
+        <div class="cell">
+          <div class="cell-body">
+            <div class="source-picker">
+              <div style="margin-bottom:6px;">
+                <div class="lbl" style="margin-bottom:5px;">W&amp;B project path</div>
+                <input class="mock-text" value="acme-labs/churn-predictor">
+              </div>
+              <div class="source-row" style="margin-top:8px;"><span class="status-live">● connected</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="code-snippet">try:
+    import wandb
+    api = wandb.Api()
+    wb_runs = api.runs(project_path.value)
+    frames = []
+    for r in wb_runs:
+        h = r.history(keys=["loss"])
+        h = h[["_step", "loss"]].rename(columns={"_step": "step"})
+        h["run"] = r.name
+        frames.append(h)
+    df = pd.concat(frames, ignore_index=True)
+except Exception:
+    df = make_sample()</div>
+        <div class="cell">
+          <div class="cell-body">
+            <div class="controls" id="loss-run-toggles"></div>
+          </div>
+        </div>
+        <div class="cell">
+          <div class="cell-body">
+            <div class="out-panel">
+              <svg id="loss-svg" viewBox="0 0 420 220" width="100%" height="220">
+                <line x1="28" y1="10" x2="28" y2="195" stroke="#E5E7EB"/>
+                <line x1="28" y1="195" x2="400" y2="195" stroke="#E5E7EB"/>
+                <g id="loss-lines"></g>
+              </svg>
+              <div class="legend" id="loss-legend"></div>
+            </div>
+          </div>
+        </div>
+        <div class="code-snippet">fig, ax = plt.subplots(figsize=(7.5, 4.5))
+for i, name in enumerate(run_picker.value):
+    sub = df[df["run"] == name].sort_values("step")
+    ax.plot(sub["step"], sub["loss"], label=name, color=palette[i % len(palette)])
+if log_scale.value:
+    ax.set_yscale("log")
+ax.legend(fontsize=8)
+fig</div>
+      </div>
+
+      <!-- FEATURE IMPORTANCE -->
+      <div class="nb-view" id="nbview-feature">
+        <div class="cell">
+          <div class="cell-body">
+            <h2 class="cell-title">Feature Importance Ranker</h2>
+            <p class="cell-body-text">Points at a feature-importance table logged as an artifact — ranks and slices it down to the top N.</p>
+          </div>
+        </div>
+        <div class="cell">
+          <div class="cell-body">
+            <div class="source-picker">
+              <div style="margin-bottom:6px;">
+                <div class="lbl" style="margin-bottom:5px;">W&amp;B artifact path</div>
+                <input class="mock-text" value="acme-labs/churn-predictor/feature-importance:v3">
+              </div>
+              <div class="source-row" style="margin-top:8px;"><span class="status-live">● connected</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="code-snippet">try:
+    import wandb
+    api = wandb.Api()
+    artifact = api.artifact(artifact_path.value)
+    artifact_dir = artifact.download()
+    df = pd.read_csv(f"{artifact_dir}/feature_importance.csv")
+except Exception:
+    df = make_sample()</div>
+        <div class="cell">
+          <div class="cell-body">
+            <div class="controls">
+              <div class="field">
+                <label>top N features</label>
+                <input type="range" id="fi-topn" min="3" max="10" value="8">
+                <span class="range-value" id="fi-topn-val">8</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="cell">
+          <div class="cell-body">
+            <div class="out-panel">
+              <svg id="fi-svg" viewBox="0 0 420 220" width="100%" height="220">
+                <g id="fi-bars"></g>
+              </svg>
+            </div>
+          </div>
+        </div>
+        <div class="code-snippet">ascending = sort_order.value == "ascending"
+ranked = df.sort_values("importance", ascending=ascending).head(top_n.value)
+
+fig, ax = plt.subplots(figsize=(7, 4.5))
+ax.barh(ranked["feature"], ranked["importance"], color="#6C63FF")
+fig</div>
+      </div>
+
+      <!-- EMBEDDINGS -->
+      <div class="nb-view" id="nbview-embedding">
+        <div class="cell">
+          <div class="cell-body">
+            <h2 class="cell-title">Embedding Projector</h2>
+            <p class="cell-body-text">Visualizes a 2D projection of your embeddings (UMAP/PCA/t-SNE), colored by whichever label column you pick.</p>
+          </div>
+        </div>
+        <div class="cell">
+          <div class="cell-body">
+            <div class="source-picker">
+              <div style="margin-bottom:6px;">
+                <div class="lbl" style="margin-bottom:5px;">W&amp;B artifact path</div>
+                <input class="mock-text" value="acme-labs/churn-predictor/embeddings-umap:v2">
+              </div>
+              <div class="source-row" style="margin-top:8px;"><span class="status-live">● connected</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="code-snippet">try:
+    import wandb
+    api = wandb.Api()
+    artifact = api.artifact(artifact_path.value)
+    artifact_dir = artifact.download()
+    df = pd.read_csv(f"{artifact_dir}/embeddings.csv")
+except Exception:
+    df = make_sample()</div>
+        <div class="cell">
+          <div class="cell-body">
+            <div class="controls">
+              <div class="field">
+                <label>color by</label>
+                <select class="mock-select" id="emb-color"><option>plan</option></select>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="cell">
+          <div class="cell-body">
+            <div class="out-panel">
+              <svg id="emb-svg" viewBox="0 0 420 260" width="100%" height="260"></svg>
+              <div class="legend" id="emb-legend"></div>
+            </div>
+          </div>
+        </div>
+        <div class="code-snippet">fig, ax = plt.subplots(figsize=(7, 6))
+for i, (group, sub) in enumerate(df.groupby(color_by.value)):
+    ax.scatter(sub["x"], sub["y"], label=str(group),
+               alpha=0.7, s=20, color=palette[i % len(palette)])
+ax.legend(title=color_by.value, fontsize=8)
+fig</div>
+      </div>
+
+      <!-- SWEEP RESULTS -->
+      <div class="nb-view" id="nbview-sweep">
+        <div class="cell">
+          <div class="cell-body">
+            <h2 class="cell-title">Sweep Results Explorer</h2>
+            <p class="cell-body-text">Plots a hyperparameter against your target metric across every run in a sweep.</p>
+          </div>
+        </div>
+        <div class="cell">
+          <div class="cell-body">
+            <div class="source-picker">
+              <div style="margin-bottom:6px;">
+                <div class="lbl" style="margin-bottom:5px;">W&amp;B sweep path</div>
+                <input class="mock-text" value="acme-labs/churn-predictor/sweeps/9f3k2la1">
+              </div>
+              <div class="source-row" style="margin-top:8px;"><span class="status-live">● connected</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="code-snippet">try:
+    import wandb
+    api = wandb.Api()
+    sweep = api.sweep(sweep_path.value)
+    rows = [{
+        "learning_rate": r.config.get("learning_rate"),
+        "batch_size": r.config.get("batch_size"),
+        "accuracy": r.summary.get("accuracy"),
+    } for r in sweep.runs]
+    df = pd.DataFrame(rows).dropna()
+except Exception:
+    df = make_sample()</div>
+        <div class="cell">
+          <div class="cell-body">
+            <div class="controls">
+              <div class="field">
+                <label>hyperparameter</label>
+                <select class="mock-select" id="sw-param">
+                  <option value="lr">learning_rate</option>
+                  <option value="batch">batch_size</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="cell">
+          <div class="cell-body">
+            <div class="out-panel">
+              <svg id="sw-svg" viewBox="0 0 420 220" width="100%" height="220">
+                <line x1="28" y1="10" x2="28" y2="195" stroke="#E5E7EB"/>
+                <line x1="28" y1="195" x2="400" y2="195" stroke="#E5E7EB"/>
+                <g id="sw-points"></g>
+              </svg>
+            </div>
+          </div>
+        </div>
+        <div class="code-snippet">fig, ax = plt.subplots(figsize=(7, 4.5))
+sc = ax.scatter(df[x_param.value], df["accuracy"], c=df["accuracy"], cmap="Purples")
+if log_x.value:
+    ax.set_xscale("log")
+fig.colorbar(sc, ax=ax, label="accuracy")
+fig</div>
+      </div>
+
+      <!-- DATA DRIFT -->
+      <div class="nb-view" id="nbview-drift">
+        <div class="cell">
+          <div class="cell-body">
+            <h2 class="cell-title">Data Drift Monitor</h2>
+            <p class="cell-body-text">Compares a feature's distribution between a reference dataset and a current one.</p>
+          </div>
+        </div>
+        <div class="cell">
+          <div class="cell-body">
+            <div class="source-picker">
+              <div style="margin-bottom:8px;">
+                <div class="lbl" style="margin-bottom:5px;">Reference artifact</div>
+                <input class="mock-text" value="acme-labs/churn-predictor/churn-dataset:v3">
+              </div>
+              <div>
+                <div class="lbl" style="margin-bottom:5px;">Current artifact</div>
+                <input class="mock-text" value="acme-labs/churn-predictor/churn-dataset:v6">
+              </div>
+              <div class="source-row" style="margin-top:8px;"><span class="status-live">● connected</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="code-snippet">try:
+    import wandb
+    api = wandb.Api()
+    ref_dir = api.artifact(reference_path.value).download()
+    cur_dir = api.artifact(current_path.value).download()
+    ref = pd.read_csv(f"{ref_dir}/dataset.csv")
+    cur = pd.read_csv(f"{cur_dir}/dataset.csv")
+except Exception:
+    ref, cur = make_sample()</div>
+        <div class="cell">
+          <div class="cell-body">
+            <div class="stat-line">Mean shift in <b>income</b>: <b style="color:#B45309;">+15.5%</b> — ⚠️ notable shift</div>
+          </div>
+        </div>
+        <div class="code-snippet">mean_shift = cur_vals.mean() - ref_vals.mean()
+pct_shift = mean_shift / ref_vals.mean() * 100
+flag = "⚠️ notable shift" if abs(pct_shift) > 10 else "within normal range"
+mo.md(f"**Mean shift in `{col_picker.value}`:** {pct_shift:+.1f}% — {flag}")</div>
+        <div class="cell">
+          <div class="cell-body">
+            <div class="out-panel">
+              <svg id="drift-svg" viewBox="0 0 420 200" width="100%" height="200">
+                <line x1="20" y1="170" x2="410" y2="170" stroke="#E5E7EB"/>
+                <g id="drift-bars"></g>
+              </svg>
+              <div class="legend">
+                <span><span class="swatch" style="background:#3D4FD1"></span>reference</span>
+                <span><span class="swatch" style="background:#F97066"></span>current</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="code-snippet">fig, ax = plt.subplots(figsize=(7, 4.5))
+ax.hist(ref_vals, bins=30, alpha=0.55, label="reference", color="#3D4FD1")
+ax.hist(cur_vals, bins=30, alpha=0.55, label="current", color="#F97066")
+ax.legend()
+fig</div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<script>
+  const nbNames = {
+    scatter:'explore_predictions_vs_actual.py',
+    eda:'profile_training_dataset.py',
+    filter:'compare_runs_side_by_side.py',
+    confusion:'confusion_matrix_viewer.py',
+    loss:'loss_curve_comparison.py',
+    feature:'feature_importance_ranker.py',
+    embedding:'embedding_projector.py',
+    sweep:'sweep_results_explorer.py',
+    drift:'data_drift_monitor.py'
+  };
+
+  // ---- sidebar: Getting Started vs Quickstart Templates vs Overview ----
+  function showSidebarView(view){
+    document.querySelectorAll('.sidebar .cat-item').forEach(i=>i.classList.toggle('active', i.dataset.view===view));
+    document.getElementById('view-home').style.display = view==='home' ? '' : 'none';
+    document.getElementById('view-templates').style.display = view==='templates' ? '' : 'none';
+    document.getElementById('view-quickstart').style.display = view==='quickstart' ? '' : 'none';
+    document.getElementById('view-notebooks').style.display = view==='notebooks' ? '' : 'none';
+    if(view==='home') renderNotebooksTable('home-notebooks-tbody');
+  }
+
+  // ---- templates slide-in panel (moves the real #view-quickstart node in/out) ----
+  function openTemplatesPanel(){
+    const content = document.getElementById('view-quickstart');
+    document.getElementById('templates-panel-body').appendChild(content);
+    content.style.display = '';
+    document.getElementById('templates-panel-overlay').style.display = 'flex';
+  }
+  function closeTemplatesPanel(){
+    const content = document.getElementById('view-quickstart');
+    const anchor = document.getElementById('view-notebooks');
+    anchor.parentNode.insertBefore(content, anchor);
+    content.style.display = 'none';
+    document.getElementById('templates-panel-overlay').style.display = 'none';
+  }
+  function expandTemplatesPanel(){
+    const content = document.getElementById('view-quickstart');
+    const anchor = document.getElementById('view-notebooks');
+    anchor.parentNode.insertBefore(content, anchor);
+    document.getElementById('templates-panel-overlay').style.display = 'none';
+    showSidebarView('quickstart');
+  }
+
+  // ---- drag-to-resize the templates panel ----
+  (function(){
+    const handle = document.getElementById('panel-resize-handle');
+    const box = document.getElementById('panel-box');
+    let dragging = false;
+    handle.addEventListener('mousedown', (e)=>{
+      dragging = true;
+      handle.classList.add('dragging');
+      document.body.style.userSelect = 'none';
+      e.preventDefault();
+    });
+    document.addEventListener('mousemove', (e)=>{
+      if(!dragging) return;
+      const newWidth = window.innerWidth - e.clientX;
+      const clamped = Math.min(Math.max(newWidth, 380), window.innerWidth - 80);
+      box.style.width = clamped + 'px';
+    });
+    document.addEventListener('mouseup', ()=>{
+      dragging = false;
+      handle.classList.remove('dragging');
+      document.body.style.userSelect = '';
+    });
+  })();
+  // ---- Quickstart Templates page: chip + search filtering ----
+  let activeChip = 'all';
+  function applyQtFilter(){
+    const q = document.getElementById('qt-search-input').value.trim().toLowerCase();
+    document.querySelectorAll('.qt-card').forEach(card=>{
+      const matchesChip = activeChip === 'all' || card.dataset.cat === activeChip;
+      const matchesQuery = !q || card.dataset.title.includes(q);
+      card.style.display = (matchesChip && matchesQuery) ? '' : 'none';
+    });
+  }
+  document.querySelectorAll('.chip').forEach(chip=>{
+    chip.addEventListener('click', ()=>{
+      document.querySelectorAll('.chip').forEach(c=>c.classList.remove('active'));
+      chip.classList.add('active');
+      activeChip = chip.dataset.cat;
+      applyQtFilter();
+    });
+  });
+  document.getElementById('qt-search-input').addEventListener('input', applyQtFilter);
+
+  // ---- tutorial content per template ----
+  const tutorialContent = {
+    scatter: {
+      crumb:'Explore predictions vs. actual', title:'Catch prediction drift before it ships',
+      intro:'Welcome! This is a hands-on template for teams shipping a model who want to <b>catch systematic prediction errors before they reach production</b>.',
+      learn:['How to pull predictions straight from a logged W&B run','How to spot bias by coloring residuals by model version','How to read a calibration line (predicted = actual) at a glance','How to flag a run as regressed before you promote it'],
+      example:'The example. You have three model versions logged as W&B runs. We\'ll plot predicted vs. actual price for each, colored by version, so you can see which version tightens the error band — no notebook boilerplate required.',
+      ecosystem:['Eval run — the run\'s logged prediction table','W&B Runs API — pulls predictions in two lines of code','Marimo — reactive cells re-plot instantly as you change the run'],
+      project:'acme-labs/churn-predictor/eval-run-482'
+    },
+    eda: {
+      crumb:'Profile a training dataset', title:'Catch a bad dataset before it trains a bad model',
+      intro:'Welcome! This is a hands-on template for teams about to kick off a training run who want to <b>sanity-check the data first</b>.',
+      learn:['How shape, types, and missing values reveal a dirty export','How to spot skew before it biases your model','How to decide if a column needs cleaning or dropping','How to do all of this without writing pandas boilerplate'],
+      example:'The example. You have a churn dataset artifact with a handful of missing income values. We\'ll profile it end to end — shape, dtypes, missingness, and per-column distributions — in four cells.',
+      ecosystem:['Dataset artifact — versioned data you logged to W&B','W&B Artifacts API — downloads the exact version you point at','Marimo — reactive cells recompute the moment you swap columns'],
+      project:'acme-labs/churn-predictor/churn-dataset:v6'
+    },
+    filter: {
+      crumb:'Compare runs side-by-side', title:'Stop scrolling the runs table by hand',
+      intro:'Welcome! This is a hands-on template for teams with a growing pile of runs who want to <b>find the one worth promoting without eyeballing a spreadsheet</b>.',
+      learn:['How filters generate themselves from your run history','How to slice by status and a minimum accuracy threshold','How to spot the run worth promoting at a glance','How to do this without leaving your notebook'],
+      example:'The example. You have eight runs from a recent sweep. We\'ll filter by status and accuracy so only the finished, high-performing runs are left on screen.',
+      ecosystem:['W&B project — the run history you\'re comparing','W&B Runs API — pulls config and summary metrics per run','Marimo — filters rebuild the table reactively as you move a slider'],
+      project:'acme-labs/churn-predictor'
+    },
+    confusion: {
+      crumb:'Confusion matrix viewer', title:'See exactly where your classifier gets confused',
+      intro:'Welcome! This is a hands-on template for teams evaluating a classifier who want to <b>see which classes get confused for which</b>, not just an accuracy number.',
+      learn:['How to build a confusion matrix from a run\'s logged predictions','How normalizing by row (recall) or column (precision) changes the story','How to spot a systematically confused class pair','How to do this without a `wandb.plot` call already logged'],
+      example:'The example. Your churn-tier classifier confuses adjacent plans more than it should. We\'ll build the matrix from the run\'s logged predictions and let you toggle normalization to see recall vs. precision.',
+      ecosystem:['Eval run — the run\'s logged actual/predicted columns','W&B Runs API — pulls the prediction table directly','Marimo — the matrix and normalization recompute reactively'],
+      project:'acme-labs/churn-predictor/eval-run-482'
+    },
+    loss: {
+      crumb:'Loss curve comparison', title:'See which configuration actually converges faster',
+      intro:'Welcome! This is a hands-on template for teams running several training configs at once who want to <b>see which one actually converges faster</b>, not just which one finished first.',
+      learn:['How to overlay loss curves from multiple runs at once','How to toggle individual runs on and off','How a log-scale y-axis reveals late-training differences','How to do this without exporting anything to a spreadsheet'],
+      example:'The example. You have four runs with different learning rates. We\'ll overlay their loss curves so it\'s obvious which configuration is actually winning, not just which logged first.',
+      ecosystem:['W&B project — the run history you\'re comparing','W&B Runs API — pulls each run\'s logged history','Marimo — the chart redraws as you toggle runs on and off'],
+      project:'acme-labs/churn-predictor'
+    },
+    feature: {
+      crumb:'Feature importance ranker', title:'Know what your model is actually using',
+      intro:'Welcome! This is a hands-on template for teams who\'ve trained a model and want to <b>know what it\'s actually paying attention to</b> before they ship it.',
+      learn:['How to rank features by logged importance scores','How to slice down to just the top N that matter','How sort order changes what jumps out first','How to do this from an artifact instead of re-running training'],
+      example:'The example. You have a feature-importance table logged as an artifact after training. We\'ll rank it and let you control how many features to show.',
+      ecosystem:['Feature-importance artifact — exported from `model.feature_importances_`','W&B Artifacts API — downloads the exact version you point at','Marimo — the ranking reacts instantly to the slider'],
+      project:'acme-labs/churn-predictor/feature-importance:v3'
+    },
+    embedding: {
+      crumb:'Embedding projector', title:'See whether your embeddings actually separate',
+      intro:'Welcome! This is a hands-on template for teams who\'ve logged a 2D projection (UMAP, PCA, t-SNE) and want to <b>see whether it actually separates the classes it should</b>.',
+      learn:['How to visualize a 2D embedding projection','How coloring by label reveals cluster separation (or the lack of it)','How to spot the outlier that doesn\'t belong to any cluster','How to do this from an artifact table, no re-computation needed'],
+      example:'The example. You have a UMAP projection of customer embeddings logged as an artifact. We\'ll plot it and color by plan tier to see whether the tiers actually separate.',
+      ecosystem:['Embeddings artifact — your logged 2D projection table','W&B Artifacts API — downloads the exact version you point at','Marimo — recolor by any label column reactively'],
+      project:'acme-labs/churn-predictor/embeddings-umap:v2'
+    },
+    sweep: {
+      crumb:'Sweep results explorer', title:'Find the hyperparameter that actually mattered',
+      intro:'Welcome! This is a hands-on template for teams who just ran a sweep and want to <b>see which hyperparameter actually moved the metric</b>, not just which run won.',
+      learn:['How to plot a hyperparameter against your target metric across a whole sweep','How a log-scale x-axis reveals patterns a linear one hides','How to switch between hyperparameters without re-querying','How to do this straight from the sweep object'],
+      example:'The example. You just ran a 36-run sweep over learning rate and batch size. We\'ll plot accuracy against each hyperparameter so the pattern is obvious at a glance.',
+      ecosystem:['W&B sweep — the sweep object holding every child run','W&B Sweeps API — pulls config + summary for each run','Marimo — the scatter redraws as you switch hyperparameters'],
+      project:'acme-labs/churn-predictor/sweeps/9f3k2la1'
+    },
+    drift: {
+      crumb:'Data drift monitor', title:'Check your model still holds up in production',
+      intro:'Welcome! This is a hands-on template for teams with a model already in production who want to <b>check the incoming data hasn\'t quietly drifted</b> out from under it.',
+      learn:['How to compare a feature\'s distribution across two dataset versions','How a mean-shift percentage flags drift at a glance','How to switch which column you\'re checking without re-running anything','How to do this from two artifact versions, no production access needed'],
+      example:'The example. Your reference dataset is from three months ago; your current one is from this week. We\'ll overlay the income distribution and flag whether the shift is notable.',
+      ecosystem:['Two dataset artifacts — reference vs. current versions','W&B Artifacts API — downloads both versions to compare','Marimo — the shift stat and chart recompute as you change columns'],
+      project:'acme-labs/churn-predictor/churn-dataset:v6'
+    }
+  };
+
+  let currentTemplateId = null;
+  let pendingTemplateId = null;
+  let notebookSource = 'tutorial';
+
+  // ---- modal ----
+  function openModal(mode, templateId){
+    pendingTemplateId = templateId;
+    const title = document.getElementById('modal-title');
+    const sub = document.getElementById('modal-sub');
+    if(mode === 'copy'){
+      title.textContent = 'Make a copy';
+      sub.textContent = 'Your new notebook will be created within a project.';
+    } else {
+      title.textContent = 'Create a notebook';
+      sub.textContent = 'Your new notebook will be created within a project.';
+    }
+    document.getElementById('modal-overlay').style.display = 'flex';
+  }
+  function closeModal(){
+    document.getElementById('modal-overlay').style.display = 'none';
+  }
+  function confirmModal(){
+    closeModal();
+    if(pendingTemplateId){
+      openTutorial(pendingTemplateId);
+    }
+    // blank "create from scratch" has no tutorial content to show in this mockup
+  }
+
+  // ---- tutorial page ----
+  function openTutorial(id){
+    currentTemplateId = id;
+    const c = tutorialContent[id];
+    document.getElementById('tut-crumb').textContent = c.crumb;
+    document.getElementById('tut-title').textContent = c.title;
+    document.getElementById('tut-intro').innerHTML = c.intro;
+    document.getElementById('tut-learn').innerHTML = c.learn.map(l=>`<li>${l}</li>`).join('');
+    document.getElementById('tut-example').textContent = c.example;
+    document.getElementById('tut-ecosystem').innerHTML = c.ecosystem.map(l=>`<li>${l}</li>`).join('');
+    document.getElementById('tut-project-input').value = c.project;
+
+    document.getElementById('gallery').classList.add('hidden');
+    document.getElementById('notebook').classList.remove('active');
+    document.getElementById('tutorial').classList.add('active');
+  }
+  function closeTutorial(){
+    document.getElementById('tutorial').classList.remove('active');
+    document.getElementById('gallery').classList.remove('hidden');
+  }
+  function runFromTutorial(){
+    document.getElementById('tutorial').classList.remove('active');
+    openNotebook(currentTemplateId);
+  }
+  function backToTutorial(){
+    document.getElementById('notebook').classList.remove('active');
+    document.getElementById('gallery').classList.remove('hidden');
+    if(notebookSource === 'quickstart'){
+      showSidebarView('quickstart');
+    } else if(notebookSource === 'panel'){
+      showSidebarView('home');
+      openTemplatesPanel();
+    } else if(notebookSource === 'home'){
+      showSidebarView('home');
+    } else {
+      openTutorial(currentTemplateId);
+    }
+  }
+
+  // ---- notebooks table (Overview) ----
+  const notebookRows = [
+    {title:'Copy of Fine-tune a LLM with W&amp;...', author:'Matt Smith', project:'production/service-monitor', updated:'1m ago', created:'Just now'},
+    {title:'Quick Data Cleaning for Eval Set', author:'Zara Davis', project:'zara.davis/temp-data-prep', updated:'2h ago', created:'3 minutes ago'},
+    {title:'Team Image Labeling Tool v3', author:'Sarah Miller', project:'lab-ops/dataset-labeling', updated:'3d ago', created:'2 hours ago'},
+    {title:'Real-Time Monitoring Dashboard', author:'Dave Kim', project:'production/service-monitor', updated:'1w ago', created:'4 days ago'},
+  ];
+  function closeAllRowMenus(){
+    document.querySelectorAll('.row-menu').forEach(m=>m.remove());
+  }
+  function renderNotebooksTable(targetId){
+    const tbody = document.getElementById(targetId || 'notebooks-tbody');
+    tbody.innerHTML = '';
+    notebookRows.forEach(row=>{
+      const tr = document.createElement('tr');
+      tr.style.cursor = 'default';
+      tr.innerHTML = `
+        <td>${row.title}</td>
+        <td><div class="nb-author"><div class="mini-avatar"></div>${row.author}</div></td>
+        <td>${row.project}</td>
+        <td>${row.updated}</td>
+        <td>${row.created}</td>
+        <td style="position:relative; text-align:right;">
+          <span class="row-menu-btn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="6" r="1.7"/><circle cx="12" cy="12" r="1.7"/><circle cx="12" cy="18" r="1.7"/></svg>
+          </span>
+        </td>`;
+      tbody.appendChild(tr);
+    });
+  }
+  renderNotebooksTable('home-notebooks-tbody');
+  document.addEventListener('click', (e)=>{
+    const btn = e.target.closest('.row-menu-btn');
+    if(!btn){ closeAllRowMenus(); return; }
+    e.stopPropagation();
+    const existing = btn.parentElement.querySelector('.row-menu');
+    closeAllRowMenus();
+    if(existing) return; // was open, just close it
+    const menu = document.createElement('div');
+    menu.className = 'row-menu';
+    menu.style.right = '14px';
+    menu.style.top = '32px';
+    menu.innerHTML = `
+      <div class="row-menu-item">Rename notebook</div>
+      <div class="row-menu-item">Copy to project</div>
+      <div class="row-menu-item">Open in W&amp;B notebooks</div>
+      <div class="row-menu-item">Open in W&amp;B artifacts</div>
+      <div class="row-menu-item danger" data-action="delete">Delete notebook</div>
+    `;
+    menu.querySelector('[data-action="delete"]').addEventListener('click', (ev)=>{
+      ev.stopPropagation();
+      btn.closest('tr').remove();
+      menu.remove();
+    });
+    btn.parentElement.appendChild(menu);
+  });
+  renderNotebooksTable();
+  function toggleShowCode(){
+    document.getElementById('notebook').classList.toggle('show-code');
+  }
+  function openNotebook(which, source){
+    const panelOpen = document.getElementById('templates-panel-overlay').style.display === 'flex';
+    if(!source) source = panelOpen ? 'panel' : 'tutorial';
+    if(panelOpen) closeTemplatesPanel();
+    currentTemplateId = which;
+    notebookSource = source;
+    document.getElementById('gallery').classList.add('hidden');
+    document.getElementById('notebook').classList.add('active');
+    document.getElementById('nb-name').textContent = nbNames[which];
+    document.querySelectorAll('.nb-tab').forEach(t=>t.classList.toggle('active', t.dataset.tab===which));
+    document.querySelectorAll('.nb-view').forEach(v=>v.classList.toggle('active', v.id==='nbview-'+which));
+  }
+  function closeNotebook(){
+    document.getElementById('gallery').classList.remove('hidden');
+    document.getElementById('notebook').classList.remove('active');
+  }
+  document.querySelectorAll('.nb-tab').forEach(tab=>{
+    tab.addEventListener('click',()=>{
+      currentTemplateId = tab.dataset.tab;
+      document.querySelectorAll('.nb-tab').forEach(t=>t.classList.remove('active'));
+      document.querySelectorAll('.nb-view').forEach(v=>v.classList.remove('active'));
+      tab.classList.add('active');
+      document.getElementById('nbview-'+tab.dataset.tab).classList.add('active');
+      document.getElementById('nb-name').textContent = nbNames[tab.dataset.tab];
+    });
+  });
+
+  // ---- prediction vs actual scatter ----
+  const versionColor = {v1:'#6C63FF', v2:'#14B8A6', v3:'#F97066'};
+  const scatterData = (()=>{
+    const versions = ['v1','v2','v3'];
+    const pts = [];
+    let seed = 11;
+    function rnd(){ seed = (seed*9301+49297)%233280; return seed/233280; }
+    versions.forEach((v,vi)=>{
+      for(let i=0;i<12;i++){
+        const base = 30 + rnd()*330;
+        const err = (3-vi)*10;
+        pts.push({ x: base, y: base + (rnd()-0.5)*err - 10, version:v });
+      }
+    });
+    return pts;
+  })();
+  function renderScatter(colorBy){
+    const g = document.getElementById('scatter-points');
+    g.innerHTML = '';
+    scatterData.forEach(p=>{
+      const c = colorBy==='model_version' ? versionColor[p.version] : '#3D4FD1';
+      const circle = document.createElementNS('http://www.w3.org/2000/svg','circle');
+      circle.setAttribute('cx', p.x);
+      circle.setAttribute('cy', 195 - p.y*0.5);
+      circle.setAttribute('r', 4);
+      circle.setAttribute('fill', c);
+      circle.setAttribute('opacity','0.85');
+      g.appendChild(circle);
+    });
+    const legend = document.getElementById('scatter-legend');
+    legend.innerHTML = '';
+    if(colorBy==='model_version'){
+      Object.entries(versionColor).forEach(([name,col])=>{
+        legend.innerHTML += `<span><span class="swatch" style="background:${col}"></span>${name}</span>`;
+      });
+    }
+  }
+  document.getElementById('s-color').addEventListener('change', e=>renderScatter(e.target.value));
+  renderScatter('model_version');
+
+  // ---- training data histogram ----
+  const histPresets = {
+    age:[10,18,28,34,30,22,14,8],
+    income:[4,9,20,32,38,28,16,7],
+    tenure_months:[26,22,19,17,14,12,10,9]
+  };
+  function renderHist(col){
+    const bars = document.getElementById('hist-bars');
+    bars.innerHTML = '';
+    const vals = histPresets[col];
+    const max = Math.max(...vals);
+    const w=42, gap=10, startX=30;
+    vals.forEach((v,i)=>{
+      const h=(v/max)*120;
+      const rect = document.createElementNS('http://www.w3.org/2000/svg','rect');
+      rect.setAttribute('x', startX+i*(w+gap));
+      rect.setAttribute('y', 150-h);
+      rect.setAttribute('width', w);
+      rect.setAttribute('height', h);
+      rect.setAttribute('fill', '#3D4FD1');
+      rect.setAttribute('opacity','0.85');
+      rect.style.transition='y 0.35s ease, height 0.35s ease';
+      bars.appendChild(rect);
+    });
+  }
+  document.getElementById('eda-col').addEventListener('change', e=>renderHist(e.target.value));
+  renderHist('income');
+
+  // ---- run comparison table ----
+  const runColor = {v1:'#6C63FF', v2:'#14B8A6', v3:'#F97066', v4:'#22C55E'};
+  const runs = [
+    {run:'giddy-forest-12', lr:0.01,  batch:32,  acc:88.4, loss:0.31, status:'finished', c:'v2'},
+    {run:'swift-cedar-9',   lr:0.003, batch:64,  acc:91.2, loss:0.24, status:'finished', c:'v3'},
+    {run:'lucky-tide-21',   lr:0.05,  batch:16,  acc:71.0, loss:0.58, status:'failed',   c:'v1'},
+    {run:'calm-river-4',    lr:0.001, batch:128, acc:93.6, loss:0.19, status:'finished', c:'v4'},
+    {run:'bright-orbit-17', lr:0.01,  batch:32,  acc:0,    loss:0,    status:'running',  c:'v2'},
+    {run:'quiet-storm-3',   lr:0.02,  batch:64,  acc:84.9, loss:0.36, status:'finished', c:'v1'},
+    {run:'sharp-comet-8',   lr:0.003, batch:32,  acc:89.7, loss:0.27, status:'finished', c:'v3'},
+    {run:'plain-ember-15',  lr:0.08,  batch:16,  acc:63.5, loss:0.71, status:'failed',   c:'v1'},
+  ];
+  const tbody = document.querySelector('#f-table tbody');
+  runs.forEach(r=>{
+    const tr = document.createElement('tr');
+    tr.dataset.status = r.status;
+    tr.dataset.acc = r.acc;
+    tr.innerHTML = `<td><span class="run-dot" style="background:${runColor[r.c]}"></span>${r.run}</td>
+      <td>${r.lr}</td><td>${r.batch}</td><td>${r.acc ? r.acc.toFixed(1)+'%' : '—'}</td>
+      <td>${r.loss || '—'}</td><td><span class="status-pill ${r.status}">${r.status}</span></td>`;
+    tbody.appendChild(tr);
+  });
+  function applyFilters(){
+    const status = document.getElementById('f-status').value;
+    const minAcc = parseFloat(document.getElementById('f-acc').value);
+    document.getElementById('f-acc-val').textContent = minAcc+'%';
+    let count=0;
+    document.querySelectorAll('#f-table tbody tr').forEach(tr=>{
+      const match = (status==='all' || tr.dataset.status===status) && parseFloat(tr.dataset.acc) >= minAcc;
+      tr.classList.toggle('hidden', !match);
+      if(match) count++;
+    });
+    document.getElementById('f-count').innerHTML = `<b>${count}</b> runs match your filters`;
+  }
+  document.getElementById('f-status').addEventListener('change', applyFilters);
+  document.getElementById('f-acc').addEventListener('input', applyFilters);
+  applyFilters();
+
+  // ---- confusion matrix ----
+  const cmClasses = ['Basic','Pro','Enterprise'];
+  const cmRaw = [ [98,10,2], [14,86,6], [3,7,54] ]; // rows=actual, cols=predicted
+  function cmNormalized(mode){
+    if(mode==='row') return cmRaw.map(row=>{ const s=row.reduce((a,b)=>a+b,0); return row.map(v=>v/s); });
+    if(mode==='col'){
+      const colSums = [0,0,0];
+      cmRaw.forEach(row=>row.forEach((v,j)=>colSums[j]+=v));
+      return cmRaw.map(row=>row.map((v,j)=>v/colSums[j]));
+    }
+    return cmRaw;
+  }
+  function renderConfusion(mode){
+    const svg = document.getElementById('cm-svg');
+    svg.innerHTML = '';
+    const m = cmNormalized(mode);
+    const flat = m.flat();
+    const max = Math.max(...flat);
+    const cell = 60, offsetX = 70, offsetY = 20;
+    for(let i=0;i<3;i++){
+      for(let j=0;j<3;j++){
+        const val = m[i][j];
+        const alpha = max ? (val/max) : 0;
+        const rect = document.createElementNS('http://www.w3.org/2000/svg','rect');
+        rect.setAttribute('x', offsetX + j*cell);
+        rect.setAttribute('y', offsetY + i*cell);
+        rect.setAttribute('width', cell-2);
+        rect.setAttribute('height', cell-2);
+        rect.setAttribute('fill', `rgba(108,99,255,${0.15+0.7*alpha})`);
+        svg.appendChild(rect);
+        const text = document.createElementNS('http://www.w3.org/2000/svg','text');
+        text.setAttribute('x', offsetX + j*cell + (cell-2)/2);
+        text.setAttribute('y', offsetY + i*cell + (cell-2)/2 + 4);
+        text.setAttribute('text-anchor','middle');
+        text.setAttribute('font-size','12');
+        text.setAttribute('fill', alpha>0.5 ? '#fff' : '#181A3D');
+        text.textContent = mode==='none' ? val : val.toFixed(2);
+        svg.appendChild(text);
+      }
+    }
+    cmClasses.forEach((c,j)=>{
+      const t = document.createElementNS('http://www.w3.org/2000/svg','text');
+      t.setAttribute('x', offsetX + j*cell + (cell-2)/2);
+      t.setAttribute('y', offsetY - 8);
+      t.setAttribute('text-anchor','middle');
+      t.setAttribute('font-size','10');
+      t.setAttribute('fill','#6B7280');
+      t.textContent = c;
+      svg.appendChild(t);
+    });
+    cmClasses.forEach((c,i)=>{
+      const t = document.createElementNS('http://www.w3.org/2000/svg','text');
+      t.setAttribute('x', offsetX - 8);
+      t.setAttribute('y', offsetY + i*cell + (cell-2)/2 + 4);
+      t.setAttribute('text-anchor','end');
+      t.setAttribute('font-size','10');
+      t.setAttribute('fill','#6B7280');
+      t.textContent = c;
+      svg.appendChild(t);
+    });
+  }
+  document.getElementById('cm-normalize').addEventListener('change', e=>renderConfusion(e.target.value));
+  renderConfusion('none');
+
+  // ---- loss curves ----
+  const lossRunColor = {'giddy-forest-12':'#6C63FF','swift-cedar-9':'#14B8A6','calm-river-4':'#F97066','quiet-storm-3':'#22C55E'};
+  const lossDecay = {'giddy-forest-12':0.02,'swift-cedar-9':0.035,'calm-river-4':0.05,'quiet-storm-3':0.015};
+  const lossSteps = Array.from({length:60}, (_,i)=>i*3.3);
+  function lossCurve(name){
+    return lossSteps.map(s => 1.2*Math.exp(-lossDecay[name]*s) + 0.05);
+  }
+  const lossToggleState = {};
+  Object.keys(lossRunColor).forEach(name=>lossToggleState[name]=true);
+  function renderLossToggles(){
+    const wrap = document.getElementById('loss-run-toggles');
+    wrap.innerHTML = '';
+    Object.keys(lossRunColor).forEach(name=>{
+      const field = document.createElement('label');
+      field.style.display='flex'; field.style.alignItems='center'; field.style.gap='6px';
+      field.style.fontSize='12px'; field.style.color='#181A3D'; field.style.cursor='pointer';
+      field.innerHTML = `<input type="checkbox" ${lossToggleState[name]?'checked':''} style="accent-color:${lossRunColor[name]}"><span class="swatch" style="background:${lossRunColor[name]}"></span>${name}`;
+      field.querySelector('input').addEventListener('change', e=>{ lossToggleState[name]=e.target.checked; renderLoss(); });
+      wrap.appendChild(field);
+    });
+  }
+  function renderLoss(){
+    const g = document.getElementById('loss-lines');
+    g.innerHTML = '';
+    const maxLoss = 1.3;
+    Object.keys(lossRunColor).forEach(name=>{
+      if(!lossToggleState[name]) return;
+      const vals = lossCurve(name);
+      const pts = vals.map((v,i)=>{
+        const x = 28 + (i/(lossSteps.length-1))*370;
+        const y = 195 - (v/maxLoss)*180;
+        return `${x},${y}`;
+      }).join(' ');
+      const poly = document.createElementNS('http://www.w3.org/2000/svg','polyline');
+      poly.setAttribute('points', pts);
+      poly.setAttribute('fill','none');
+      poly.setAttribute('stroke', lossRunColor[name]);
+      poly.setAttribute('stroke-width','2');
+      g.appendChild(poly);
+    });
+    const legend = document.getElementById('loss-legend');
+    legend.innerHTML = Object.keys(lossRunColor).filter(n=>lossToggleState[n]).map(n=>
+      `<span><span class="swatch" style="background:${lossRunColor[n]}"></span>${n}</span>`
+    ).join('');
+  }
+  renderLossToggles();
+  renderLoss();
+
+  // ---- feature importance ----
+  const fiData = [
+    {feature:'tenure_months', importance:0.24},
+    {feature:'monthly_charges', importance:0.19},
+    {feature:'contract_type', importance:0.16},
+    {feature:'support_tickets', importance:0.12},
+    {feature:'plan', importance:0.09},
+    {feature:'age', importance:0.07},
+    {feature:'payment_method', importance:0.05},
+    {feature:'add_ons', importance:0.04},
+    {feature:'signup_channel', importance:0.02},
+    {feature:'region', importance:0.02},
+  ];
+  function renderFeatureImportance(topN){
+    const svg = document.getElementById('fi-svg');
+    svg.innerHTML = '';
+    const ranked = fiData.slice(0, topN);
+    const max = Math.max(...ranked.map(d=>d.importance));
+    const barH = 18, gap = 6, startY = 10, startX = 130;
+    ranked.forEach((d,i)=>{
+      const y = startY + i*(barH+gap);
+      const w = (d.importance/max)*260;
+      const rect = document.createElementNS('http://www.w3.org/2000/svg','rect');
+      rect.setAttribute('x', startX); rect.setAttribute('y', y);
+      rect.setAttribute('width', w); rect.setAttribute('height', barH);
+      rect.setAttribute('fill', '#6C63FF');
+      svg.appendChild(rect);
+      const label = document.createElementNS('http://www.w3.org/2000/svg','text');
+      label.setAttribute('x', startX-8); label.setAttribute('y', y+barH-5);
+      label.setAttribute('text-anchor','end'); label.setAttribute('font-size','11'); label.setAttribute('fill','#181A3D');
+      label.textContent = d.feature;
+      svg.appendChild(label);
+    });
+  }
+  document.getElementById('fi-topn').addEventListener('input', e=>{
+    document.getElementById('fi-topn-val').textContent = e.target.value;
+    renderFeatureImportance(parseInt(e.target.value));
+  });
+  renderFeatureImportance(8);
+
+  // ---- embedding projector ----
+  const embClusters = {Basic:[0,0],Pro:[6,4],Enterprise:[3,-5]};
+  const embColor = {Basic:'#6C63FF',Pro:'#14B8A6',Enterprise:'#F97066'};
+  const embData = (()=>{
+    let seed=41;
+    function rnd(){ seed=(seed*9301+49297)%233280; return seed/233280; }
+    const pts=[];
+    Object.entries(embClusters).forEach(([label,[cx,cy]])=>{
+      for(let i=0;i<24;i++){
+        pts.push({x:cx+(rnd()-0.5)*3.6, y:cy+(rnd()-0.5)*3.6, plan:label});
+      }
+    });
+    return pts;
+  })();
+  function renderEmbedding(){
+    const svg = document.getElementById('emb-svg');
+    svg.innerHTML = '';
+    const scaleX = v => 210 + v*22;
+    const scaleY = v => 130 - v*14;
+    embData.forEach(p=>{
+      const c = document.createElementNS('http://www.w3.org/2000/svg','circle');
+      c.setAttribute('cx', scaleX(p.x)); c.setAttribute('cy', scaleY(p.y));
+      c.setAttribute('r', 4); c.setAttribute('fill', embColor[p.plan]); c.setAttribute('opacity','0.8');
+      svg.appendChild(c);
+    });
+    document.getElementById('emb-legend').innerHTML = Object.entries(embColor).map(([name,col])=>
+      `<span><span class="swatch" style="background:${col}"></span>${name}</span>`
+    ).join('');
+  }
+  renderEmbedding();
+
+  // ---- sweep results ----
+  const sweepData = (()=>{
+    let seed=71;
+    function rnd(){ seed=(seed*9301+49297)%233280; return seed/233280; }
+    const pts=[];
+    for(let i=0;i<36;i++){
+      const lr = Math.pow(10, -4 + rnd()*3);
+      const batch = [16,32,64,128][Math.floor(rnd()*4)];
+      const acc = Math.min(97, Math.max(40, 95 - 8*Math.log10(lr/1e-4) + (rnd()-0.5)*10));
+      pts.push({lr, batch, acc});
+    }
+    return pts;
+  })();
+  function renderSweep(param){
+    const svg = document.getElementById('sw-svg');
+    const g = document.getElementById('sw-points');
+    g.innerHTML = '';
+    const useLog = param==='lr';
+    const vals = sweepData.map(d => param==='lr' ? d.lr : d.batch);
+    const logVals = useLog ? vals.map(v=>Math.log10(v)) : vals;
+    const minV = Math.min(...logVals), maxV = Math.max(...logVals);
+    sweepData.forEach(d=>{
+      const raw = param==='lr' ? d.lr : d.batch;
+      const v = useLog ? Math.log10(raw) : raw;
+      const x = 28 + ((v-minV)/(maxV-minV))*365;
+      const y = 195 - ((d.acc-40)/(97-40))*180;
+      const alpha = (d.acc-40)/(97-40);
+      const c = document.createElementNS('http://www.w3.org/2000/svg','circle');
+      c.setAttribute('cx', x); c.setAttribute('cy', y); c.setAttribute('r', 4.5);
+      c.setAttribute('fill', `rgba(108,99,255,${0.3+0.6*alpha})`);
+      g.appendChild(c);
+    });
+  }
+  document.getElementById('sw-param').addEventListener('change', e=>renderSweep(e.target.value));
+  renderSweep('lr');
+
+  // ---- data drift ----
+  function gaussianBars(mean, std, n, bins, range){
+    let seed = mean*7+std*3;
+    function rnd(){ seed=(seed*9301+49297)%233280; return seed/233280; }
+    const counts = new Array(bins).fill(0);
+    for(let i=0;i<n;i++){
+      const u1=rnd(), u2=rnd();
+      const z = Math.sqrt(-2*Math.log(u1||0.0001))*Math.cos(2*Math.PI*u2);
+      const val = mean + z*std;
+      const idx = Math.floor(((val-range[0])/(range[1]-range[0]))*bins);
+      if(idx>=0 && idx<bins) counts[idx]++;
+    }
+    return counts;
+  }
+  function renderDrift(){
+    const refCounts = gaussianBars(58000, 16000, 400, 24, [10000, 120000]);
+    const curCounts = gaussianBars(67000, 21000, 400, 24, [10000, 120000]);
+    const g = document.getElementById('drift-bars');
+    g.innerHTML = '';
+    const maxCount = Math.max(...refCounts, ...curCounts);
+    const barW = 380/24;
+    for(let i=0;i<24;i++){
+      const refH = (refCounts[i]/maxCount)*140;
+      const curH = (curCounts[i]/maxCount)*140;
+      const x = 20 + i*barW;
+      const r1 = document.createElementNS('http://www.w3.org/2000/svg','rect');
+      r1.setAttribute('x', x); r1.setAttribute('y', 170-refH);
+      r1.setAttribute('width', barW*0.45); r1.setAttribute('height', refH);
+      r1.setAttribute('fill', '#3D4FD1'); r1.setAttribute('opacity','0.7');
+      g.appendChild(r1);
+      const r2 = document.createElementNS('http://www.w3.org/2000/svg','rect');
+      r2.setAttribute('x', x+barW*0.48); r2.setAttribute('y', 170-curH);
+      r2.setAttribute('width', barW*0.45); r2.setAttribute('height', curH);
+      r2.setAttribute('fill', '#F97066'); r2.setAttribute('opacity','0.7');
+      g.appendChild(r2);
+    }
+  }
+  renderDrift();
+</script>
+
+</body>
+</html>

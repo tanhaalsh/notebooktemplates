@@ -1,0 +1,1627 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="_ds/2026-coreweave-design-system-june-a63cc0f4-563e-46d5-a9bc-929b66e4fdbe/tokens/fonts.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600&family=PT+Sans:wght@400;700&family=Fira+Mono:wght@400;500&display=swap">
+  <link rel="stylesheet" href="_ds/2026-coreweave-design-system-june-a63cc0f4-563e-46d5-a9bc-929b66e4fdbe/tokens/colors.css">
+  <link rel="stylesheet" href="_ds/2026-coreweave-design-system-june-a63cc0f4-563e-46d5-a9bc-929b66e4fdbe/tokens/typography.css">
+  <link rel="stylesheet" href="_ds/2026-coreweave-design-system-june-a63cc0f4-563e-46d5-a9bc-929b66e4fdbe/tokens/spacing.css">
+  <link rel="stylesheet" href="_ds/2026-coreweave-design-system-june-a63cc0f4-563e-46d5-a9bc-929b66e4fdbe/tokens/effects.css">
+  <link rel="stylesheet" href="_ds/2026-coreweave-design-system-june-a63cc0f4-563e-46d5-a9bc-929b66e4fdbe/styles.css">
+  <script src="_ds/2026-coreweave-design-system-june-a63cc0f4-563e-46d5-a9bc-929b66e4fdbe/_ds_bundle.js"></script>
+  <style>
+    body{margin:0;background:var(--cw-gray-100);}
+    *{box-sizing:border-box;}
+    a{color:var(--cw-blue-700);text-decoration:none;}
+    a:hover{color:var(--cw-blue-500);}
+    input:focus,select:focus{outline:2px solid var(--cw-blue-500);outline-offset:1px;}
+  </style>
+</helmet>
+<div style="width:1440px;height:948px;position:relative;overflow:hidden;font-family:var(--font-brand);color:var(--text-primary);background:#fff;">
+  <div style="width:100%;height:100%;background:#fff;overflow:auto;display:flex;flex-direction:column;">
+
+    <sc-if value="{{ isGallery }}" hint-placeholder-val="{{ true }}">
+      <div data-screen-label="Gallery" style="height:100%;display:flex;flex-direction:column;">
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px 20px;border-bottom:1px solid var(--color-border);">
+          <div style="display:flex;align-items:center;gap:16px;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="var(--cw-gray-700)"><circle cx="5" cy="5" r="1.6"></circle><circle cx="12" cy="5" r="1.6"></circle><circle cx="19" cy="5" r="1.6"></circle><circle cx="5" cy="12" r="1.6"></circle><circle cx="12" cy="12" r="1.6"></circle><circle cx="19" cy="12" r="1.6"></circle><circle cx="5" cy="19" r="1.6"></circle><circle cx="12" cy="19" r="1.6"></circle><circle cx="19" cy="19" r="1.6"></circle></svg>
+            <div style="display:flex;align-items:center;gap:8px;">
+              <img src="assets/coreweave-mark-blue.png" alt="CoreWeave" style="height: 22px; width: auto; display: block; position: static">
+              <span style="font-weight:800;font-size:15px;letter-spacing:-0.01em;">Forge</span>
+            </div>
+            <span style="font-weight:600;font-size:14px;color:var(--text-secondary);">Notebooks</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:16px;">
+            <div onClick="{{ stop }}" style="position:relative;">
+              <sc-if value="{{ gsOpen }}" hint-placeholder-val="{{ false }}">
+                <div style="display:flex;align-items:center;gap:8px;border:1px solid var(--cw-blue-500);background:#fff;border-radius:var(--radius-sm);padding:0 10px;height:34px;width:320px;">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--cw-gray-850)" stroke-width="1.8"><circle cx="11" cy="11" r="7"></circle><path d="M21 21l-4.3-4.3"></path></svg>
+                  <input ref="{{ gsRef }}" value="{{ gq }}" onChange="{{ onGq }}" onKeyDown="{{ onGqKey }}" placeholder="Search templates and notebooks" style="border:none;outline:none;font-family:var(--font-brand);font-size:13px;width:100%;background:transparent;color:var(--text-primary);">
+                  <span onClick="{{ closeGs }}" style="display:flex;color:var(--cw-gray-850);cursor:pointer;" style-hover="color:var(--cw-blue-700);"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 6l12 12M18 6L6 18"></path></svg></span>
+                </div>
+                <sc-if value="{{ gsHasQuery }}" hint-placeholder-val="{{ false }}">
+                  <div style="position:absolute;top:40px;right:0;width:360px;background:#fff;border:1px solid var(--color-border);border-radius:var(--radius-md);box-shadow:var(--shadow-md);z-index:40;padding:6px;display:flex;flex-direction:column;max-height:420px;overflow-y:auto;">
+                    <sc-if value="{{ gsHasTpl }}" hint-placeholder-val="{{ false }}">
+                      <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:0.06em;text-transform:uppercase;color:var(--text-secondary);padding:8px 10px 4px;">Templates</div>
+                      <sc-for list="{{ gsTpl }}" as="gt" hint-placeholder-count="2">
+                        <div onClick="{{ gt.open }}" style="display:flex;justify-content:space-between;align-items:center;gap:10px;padding:8px 10px;border-radius:var(--radius-xs);cursor:pointer;" style-hover="background:var(--cw-blue-50);">
+                          <span style="font-size:13px;font-weight:600;">{{ gt.title }}</span>
+                          <span style="font-family:var(--font-mono);font-size:10px;color:var(--text-secondary);white-space:nowrap;">{{ gt.cat }}</span>
+                        </div>
+                      </sc-for>
+                    </sc-if>
+                    <sc-if value="{{ gsHasNb }}" hint-placeholder-val="{{ false }}">
+                      <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:0.06em;text-transform:uppercase;color:var(--text-secondary);padding:8px 10px 4px;">Notebooks</div>
+                      <sc-for list="{{ gsNb }}" as="gn" hint-placeholder-count="2">
+                        <div onClick="{{ gn.open }}" style="display:flex;flex-direction:column;gap:2px;padding:8px 10px;border-radius:var(--radius-xs);cursor:pointer;" style-hover="background:var(--cw-blue-50);">
+                          <span style="font-size:13px;font-weight:600;">{{ gn.title }}</span>
+                          <span style="font-family:var(--font-mono);font-size:11px;color:var(--text-secondary);">{{ gn.project }}</span>
+                        </div>
+                      </sc-for>
+                    </sc-if>
+                    <sc-if value="{{ gsEmpty }}" hint-placeholder-val="{{ false }}">
+                      <div style="font-size:13px;color:var(--text-secondary);padding:10px;">No results for “{{ gq }}”</div>
+                    </sc-if>
+                  </div>
+                </sc-if>
+              </sc-if>
+              <sc-if value="{{ gsClosed }}" hint-placeholder-val="{{ true }}">
+                <span onClick="{{ openGs }}" title="Search" style="display:flex;padding:6px;border-radius:var(--radius-xs);color:var(--cw-gray-850);cursor:pointer;" style-hover="color:var(--cw-blue-700);background:var(--cw-blue-50);">
+                  <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="11" cy="11" r="7"></circle><path d="M21 21l-4.3-4.3"></path></svg>
+                </span>
+              </sc-if>
+            </div>
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="var(--cw-gray-850)" stroke-width="1.6"><circle cx="12" cy="12" r="9"></circle><path d="M9.5 9a2.5 2.5 0 1 1 3.5 2.3c-.8.4-1 .9-1 1.7" stroke-linecap="round"></path><circle cx="12" cy="17" r="0.6" fill="currentColor"></circle></svg>
+            <x-import component-from-global-scope="CoreWeaveDesignSystem_a63cc0.Button" variant="secondary" size="sm" icon-left="{{ sparkIcon }}" hint-size="110px,34px">Ask ARIA</x-import>
+            <div style="display:flex;align-items:center;gap:10px;">
+              <div style="text-align:right;line-height:1.25;">
+                <div style="font-size:13px;font-weight:600;">Tanha Alsheikhdallah</div>
+                <div style="font-size:12px;color:var(--text-secondary);">wandb</div>
+              </div>
+              <div style="width:32px;height:32px;border-radius:50%;background:var(--cw-blue-700);color:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;">TA</div>
+            </div>
+          </div>
+        </div>
+
+        <div style="display:flex;flex:1;min-height:0;">
+          <div style="width:220px;flex-shrink:0;border-right:1px solid var(--color-border);padding:16px 12px;display:flex;flex-direction:column;gap:2px;">
+            <div onClick="{{ nav.home.go }}" style="display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:var(--radius-sm);font-size:14px;cursor:pointer;background:{{ nav.home.bg }};color:{{ nav.home.fg }};font-weight:{{ nav.home.fw }};">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 11l9-7 9 7"></path><path d="M5 10v9h14v-9"></path></svg>Overview
+            </div>
+            <div onClick="{{ nav.templates.go }}" style="display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:var(--radius-sm);font-size:14px;cursor:pointer;background:{{ nav.templates.bg }};color:{{ nav.templates.fg }};font-weight:{{ nav.templates.fw }};">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="7" height="7" rx="1.5"></rect><rect x="14" y="3" width="7" height="7" rx="1.5"></rect><rect x="3" y="14" width="7" height="7" rx="1.5"></rect><rect x="14" y="14" width="7" height="7" rx="1.5"></rect></svg>Getting started
+            </div>
+            <div onClick="{{ nav.quickstart.go }}" style="display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:var(--radius-sm);font-size:14px;cursor:pointer;background:{{ nav.quickstart.bg }};color:{{ nav.quickstart.fg }};font-weight:{{ nav.quickstart.fw }};">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="6" rx="1.5"></rect><rect x="3" y="12" width="8" height="9" rx="1.5"></rect><rect x="13" y="12" width="8" height="9" rx="1.5"></rect></svg>Quickstart templates
+            </div>
+          </div>
+
+          <div style="flex:1;min-width:0;background:var(--cw-gray-50);overflow-y:auto;display:flex;flex-direction:column;">
+            <sc-if value="{{ inGalleryView }}" hint-placeholder-val="{{ true }}">
+            <div style="padding:40px 36px 48px;">
+
+            <sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
+              <div style="display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:16px;margin-bottom:32px;">
+                <div onClick="{{ openCreate }}" style="aspect-ratio:9/5;min-width:0;cursor:pointer;display:flex;flex-direction:column;border-radius:var(--radius-md);overflow:hidden;transition:border-color 120ms;border:1px dashed var(--cw-gray-500);background:#fff;color:var(--cw-gray-850);" style-hover="border-color:var(--cw-blue-500);color:var(--cw-blue-700);">
+                  <div style="flex:1;min-height:0;display:flex;align-items:center;justify-content:center;">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 5v14M5 12h14"></path></svg>
+                  </div>
+                  <div style="padding:8px 12px;font-size:12px;font-weight:600;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex-shrink:0;color:var(--text-primary);">Blank notebook</div>
+                </div>
+                <div onClick="{{ homeOpen.loss }}" style="aspect-ratio:9/5;min-width:0;cursor:pointer;display:flex;flex-direction:column;border-radius:var(--radius-md);overflow:hidden;transition:border-color 120ms;border:1px solid var(--color-border);background:#fff;" style-hover="border-color:var(--cw-blue-300);">
+                  <div style="flex:1;min-height:0;background:var(--cw-blue-50);padding:6px 10px;"><svg viewBox="0 0 160 100" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" style="display:block;"><path d="M14 20 Q60 30 90 65 T146 82" stroke="#0541E9" fill="none" stroke-width="2"></path><path d="M14 26 Q60 50 90 72 T146 88" stroke="#2374FF" fill="none" stroke-width="2"></path><path d="M14 18 Q55 22 85 58 T146 76" stroke="#63A4FF" fill="none" stroke-width="2"></path></svg></div>
+                  <div style="padding:8px 12px;font-size:12px;font-weight:600;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex-shrink:0;border-top:1px solid var(--color-border);">Pretraining loss curves</div>
+                </div>
+                <div onClick="{{ homeOpen.scatter }}" style="aspect-ratio:9/5;min-width:0;cursor:pointer;display:flex;flex-direction:column;border-radius:var(--radius-md);overflow:hidden;transition:border-color 120ms;border:1px solid var(--color-border);background:#fff;" style-hover="border-color:var(--cw-blue-300);">
+                  <div style="flex:1;min-height:0;background:var(--cw-blue-50);padding:6px 10px;"><svg viewBox="0 0 160 100" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" style="display:block;"><line x1="14" y1="86" x2="140" y2="18" stroke="#9DC7FE" stroke-dasharray="3,3"></line><circle cx="40" cy="66" r="3.5" fill="#0541E9"></circle><circle cx="55" cy="58" r="3.5" fill="#0541E9"></circle><circle cx="70" cy="50" r="3.5" fill="#2374FF"></circle><circle cx="90" cy="46" r="3.5" fill="#2374FF"></circle><circle cx="105" cy="34" r="3.5" fill="#63A4FF"></circle><circle cx="120" cy="28" r="3.5" fill="#63A4FF"></circle><circle cx="60" cy="70" r="3.5" fill="#0541E9"></circle><circle cx="100" cy="40" r="3.5" fill="#2374FF"></circle></svg></div>
+                  <div style="padding:8px 12px;font-size:12px;font-weight:600;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex-shrink:0;border-top:1px solid var(--color-border);">Reward model calibration</div>
+                </div>
+                <div onClick="{{ homeOpen.filter }}" style="aspect-ratio:9/5;min-width:0;cursor:pointer;display:flex;flex-direction:column;border-radius:var(--radius-md);overflow:hidden;transition:border-color 120ms;border:1px solid var(--color-border);background:#fff;" style-hover="border-color:var(--cw-blue-300);">
+                  <div style="flex:1;min-height:0;background:var(--cw-blue-50);padding:6px 10px;"><svg viewBox="0 0 160 100" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" style="display:block;"><circle cx="24" cy="26" r="4" fill="#0541E9"></circle><line x1="34" y1="26" x2="130" y2="26" stroke="#9DC7FE" stroke-width="2"></line><circle cx="24" cy="46" r="4" fill="#2374FF"></circle><line x1="34" y1="46" x2="110" y2="46" stroke="#9DC7FE" stroke-width="2"></line><circle cx="24" cy="66" r="4" fill="#63A4FF"></circle><line x1="34" y1="66" x2="95" y2="66" stroke="#9DC7FE" stroke-width="2"></line><circle cx="24" cy="86" r="4" fill="#0541E9"></circle><line x1="34" y1="86" x2="120" y2="86" stroke="#9DC7FE" stroke-width="2"></line></svg></div>
+                  <div style="padding:8px 12px;font-size:12px;font-weight:600;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex-shrink:0;border-top:1px solid var(--color-border);">Agent eval leaderboard</div>
+                </div>
+                <div onClick="{{ homeOpen.confusion }}" style="aspect-ratio:9/5;min-width:0;cursor:pointer;display:flex;flex-direction:column;border-radius:var(--radius-md);overflow:hidden;transition:border-color 120ms;border:1px solid var(--color-border);background:#fff;" style-hover="border-color:var(--cw-blue-300);">
+                  <div style="flex:1;min-height:0;background:var(--cw-blue-50);padding:6px 10px;"><svg viewBox="0 0 160 100" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" style="display:block;"><rect x="47" y="17" width="20" height="20" rx="3" fill="#0541E9" opacity="1"></rect><rect x="69" y="17" width="20" height="20" rx="3" fill="#0541E9" opacity="0.35"></rect><rect x="91" y="17" width="20" height="20" rx="3" fill="#0541E9" opacity="0.15"></rect><rect x="47" y="39" width="20" height="20" rx="3" fill="#0541E9" opacity="0.3"></rect><rect x="69" y="39" width="20" height="20" rx="3" fill="#0541E9" opacity="1"></rect><rect x="91" y="39" width="20" height="20" rx="3" fill="#0541E9" opacity="0.25"></rect><rect x="47" y="61" width="20" height="20" rx="3" fill="#0541E9" opacity="0.12"></rect><rect x="69" y="61" width="20" height="20" rx="3" fill="#0541E9" opacity="0.2"></rect><rect x="91" y="61" width="20" height="20" rx="3" fill="#0541E9" opacity="1"></rect></svg></div>
+                  <div style="padding:8px 12px;font-size:12px;font-weight:600;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex-shrink:0;border-top:1px solid var(--color-border);">Teacher–student agreement</div>
+                </div>
+                <div onClick="{{ openPanel }}" style="aspect-ratio:9/5;min-width:0;cursor:pointer;display:flex;flex-direction:column;border-radius:var(--radius-md);overflow:hidden;transition:border-color 120ms;border:1px solid transparent;background:var(--cw-blue-700);color:#fff;" style-hover="background:var(--cw-blue-500);">
+                  <div style="flex:1;min-height:0;display:flex;align-items:center;justify-content:center;">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="6" rx="1.5"></rect><rect x="3" y="12" width="8" height="9" rx="1.5"></rect><rect x="13" y="12" width="8" height="9" rx="1.5"></rect></svg>
+                  </div>
+                  <div style="padding:8px 12px;font-size:12px;font-weight:600;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex-shrink:0;">View more templates</div>
+                </div>
+              </div>
+              <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
+                <h2 style="font-size:20px;font-weight:700;margin:0;flex:1;letter-spacing:-0.01em;">Notebooks&nbsp;</h2>
+                <x-import component-from-global-scope="CoreWeaveDesignSystem_a63cc0.Button" variant="support" appearance="outline" size="sm" on-click="{{ openPanel }}" hint-size="150px,34px">Explore templates</x-import>
+                <x-import component-from-global-scope="CoreWeaveDesignSystem_a63cc0.Button" variant="support" appearance="outline" size="sm" icon-left="{{ uploadIcon }}" on-click="{{ openUpload }}" hint-size="160px,34px">Upload notebook</x-import>
+                <x-import component-from-global-scope="CoreWeaveDesignSystem_a63cc0.Button" size="sm" icon-left="{{ plusIcon }}" on-click="{{ openCreate }}" hint-size="120px,34px">Create new</x-import>
+              </div>
+              <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;flex-wrap:wrap;">
+                <div style="display:flex;align-items:center;gap:10px;border:1px solid var(--cw-gray-300);background:#fff;border-radius:var(--radius-sm);padding:0 12px;height:34px;width:320px;max-width:100%;">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--cw-gray-850)" stroke-width="1.8"><circle cx="11" cy="11" r="7"></circle><path d="M21 21l-4.3-4.3"></path></svg>
+                  <input value="{{ nbQuery }}" onChange="{{ onNbQuery }}" placeholder="Search notebooks" style="border:none;outline:none;font-family:var(--font-brand);font-size:13px;width:100%;background:transparent;color:var(--text-primary);">
+                </div>
+                <x-import component-from-global-scope="CoreWeaveDesignSystem_a63cc0.Button" variant="{{ filterBtnVariant }}" appearance="outline" size="sm" icon-left="{{ filterIcon }}" on-click="{{ toggleFilters }}" hint-size="100px,34px">{{ filterLabel }}</x-import>
+                <sc-if value="{{ filtersOpen }}" hint-placeholder-val="{{ false }}">
+                  <select value="{{ fProject }}" onChange="{{ onFProject }}" style="height:34px;padding:0 10px;border:1px solid var(--cw-gray-300);border-radius:var(--radius-sm);background:#fff;font-family:var(--font-brand);font-size:13px;color:var(--text-primary);">
+                    <sc-for list="{{ projectOpts }}" as="po" hint-placeholder-count="3"><option value="{{ po.v }}">{{ po.label }}</option></sc-for>
+                  </select>
+                  <select value="{{ fAuthor }}" onChange="{{ onFAuthor }}" style="height:34px;padding:0 10px;border:1px solid var(--cw-gray-300);border-radius:var(--radius-sm);background:#fff;font-family:var(--font-brand);font-size:13px;color:var(--text-primary);">
+                    <sc-for list="{{ authorOpts }}" as="ao" hint-placeholder-count="3"><option value="{{ ao.v }}">{{ ao.label }}</option></sc-for>
+                  </select>
+                  <sc-if value="{{ hasActiveFilters }}" hint-placeholder-val="{{ false }}">
+                    <span onClick="{{ clearFilters }}" style="font-size:13px;font-weight:600;color:var(--cw-blue-700);cursor:pointer;">Clear</span>
+                  </sc-if>
+                </sc-if>
+                <div style="flex:1;"></div>
+                <span style="font-size:12px;font-family:var(--font-mono);color:var(--text-secondary);">{{ pagination }}</span>
+              </div>
+            </sc-if>
+
+            <sc-if value="{{ isTemplates }}" hint-placeholder-val="{{ false }}">
+              <div style="text-align:center;max-width:620px;margin:8px auto 36px;display:flex;flex-direction:column;align-items:center;gap:14px;">
+                <div style="width:48px;height:48px;border-radius:50%;background:var(--cw-blue-50);color:var(--cw-blue-700);display:flex;align-items:center;justify-content:center;">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 3h9l5 5v13H6z"></path><path d="M9 12h6M9 16h6M9 8h3"></path></svg>
+                </div>
+                <h1 style="font-size: 32px; font-weight: 600; line-height: 0.85; letter-spacing: -0.02em; text-transform: capitalize; margin: 0">Get started with notebooks</h1>
+                <p style="font-size:14px;line-height:1.5;color:var(--text-secondary);margin:0;text-wrap:pretty;">Create, find, and manage live Marimo-powered Python notebooks for exploratory work and data apps.</p>
+              </div>
+              <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:16px;max-width:900px;margin:0 auto;">
+                  <div onClick="{{ openCopy }}" style="background:#fff;border:1px solid var(--color-border);border-radius:var(--radius-md);padding:20px;display:flex;flex-direction:column;justify-content:space-between;gap:16px;min-height:160px;cursor:pointer;transition:border-color 120ms;" style-hover="border-color:var(--cw-blue-300);">
+                    <div style="display:flex;flex-direction:column;gap:8px;">
+                      <div style="font-size:16px;font-weight:700;line-height:1.25;">Fine-tune an LLM with W&amp;B, Agent Pulse, Training and Inference</div>
+                      <p style="font-size:13px;line-height:1.5;color:var(--text-secondary);margin:0;">Fine-tune, track, evaluate, and run inference on an LLM.</p>
+                    </div>
+                    <div style="display:flex;align-items:center;gap:6px;font-size:13px;font-weight:600;color:var(--cw-blue-700);">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="9" y="9" width="11" height="11" rx="1.5"></rect><path d="M5 15V5a1.5 1.5 0 0 1 1.5-1.5H15"></path></svg>Make a copy
+                    </div>
+                  </div>
+                  <div onClick="{{ openCopy }}" style="background:#fff;border:1px solid var(--color-border);border-radius:var(--radius-md);padding:20px;display:flex;flex-direction:column;justify-content:space-between;gap:16px;min-height:160px;cursor:pointer;transition:border-color 120ms;" style-hover="border-color:var(--cw-blue-300);">
+                    <div style="display:flex;flex-direction:column;gap:8px;">
+                      <div style="font-size:16px;font-weight:700;line-height:1.25;">Monitor an agent with Agent Pulse</div>
+                      <p style="font-size:13px;line-height:1.5;color:var(--text-secondary);margin:0;">Instrument an agent and explore its behavior in Agent Pulse.</p>
+                    </div>
+                    <div style="display:flex;align-items:center;gap:6px;font-size:13px;font-weight:600;color:var(--cw-blue-700);">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="9" y="9" width="11" height="11" rx="1.5"></rect><path d="M5 15V5a1.5 1.5 0 0 1 1.5-1.5H15"></path></svg>Make a copy
+                    </div>
+                  </div>
+                  <div onClick="{{ openCopy }}" style="background:#fff;border:1px solid var(--color-border);border-radius:var(--radius-md);padding:20px;display:flex;flex-direction:column;justify-content:space-between;gap:16px;min-height:160px;cursor:pointer;transition:border-color 120ms;" style-hover="border-color:var(--cw-blue-300);">
+                    <div style="display:flex;flex-direction:column;gap:8px;">
+                      <div style="font-size:16px;font-weight:700;line-height:1.25;">Train a robotics model with W&amp;B</div>
+                      <p style="font-size:13px;line-height:1.5;color:var(--text-secondary);margin:0;">Train and evaluate a robotics model with W&amp;B tracking.</p>
+                    </div>
+                    <div style="display:flex;align-items:center;gap:6px;font-size:13px;font-weight:600;color:var(--cw-blue-700);">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="9" y="9" width="11" height="11" rx="1.5"></rect><path d="M5 15V5a1.5 1.5 0 0 1 1.5-1.5H15"></path></svg>Make a copy
+                    </div>
+                  </div>
+              </div>
+              <div style="display:flex;justify-content:center;gap:10px;margin-top:28px;">
+                <x-import component-from-global-scope="CoreWeaveDesignSystem_a63cc0.Button" variant="support" appearance="outline" size="sm" hint-size="140px,34px">Documentation</x-import>
+                <x-import component-from-global-scope="CoreWeaveDesignSystem_a63cc0.Button" size="sm" icon-left="{{ plusIcon }}" on-click="{{ openCreate }}" hint-size="170px,34px">Create from scratch</x-import>
+              </div>
+            </sc-if>
+
+            <sc-if value="{{ isQuickstart }}" hint-placeholder-val="{{ false }}">
+              <div style="display:flex;flex-direction:column;gap:14px;margin-bottom:24px;">
+                <h1 style="font-size: 32px; font-weight: 600; line-height: 0.85; letter-spacing: -0.02em; text-transform: capitalize; margin: 0">Quickstart templates</h1>
+                <p style="font-size:14px;line-height:1.5;color:var(--text-secondary);margin:0;max-width:60ch;">Viz templates for ML experiments. Fork one, run it on sample data, then point it at your own file or an artifact from Registry.</p>
+                <div style="display:flex;align-items:center;gap:10px;border:1px solid var(--cw-gray-300);background:#fff;border-radius:var(--radius-sm);padding:0 14px;height:40px;max-width:420px;">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--cw-gray-850)" stroke-width="1.8"><circle cx="11" cy="11" r="7"></circle><path d="M21 21l-4.3-4.3"></path></svg>
+                  <input value="{{ query }}" onChange="{{ onQuery }}" placeholder="Search quickstart templates" style="border:none;outline:none;font-family:var(--font-brand);font-size:14px;width:100%;background:transparent;color:var(--text-primary);">
+                </div>
+                <div style="display:flex;flex-wrap:wrap;gap:8px;">
+                  <sc-for list="{{ chips }}" as="ch" hint-placeholder-count="6">
+                    <x-import component-from-global-scope="CoreWeaveDesignSystem_a63cc0.Tag" selected="{{ ch.selected }}" on-click="{{ ch.pick }}" style="white-space:nowrap;flex-shrink:0;" hint-size="auto,32px"><span style="white-space:nowrap;">{{ ch.label }}</span></x-import>
+                  </sc-for>
+                </div>
+              </div>
+              <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:18px;">
+                <div onClick="{{ qt.scatter.open }}" onMouseEnter="{{ qt.scatter.enter }}" onMouseLeave="{{ qtLeave }}" style="background:#fff;border:1px solid var(--color-border);border-radius:var(--radius-md);overflow:hidden;cursor:pointer;display:{{ qt.scatter.display }};" style-hover="border-color:var(--cw-blue-300);">
+                  <div style="position:relative;height:120px;background:var(--cw-blue-50);padding:8px 12px;">
+                    <svg viewBox="0 0 160 100" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" style="display:block;"><line x1="14" y1="86" x2="140" y2="18" stroke="#9DC7FE" stroke-dasharray="3,3"></line><circle cx="40" cy="66" r="3.5" fill="#0541E9"></circle><circle cx="55" cy="58" r="3.5" fill="#0541E9"></circle><circle cx="70" cy="50" r="3.5" fill="#2374FF"></circle><circle cx="90" cy="46" r="3.5" fill="#2374FF"></circle><circle cx="105" cy="34" r="3.5" fill="#63A4FF"></circle><circle cx="120" cy="28" r="3.5" fill="#63A4FF"></circle><circle cx="60" cy="70" r="3.5" fill="#0541E9"></circle><circle cx="100" cy="40" r="3.5" fill="#2374FF"></circle></svg>
+                    <div style="position:absolute;inset:0;background:rgba(5,65,233,0.82);display:flex;align-items:center;justify-content:center;transition:opacity 120ms;opacity:{{ qt.scatter.overlay }};">
+                      <span style="background:#fff;color:var(--cw-blue-700);font-size:13px;font-weight:600;padding:8px 14px;border-radius:var(--radius-sm);">Open notebook</span>
+                    </div>
+                  </div>
+                  <div style="padding:14px 16px 16px;display:flex;flex-direction:column;gap:6px;">
+                    <div style="font-size:15px;font-weight:700;line-height:1.25;">Reward model calibration</div>
+                    <div style="font-family:var(--font-mono);font-size:11px;letter-spacing:0.06em;text-transform:uppercase;color:var(--text-secondary);">Post-training</div>
+                  </div>
+                </div>
+                <div onClick="{{ qt.eda.open }}" onMouseEnter="{{ qt.eda.enter }}" onMouseLeave="{{ qtLeave }}" style="background:#fff;border:1px solid var(--color-border);border-radius:var(--radius-md);overflow:hidden;cursor:pointer;display:{{ qt.eda.display }};" style-hover="border-color:var(--cw-blue-300);">
+                  <div style="position:relative;height:120px;background:var(--cw-blue-50);padding:8px 12px;">
+                    <svg viewBox="0 0 160 100" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" style="display:block;"><rect x="24" y="50" width="14" height="36" rx="2" fill="#0541E9" opacity="1.0"></rect><rect x="44" y="34" width="14" height="52" rx="2" fill="#0541E9" opacity="0.9"></rect><rect x="64" y="20" width="14" height="66" rx="2" fill="#0541E9" opacity="0.8"></rect><rect x="84" y="40" width="14" height="46" rx="2" fill="#2374FF" opacity="0.7"></rect><rect x="104" y="58" width="14" height="28" rx="2" fill="#2374FF" opacity="0.6"></rect><rect x="124" y="70" width="14" height="16" rx="2" fill="#2374FF" opacity="0.5"></rect></svg>
+                    <div style="position:absolute;inset:0;background:rgba(5,65,233,0.82);display:flex;align-items:center;justify-content:center;transition:opacity 120ms;opacity:{{ qt.eda.overlay }};">
+                      <span style="background:#fff;color:var(--cw-blue-700);font-size:13px;font-weight:600;padding:8px 14px;border-radius:var(--radius-sm);">Open notebook</span>
+                    </div>
+                  </div>
+                  <div style="padding:14px 16px 16px;display:flex;flex-direction:column;gap:6px;">
+                    <div style="font-size:15px;font-weight:700;line-height:1.25;">Token-length profile</div>
+                    <div style="font-family:var(--font-mono);font-size:11px;letter-spacing:0.06em;text-transform:uppercase;color:var(--text-secondary);">Data Exploration</div>
+                  </div>
+                </div>
+                <div onClick="{{ qt.filter.open }}" onMouseEnter="{{ qt.filter.enter }}" onMouseLeave="{{ qtLeave }}" style="background:#fff;border:1px solid var(--color-border);border-radius:var(--radius-md);overflow:hidden;cursor:pointer;display:{{ qt.filter.display }};" style-hover="border-color:var(--cw-blue-300);">
+                  <div style="position:relative;height:120px;background:var(--cw-blue-50);padding:8px 12px;">
+                    <svg viewBox="0 0 160 100" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" style="display:block;"><circle cx="24" cy="26" r="4" fill="#0541E9"></circle><line x1="34" y1="26" x2="130" y2="26" stroke="#9DC7FE" stroke-width="2"></line><circle cx="24" cy="46" r="4" fill="#2374FF"></circle><line x1="34" y1="46" x2="110" y2="46" stroke="#9DC7FE" stroke-width="2"></line><circle cx="24" cy="66" r="4" fill="#63A4FF"></circle><line x1="34" y1="66" x2="95" y2="66" stroke="#9DC7FE" stroke-width="2"></line><circle cx="24" cy="86" r="4" fill="#0541E9"></circle><line x1="34" y1="86" x2="120" y2="86" stroke="#9DC7FE" stroke-width="2"></line></svg>
+                    <div style="position:absolute;inset:0;background:rgba(5,65,233,0.82);display:flex;align-items:center;justify-content:center;transition:opacity 120ms;opacity:{{ qt.filter.overlay }};">
+                      <span style="background:#fff;color:var(--cw-blue-700);font-size:13px;font-weight:600;padding:8px 14px;border-radius:var(--radius-sm);">Open notebook</span>
+                    </div>
+                  </div>
+                  <div style="padding:14px 16px 16px;display:flex;flex-direction:column;gap:6px;">
+                    <div style="font-size:15px;font-weight:700;line-height:1.25;">Agent eval leaderboard</div>
+                    <div style="font-family:var(--font-mono);font-size:11px;letter-spacing:0.06em;text-transform:uppercase;color:var(--text-secondary);">Agent Evals</div>
+                  </div>
+                </div>
+                <div onClick="{{ qt.confusion.open }}" onMouseEnter="{{ qt.confusion.enter }}" onMouseLeave="{{ qtLeave }}" style="background:#fff;border:1px solid var(--color-border);border-radius:var(--radius-md);overflow:hidden;cursor:pointer;display:{{ qt.confusion.display }};" style-hover="border-color:var(--cw-blue-300);">
+                  <div style="position:relative;height:120px;background:var(--cw-blue-50);padding:8px 12px;">
+                    <svg viewBox="0 0 160 100" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" style="display:block;"><rect x="47" y="17" width="20" height="20" rx="3" fill="#0541E9" opacity="1"></rect><rect x="69" y="17" width="20" height="20" rx="3" fill="#0541E9" opacity="0.35"></rect><rect x="91" y="17" width="20" height="20" rx="3" fill="#0541E9" opacity="0.15"></rect><rect x="47" y="39" width="20" height="20" rx="3" fill="#0541E9" opacity="0.3"></rect><rect x="69" y="39" width="20" height="20" rx="3" fill="#0541E9" opacity="1"></rect><rect x="91" y="39" width="20" height="20" rx="3" fill="#0541E9" opacity="0.25"></rect><rect x="47" y="61" width="20" height="20" rx="3" fill="#0541E9" opacity="0.12"></rect><rect x="69" y="61" width="20" height="20" rx="3" fill="#0541E9" opacity="0.2"></rect><rect x="91" y="61" width="20" height="20" rx="3" fill="#0541E9" opacity="1"></rect></svg>
+                    <div style="position:absolute;inset:0;background:rgba(5,65,233,0.82);display:flex;align-items:center;justify-content:center;transition:opacity 120ms;opacity:{{ qt.confusion.overlay }};">
+                      <span style="background:#fff;color:var(--cw-blue-700);font-size:13px;font-weight:600;padding:8px 14px;border-radius:var(--radius-sm);">Open notebook</span>
+                    </div>
+                  </div>
+                  <div style="padding:14px 16px 16px;display:flex;flex-direction:column;gap:6px;">
+                    <div style="font-size:15px;font-weight:700;line-height:1.25;">Teacher–student agreement</div>
+                    <div style="font-family:var(--font-mono);font-size:11px;letter-spacing:0.06em;text-transform:uppercase;color:var(--text-secondary);">Model Distillation</div>
+                  </div>
+                </div>
+                <div onClick="{{ qt.loss.open }}" onMouseEnter="{{ qt.loss.enter }}" onMouseLeave="{{ qtLeave }}" style="background:#fff;border:1px solid var(--color-border);border-radius:var(--radius-md);overflow:hidden;cursor:pointer;display:{{ qt.loss.display }};" style-hover="border-color:var(--cw-blue-300);">
+                  <div style="position:relative;height:120px;background:var(--cw-blue-50);padding:8px 12px;">
+                    <svg viewBox="0 0 160 100" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" style="display:block;"><path d="M14 20 Q60 30 90 65 T146 82" stroke="#0541E9" fill="none" stroke-width="2"></path><path d="M14 26 Q60 50 90 72 T146 88" stroke="#2374FF" fill="none" stroke-width="2"></path><path d="M14 18 Q55 22 85 58 T146 76" stroke="#63A4FF" fill="none" stroke-width="2"></path></svg>
+                    <div style="position:absolute;inset:0;background:rgba(5,65,233,0.82);display:flex;align-items:center;justify-content:center;transition:opacity 120ms;opacity:{{ qt.loss.overlay }};">
+                      <span style="background:#fff;color:var(--cw-blue-700);font-size:13px;font-weight:600;padding:8px 14px;border-radius:var(--radius-sm);">Open notebook</span>
+                    </div>
+                  </div>
+                  <div style="padding:14px 16px 16px;display:flex;flex-direction:column;gap:6px;">
+                    <div style="font-size:15px;font-weight:700;line-height:1.25;">Pretraining loss curves</div>
+                    <div style="font-family:var(--font-mono);font-size:11px;letter-spacing:0.06em;text-transform:uppercase;color:var(--text-secondary);">Pretraining</div>
+                  </div>
+                </div>
+                <div onClick="{{ qt.feature.open }}" onMouseEnter="{{ qt.feature.enter }}" onMouseLeave="{{ qtLeave }}" style="background:#fff;border:1px solid var(--color-border);border-radius:var(--radius-md);overflow:hidden;cursor:pointer;display:{{ qt.feature.display }};" style-hover="border-color:var(--cw-blue-300);">
+                  <div style="position:relative;height:120px;background:var(--cw-blue-50);padding:8px 12px;">
+                    <svg viewBox="0 0 160 100" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" style="display:block;"><rect x="20" y="22" width="110" height="9" rx="2" fill="#0541E9" opacity="1.0"></rect><rect x="20" y="40" width="85" height="9" rx="2" fill="#0541E9" opacity="0.8"></rect><rect x="20" y="58" width="60" height="9" rx="2" fill="#0541E9" opacity="0.6"></rect><rect x="20" y="76" width="35" height="9" rx="2" fill="#0541E9" opacity="0.4"></rect></svg>
+                    <div style="position:absolute;inset:0;background:rgba(5,65,233,0.82);display:flex;align-items:center;justify-content:center;transition:opacity 120ms;opacity:{{ qt.feature.overlay }};">
+                      <span style="background:#fff;color:var(--cw-blue-700);font-size:13px;font-weight:600;padding:8px 14px;border-radius:var(--radius-sm);">Open notebook</span>
+                    </div>
+                  </div>
+                  <div style="padding:14px 16px 16px;display:flex;flex-direction:column;gap:6px;">
+                    <div style="font-size:15px;font-weight:700;line-height:1.25;">Layer-wise distillation gap</div>
+                    <div style="font-family:var(--font-mono);font-size:11px;letter-spacing:0.06em;text-transform:uppercase;color:var(--text-secondary);">Model Distillation</div>
+                  </div>
+                </div>
+                <div onClick="{{ qt.embedding.open }}" onMouseEnter="{{ qt.embedding.enter }}" onMouseLeave="{{ qtLeave }}" style="background:#fff;border:1px solid var(--color-border);border-radius:var(--radius-md);overflow:hidden;cursor:pointer;display:{{ qt.embedding.display }};" style-hover="border-color:var(--cw-blue-300);">
+                  <div style="position:relative;height:120px;background:var(--cw-blue-50);padding:8px 12px;">
+                    <svg viewBox="0 0 160 100" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" style="display:block;"><circle cx="40" cy="35" r="3" fill="#0541E9"></circle><circle cx="48" cy="42" r="3" fill="#0541E9"></circle><circle cx="35" cy="48" r="3" fill="#0541E9"></circle><circle cx="52" cy="30" r="3" fill="#0541E9"></circle><circle cx="105" cy="55" r="3" fill="#2374FF"></circle><circle cx="115" cy="62" r="3" fill="#2374FF"></circle><circle cx="98" cy="65" r="3" fill="#2374FF"></circle><circle cx="118" cy="48" r="3" fill="#2374FF"></circle><circle cx="70" cy="75" r="3" fill="#63A4FF"></circle><circle cx="80" cy="80" r="3" fill="#63A4FF"></circle><circle cx="65" cy="82" r="3" fill="#63A4FF"></circle></svg>
+                    <div style="position:absolute;inset:0;background:rgba(5,65,233,0.82);display:flex;align-items:center;justify-content:center;transition:opacity 120ms;opacity:{{ qt.embedding.overlay }};">
+                      <span style="background:#fff;color:var(--cw-blue-700);font-size:13px;font-weight:600;padding:8px 14px;border-radius:var(--radius-sm);">Open notebook</span>
+                    </div>
+                  </div>
+                  <div style="padding:14px 16px 16px;display:flex;flex-direction:column;gap:6px;">
+                    <div style="font-size:15px;font-weight:700;line-height:1.25;">Agent trajectory map</div>
+                    <div style="font-family:var(--font-mono);font-size:11px;letter-spacing:0.06em;text-transform:uppercase;color:var(--text-secondary);">Agent Evals</div>
+                  </div>
+                </div>
+                <div onClick="{{ qt.sweep.open }}" onMouseEnter="{{ qt.sweep.enter }}" onMouseLeave="{{ qtLeave }}" style="background:#fff;border:1px solid var(--color-border);border-radius:var(--radius-md);overflow:hidden;cursor:pointer;display:{{ qt.sweep.display }};" style-hover="border-color:var(--cw-blue-300);">
+                  <div style="position:relative;height:120px;background:var(--cw-blue-50);padding:8px 12px;">
+                    <svg viewBox="0 0 160 100" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" style="display:block;"><circle cx="24" cy="70" r="4" fill="#2374FF" opacity="0.50"></circle><circle cx="40" cy="50" r="4" fill="#2374FF" opacity="0.56"></circle><circle cx="56" cy="60" r="4" fill="#2374FF" opacity="0.62"></circle><circle cx="72" cy="34" r="4" fill="#2374FF" opacity="0.68"></circle><circle cx="88" cy="44" r="4" fill="#2374FF" opacity="0.74"></circle><circle cx="104" cy="26" r="4" fill="#2374FF" opacity="0.80"></circle><circle cx="120" cy="38" r="4" fill="#2374FF" opacity="0.86"></circle><circle cx="136" cy="20" r="4" fill="#2374FF" opacity="0.92"></circle></svg>
+                    <div style="position:absolute;inset:0;background:rgba(5,65,233,0.82);display:flex;align-items:center;justify-content:center;transition:opacity 120ms;opacity:{{ qt.sweep.overlay }};">
+                      <span style="background:#fff;color:var(--cw-blue-700);font-size:13px;font-weight:600;padding:8px 14px;border-radius:var(--radius-sm);">Open notebook</span>
+                    </div>
+                  </div>
+                  <div style="padding:14px 16px 16px;display:flex;flex-direction:column;gap:6px;">
+                    <div style="font-size:15px;font-weight:700;line-height:1.25;">Scaling-law explorer</div>
+                    <div style="font-family:var(--font-mono);font-size:11px;letter-spacing:0.06em;text-transform:uppercase;color:var(--text-secondary);">Pretraining</div>
+                  </div>
+                </div>
+                <div onClick="{{ qt.drift.open }}" onMouseEnter="{{ qt.drift.enter }}" onMouseLeave="{{ qtLeave }}" style="background:#fff;border:1px solid var(--color-border);border-radius:var(--radius-md);overflow:hidden;cursor:pointer;display:{{ qt.drift.display }};" style-hover="border-color:var(--cw-blue-300);">
+                  <div style="position:relative;height:120px;background:var(--cw-blue-50);padding:8px 12px;">
+                    <svg viewBox="0 0 160 100" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" style="display:block;"><path d="M14 80 Q40 20 65 80 T116 80" stroke="#0541E9" fill="none" stroke-width="2"></path><path d="M34 80 Q60 30 85 80 T146 80" stroke="#63A4FF" fill="none" stroke-width="2" stroke-dasharray="4,3"></path></svg>
+                    <div style="position:absolute;inset:0;background:rgba(5,65,233,0.82);display:flex;align-items:center;justify-content:center;transition:opacity 120ms;opacity:{{ qt.drift.overlay }};">
+                      <span style="background:#fff;color:var(--cw-blue-700);font-size:13px;font-weight:600;padding:8px 14px;border-radius:var(--radius-sm);">Open notebook</span>
+                    </div>
+                  </div>
+                  <div style="padding:14px 16px 16px;display:flex;flex-direction:column;gap:6px;">
+                    <div style="font-size:15px;font-weight:700;line-height:1.25;">Train vs. eval shift</div>
+                    <div style="font-family:var(--font-mono);font-size:11px;letter-spacing:0.06em;text-transform:uppercase;color:var(--text-secondary);">Data Exploration</div>
+                  </div>
+                </div>
+              </div>
+              <sc-if value="{{ qtEmpty }}" hint-placeholder-val="{{ false }}">
+                <p style="font-size:14px;color:var(--text-secondary);margin:24px 0 0;">No templates match your search.</p>
+              </sc-if>
+            </sc-if>
+
+
+            <sc-if value="{{ showTable }}" hint-placeholder-val="{{ true }}">
+              <div style="background:#fff;border:1px solid var(--color-border);border-radius:var(--radius-md);">
+                <table style="width:100%;border-collapse:collapse;">
+                  <thead>
+                    <tr>
+                      <th style="text-align:left;font-family:var(--font-mono);font-size:11px;font-weight:500;letter-spacing:0.06em;text-transform:uppercase;color:var(--text-secondary);padding:12px 16px;border-bottom:1px solid var(--color-border);">Notebook</th>
+                      <th style="text-align:left;font-family:var(--font-mono);font-size:11px;font-weight:500;letter-spacing:0.06em;text-transform:uppercase;color:var(--text-secondary);padding:12px 16px;border-bottom:1px solid var(--color-border);">Author</th>
+                      <th style="text-align:left;font-family:var(--font-mono);font-size:11px;font-weight:500;letter-spacing:0.06em;text-transform:uppercase;color:var(--text-secondary);padding:12px 16px;border-bottom:1px solid var(--color-border);">Project</th>
+                      <th style="text-align:left;font-family:var(--font-mono);font-size:11px;font-weight:500;letter-spacing:0.06em;text-transform:uppercase;color:var(--text-secondary);padding:12px 16px;border-bottom:1px solid var(--color-border);">Last updated</th>
+                      <th style="text-align:left;font-family:var(--font-mono);font-size:11px;font-weight:500;letter-spacing:0.06em;text-transform:uppercase;color:var(--text-secondary);padding:12px 16px;border-bottom:1px solid var(--color-border);">Created</th>
+                      <th style="border-bottom:1px solid var(--color-border);width:48px;"></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <sc-for list="{{ rows }}" as="r" hint-placeholder-count="4">
+                      <tr style="background:#fff;" style-hover="background:var(--cw-gray-50);">
+                        <td style="padding:12px 16px;border-bottom:1px solid var(--color-border);font-size:13px;font-weight:600;">{{ r.title }}</td>
+                        <td style="padding:12px 16px;border-bottom:1px solid var(--color-border);font-size:13px;">
+                          <div style="display:flex;align-items:center;gap:8px;">
+                            <span style="width:22px;height:22px;border-radius:50%;background:var(--cw-blue-100);color:var(--cw-blue-700);font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;">{{ r.initials }}</span>{{ r.author }}
+                          </div>
+                        </td>
+                        <td style="padding:12px 16px;border-bottom:1px solid var(--color-border);font-size:13px;font-family:var(--font-mono);color:var(--text-secondary);">{{ r.project }}</td>
+                        <td style="padding:12px 16px;border-bottom:1px solid var(--color-border);font-size:13px;color:var(--text-secondary);">{{ r.updated }}</td>
+                        <td style="padding:12px 16px;border-bottom:1px solid var(--color-border);font-size:13px;color:var(--text-secondary);">{{ r.created }}</td>
+                        <td style="padding:8px 12px;border-bottom:1px solid var(--color-border);position:relative;text-align:right;">
+                          <span onClick="{{ r.toggleMenu }}" style="display:inline-flex;padding:4px;border-radius:var(--radius-xs);color:var(--cw-gray-850);cursor:pointer;" style-hover="background:var(--cw-gray-100);">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="6" r="1.7"></circle><circle cx="12" cy="12" r="1.7"></circle><circle cx="12" cy="18" r="1.7"></circle></svg>
+                          </span>
+                          <sc-if value="{{ r.menuOpen }}" hint-placeholder-val="{{ false }}">
+                            <div onClick="{{ stop }}" style="position:absolute;right:14px;top:38px;background:#fff;border:1px solid var(--color-border);border-radius:var(--radius-sm);box-shadow:var(--shadow-md);z-index:20;min-width:200px;padding:4px;text-align:left;display:flex;flex-direction:column;">
+                              <div style="padding:9px 12px;font-size:13px;border-radius:var(--radius-xs);cursor:pointer;" style-hover="background:var(--cw-gray-100);">Rename notebook</div>
+                              <div style="padding:9px 12px;font-size:13px;border-radius:var(--radius-xs);cursor:pointer;" style-hover="background:var(--cw-gray-100);">Copy to project</div>
+                              <div style="padding:9px 12px;font-size:13px;border-radius:var(--radius-xs);cursor:pointer;" style-hover="background:var(--cw-gray-100);">Open in W&amp;B notebooks</div>
+                              <div style="padding:9px 12px;font-size:13px;border-radius:var(--radius-xs);cursor:pointer;" style-hover="background:var(--cw-gray-100);">Open in W&amp;B artifacts</div>
+                              <div style="height:1px;background:var(--color-border);margin:4px 0;"></div>
+                              <div onClick="{{ r.remove }}" style="padding:9px 12px;font-size:13px;font-weight:600;border-radius:var(--radius-xs);cursor:pointer;color:var(--cw-blue-700);" style-hover="background:var(--cw-blue-50);">Delete notebook</div>
+                            </div>
+                          </sc-if>
+                        </td>
+                      </tr>
+                    </sc-for>
+                  </tbody>
+                </table>
+              </div>
+              <sc-if value="{{ isNotebooks }}" hint-placeholder-val="{{ false }}">
+                <div style="text-align:right;font-size:12px;color:var(--text-secondary);margin-top:10px;font-family:var(--font-mono);">{{ pagination }}</div>
+              </sc-if>
+            </sc-if>
+          </div>
+            </sc-if>
+            <sc-if value="{{ isNotebook }}" hint-placeholder-val="{{ false }}">
+      <div data-screen-label="Notebook" style="background:#fff;min-height:100%;flex:1;display:flex;flex-direction:column;font-family:'PT Sans',system-ui,sans-serif;color:#18181b;">
+        <div style="position:sticky;top:0;z-index:5;background:#fff;">
+        <sc-if value="{{ nbPreview }}" hint-placeholder-val="{{ true }}">
+          <div style="display:flex;align-items:center;gap:14px;padding:10px 20px;border-bottom:1px solid #e4e4e7;">
+            <span onClick="{{ backFromNotebook }}" title="Back" style="display:flex;align-items:center;gap:4px;padding:5px 8px 5px 4px;border-radius:6px;font-size:13px;font-weight:700;color:#3f3f46;cursor:pointer;" style-hover="background:#f4f4f5;color:#18181b;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"></path></svg>{{ backLabel }}</span>
+            <span style="width:1px;height:20px;background:#e4e4e7;"></span>
+            <div style="display:flex;align-items:center;gap:6px;"><span style="width:22px;height:22px;border-radius:50%;border:2px solid #1a7f4b;display:block;"></span><span style="font-family:'PT Sans',system-ui,sans-serif;font-weight:700;font-size:15px;color:#1a7f4b;letter-spacing:-0.01em;">marimo</span></div>
+            <div style="display:flex;align-items:center;gap:8px;font-size:14px;margin-left:10px;">
+              <span onClick="{{ backFromNotebook }}" style="color:#71717a;cursor:pointer;" style-hover="color:#18181b;">Public notebooks</span>
+              <span style="color:#a1a1aa;">/</span>
+              <b style="font-weight:700;">{{ nb.title }}</b>
+            </div>
+            <div style="flex:1;"></div>
+            <span style="display:flex;align-items:center;gap:6px;padding:5px 8px;border-radius:6px;font-family:'PT Sans',system-ui,sans-serif;font-size:13px;color:#3f3f46;cursor:pointer;" style-hover="background:#f4f4f5;color:#18181b;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"></path><path d="M7 8l5-5 5 5"></path><path d="M5 13v6a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-6"></path></svg>Share</span>
+            <span onClick="{{ forkNotebook }}" style="display:flex;align-items:center;gap:6px;padding:6px 12px;border-radius:6px;background:#1a7f4b;color:#fff;font-size:13px;font-weight:700;cursor:pointer;" style-hover="background:#156a3e;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="5" r="2"></circle><circle cx="18" cy="5" r="2"></circle><circle cx="12" cy="19" r="2"></circle><path d="M6 7v2a3 3 0 0 0 3 3h6a3 3 0 0 0 3-3V7"></path><path d="M12 12v5"></path></svg>Fork</span>
+            
+          </div>
+          <div style="display:flex;align-items:center;justify-content:center;gap:8px;padding:8px 20px;background:#effaf3;border-bottom:1px solid #cdebd9;font-size:13px;color:#1a7f4b;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+            <span><b>Read-only preview.</b> Fork this notebook to edit and run your own code.</span>
+          </div>
+        </sc-if>
+        <sc-if value="{{ nbEditing }}" hint-placeholder-val="{{ false }}">
+          <div style="display:flex;align-items:center;gap:10px;padding:8px 16px;border-bottom:1px solid #e4e4e7;">
+            <span onClick="{{ backFromNotebook }}" title="Back" style="display:flex;align-items:center;gap:4px;padding:5px 8px 5px 4px;border-radius:6px;font-size:13px;font-weight:700;color:#3f3f46;cursor:pointer;" style-hover="background:#f4f4f5;color:#18181b;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"></path></svg>{{ backLabel }}</span>
+            <span style="width:1px;height:20px;background:#e4e4e7;"></span>
+            <div style="display:flex;align-items:center;gap:6px;"><span style="width:22px;height:22px;border-radius:50%;border:2px solid #1a7f4b;display:block;"></span><span style="font-family:'PT Sans',system-ui,sans-serif;font-weight:700;font-size:15px;color:#1a7f4b;letter-spacing:-0.01em;">marimo</span></div>
+            
+            <b style="font-size:14px;font-weight:700;">{{ nb.title }} (Fork)</b>
+            <div style="flex:1;"></div>
+            <span style="font-family:'Fira Mono',monospace;font-size:11px;padding:3px 8px;border-radius:4px;background:#eff6ff;color:#1d4ed8;">CPU: 2 vCPUs</span>
+            <span style="font-family:'Fira Mono',monospace;font-size:11px;padding:3px 8px;border-radius:4px;background:#effaf3;color:#1a7f4b;">RAM: 2 GB</span>
+            <span style="width:1px;height:20px;background:#e4e4e7;"></span>
+            <span style="display:flex;align-items:center;gap:6px;padding:5px 8px;border-radius:6px;font-family:'PT Sans',system-ui,sans-serif;font-size:13px;color:#3f3f46;cursor:pointer;" style-hover="background:#f4f4f5;color:#18181b;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"></path><path d="M7 8l5-5 5 5"></path><path d="M5 13v6a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-6"></path></svg>Share</span>
+            <span style="display:flex;align-items:center;gap:6px;padding:5px 8px;border-radius:6px;font-family:'PT Sans',system-ui,sans-serif;font-size:13px;color:#3f3f46;cursor:pointer;" style-hover="background:#f4f4f5;color:#18181b;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M3 12h18"></path><path d="M12 3a14 14 0 0 1 0 18"></path><path d="M12 3a14 14 0 0 0 0 18"></path></svg>Publish</span>
+            <span style="display:flex;align-items:center;gap:6px;padding:5px 8px;border-radius:6px;font-family:'PT Sans',system-ui,sans-serif;font-size:13px;color:#3f3f46;cursor:pointer;" style-hover="background:#f4f4f5;color:#18181b;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="8" width="12" height="12" rx="2"></rect><path d="M16 8V5a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h3"></path></svg>Duplicate</span>
+            <span style="width:1px;height:20px;background:#e4e4e7;"></span>
+            <span title="Delete" style="display:flex;padding:6px;border-radius:6px;color:#52525b;cursor:pointer;" style-hover="background:#f4f4f5;color:#18181b;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16"></path><path d="M9 7V4h6v3"></path><path d="M6 7l1 13h10l1-13"></path></svg></span>
+          </div>
+        </sc-if>
+        </div>
+        <div style="flex:1;display:flex;min-height:760px;">
+          <sc-if value="{{ nbEditing }}" hint-placeholder-val="{{ false }}">
+            <div style="width:44px;flex-shrink:0;border-right:1px solid #e4e4e7;display:flex;flex-direction:column;align-items:center;gap:2px;padding:10px 0;">
+              <span title="Files" style="display:flex;padding:7px;border-radius:6px;color:#71717a;cursor:pointer;" style-hover="background:#f4f4f5;color:#18181b;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h9l5 5v13H6z"></path><path d="M14 3v6h6"></path></svg></span>
+              <span title="Variables" style="display:flex;padding:7px;border-radius:6px;color:#71717a;cursor:pointer;" style-hover="background:#f4f4f5;color:#18181b;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8 4c-2 0-3 1-3 3v2c0 1.5-1 3-2 3 1 0 2 1.5 2 3v2c0 2 1 3 3 3"></path><path d="M16 4c2 0 3 1 3 3v2c0 1.5 1 3 2 3-1 0-2 1.5-2 3v2c0 2-1 3-3 3"></path></svg></span>
+              <span title="Data sources" style="display:flex;padding:7px;border-radius:6px;color:#71717a;cursor:pointer;" style-hover="background:#f4f4f5;color:#18181b;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="8" ry="3"></ellipse><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5"></path><path d="M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"></path></svg></span>
+              <span title="Packages" style="display:flex;padding:7px;border-radius:6px;color:#71717a;cursor:pointer;" style-hover="background:#f4f4f5;color:#18181b;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8l-9-5-9 5 9 5 9-5z"></path><path d="M3 8v8l9 5 9-5V8"></path><path d="M12 13v8"></path></svg></span>
+              <span title="Outline" style="display:flex;padding:7px;border-radius:6px;color:#71717a;cursor:pointer;" style-hover="background:#f4f4f5;color:#18181b;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8 6h13"></path><path d="M8 12h13"></path><path d="M8 18h13"></path><path d="M3 6h.01"></path><path d="M3 12h.01"></path><path d="M3 18h.01"></path></svg></span>
+              <span title="Dependencies" style="display:flex;padding:7px;border-radius:6px;color:#71717a;cursor:pointer;" style-hover="background:#f4f4f5;color:#18181b;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="2.5"></circle><circle cx="18" cy="6" r="2.5"></circle><circle cx="12" cy="18" r="2.5"></circle><path d="M7.5 8l3.5 7.5"></path><path d="M16.5 8L13 15.5"></path></svg></span>
+              <span title="Documentation" style="display:flex;padding:7px;border-radius:6px;color:#71717a;cursor:pointer;" style-hover="background:#f4f4f5;color:#18181b;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h6a2 2 0 0 1 2 2v14a2 2 0 0 0-2-2H4z"></path><path d="M20 4h-6a2 2 0 0 0-2 2v14a2 2 0 0 1 2-2h6z"></path></svg></span>
+              <span title="Logs" style="display:flex;padding:7px;border-radius:6px;color:#71717a;cursor:pointer;" style-hover="background:#f4f4f5;color:#18181b;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"></rect><path d="M7 9l3 3-3 3"></path><path d="M13 15h4"></path></svg></span>
+            </div>
+          </sc-if>
+          <div style="flex:1;min-width:0;position:relative;display:flex;flex-direction:column;">
+            <div style="width:100%;max-width:860px;margin:0 auto;padding:40px 32px 40px;display:flex;flex-direction:column;gap:18px;">
+
+          <div style="display:flex;gap:6px;align-items:flex-start;">
+            <div style="flex:1;min-width:0;display:flex;flex-direction:column;">
+              <sc-if value="{{ nbShowCode }}" hint-placeholder-val="{{ false }}">
+                <div style="border:1px solid #e4e4e7;border-radius:8px;background:#fff;overflow:hidden;box-shadow:0 1px 2px rgba(0,0,0,0.04);">{{ cb.md }}</div>
+              </sc-if>
+              <div style="padding:12px 2px 4px;display:flex;flex-direction:column;gap:12px;min-width:0;">
+                <h1 style="font-family:'Lora',Georgia,serif;font-weight:500;font-size:30px;line-height:1.25;letter-spacing:-0.01em;color:#18181b;margin:0;">{{ nb.title }}</h1>
+                <p style="font-family:'PT Sans',system-ui,sans-serif;font-size:15px;line-height:1.6;color:#18181b;margin:0;max-width:66ch;">{{ nb.desc }}</p>
+                <p style="font-family:'PT Sans',system-ui,sans-serif;font-size:15px;line-height:1.6;color:#18181b;margin:0;"><b>{{ nb.tryIt }}</b></p></div>
+            </div>
+            <sc-if value="{{ nbEditing }}" hint-placeholder-val="{{ false }}">
+              <div style="display:flex;flex-direction:column;gap:2px;padding-top:4px;color:#a1a1aa;">
+                <span title="Run cell" style="display:flex;padding:4px;border-radius:4px;cursor:pointer;" style-hover="background:#f4f4f5;color:#18181b;"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M7 5l12 7-12 7z"></path></svg></span>
+                <span title="Cell actions" style="display:flex;padding:4px;border-radius:4px;cursor:pointer;" style-hover="background:#f4f4f5;color:#18181b;"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg></span>
+              </div>
+            </sc-if>
+          </div>
+              <sc-if value="{{ nbEditing }}" hint-placeholder-val="{{ false }}">
+          <div style="display:flex;gap:6px;align-items:flex-start;">
+            <div style="flex:1;min-width:0;display:flex;flex-direction:column;">
+              <sc-if value="{{ nbShowCode }}" hint-placeholder-val="{{ false }}">
+                <div style="border:1px solid #e4e4e7;border-radius:8px;background:#fff;overflow:hidden;box-shadow:0 1px 2px rgba(0,0,0,0.04);">{{ cb.imports }}</div>
+              </sc-if>
+              
+            </div>
+            <sc-if value="{{ nbEditing }}" hint-placeholder-val="{{ false }}">
+              <div style="display:flex;flex-direction:column;gap:2px;padding-top:4px;color:#a1a1aa;">
+                <span title="Run cell" style="display:flex;padding:4px;border-radius:4px;cursor:pointer;" style-hover="background:#f4f4f5;color:#18181b;"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M7 5l12 7-12 7z"></path></svg></span>
+                <span title="Cell actions" style="display:flex;padding:4px;border-radius:4px;cursor:pointer;" style-hover="background:#f4f4f5;color:#18181b;"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg></span>
+              </div>
+            </sc-if>
+          </div></sc-if>
+
+
+<sc-if value="{{ hasControls }}" hint-placeholder-val="{{ true }}">
+          <div style="display:flex;gap:6px;align-items:flex-start;">
+            <div style="flex:1;min-width:0;display:flex;flex-direction:column;">
+              <sc-if value="{{ nbShowCode }}" hint-placeholder-val="{{ false }}">
+                <div style="border:1px solid #e4e4e7;border-radius:8px;background:#fff;overflow:hidden;box-shadow:0 1px 2px rgba(0,0,0,0.04);">{{ cb.ctrl }}</div>
+              </sc-if>
+              <div style="padding:14px 2px 6px;display:flex;flex-direction:column;gap:12px;min-width:0;">
+                <sc-if value="{{ t.scatter }}" hint-placeholder-val="{{ false }}">
+                  <div style="display:flex;flex-wrap:wrap;gap:20px;">
+                    <label style="display:flex;align-items:center;gap:8px;font-family:'PT Sans',system-ui,sans-serif;font-size:14px;color:#18181b;">x axis <select style="height:30px;padding:0 10px;border:1px solid #d4d4d8;border-radius:6px;background:#fff;font-family:'PT Sans',system-ui,sans-serif;font-size:14px;color:#18181b;box-shadow:0 1px 2px rgba(0,0,0,0.05);"><option>human_preference</option></select></label>
+                    <label style="display:flex;align-items:center;gap:8px;font-family:'PT Sans',system-ui,sans-serif;font-size:14px;color:#18181b;">y axis <select style="height:30px;padding:0 10px;border:1px solid #d4d4d8;border-radius:6px;background:#fff;font-family:'PT Sans',system-ui,sans-serif;font-size:14px;color:#18181b;box-shadow:0 1px 2px rgba(0,0,0,0.05);"><option>predicted_reward</option></select></label>
+                    <label style="display:flex;align-items:center;gap:8px;font-family:'PT Sans',system-ui,sans-serif;font-size:14px;color:#18181b;">color by <select value="{{ sColor }}" onChange="{{ onSColor }}" style="height:30px;padding:0 10px;border:1px solid #d4d4d8;border-radius:6px;background:#fff;font-family:'PT Sans',system-ui,sans-serif;font-size:14px;color:#18181b;box-shadow:0 1px 2px rgba(0,0,0,0.05);"><option value="none">(none)</option><option value="model_version">checkpoint</option></select></label>
+                  </div>
+                </sc-if>
+                <sc-if value="{{ t.eda }}" hint-placeholder-val="{{ false }}">
+                  <label style="display:flex;align-items:center;gap:8px;font-family:'PT Sans',system-ui,sans-serif;font-size:14px;color:#18181b;">column <select value="{{ edaCol }}" onChange="{{ onEdaCol }}" style="height:30px;padding:0 10px;border:1px solid #d4d4d8;border-radius:6px;background:#fff;font-family:'PT Sans',system-ui,sans-serif;font-size:14px;color:#18181b;box-shadow:0 1px 2px rgba(0,0,0,0.05);"><option value="age">prompt_tokens</option><option value="income">completion_tokens</option><option value="tenure_months">turns</option></select></label>
+                </sc-if>
+                <sc-if value="{{ t.filter }}" hint-placeholder-val="{{ false }}">
+                  <div style="display:flex;flex-wrap:wrap;gap:24px;align-items:center;">
+                    <label style="display:flex;align-items:center;gap:8px;font-family:'PT Sans',system-ui,sans-serif;font-size:14px;color:#18181b;">status <select value="{{ fStatus }}" onChange="{{ onFStatus }}" style="height:30px;padding:0 10px;border:1px solid #d4d4d8;border-radius:6px;background:#fff;font-family:'PT Sans',system-ui,sans-serif;font-size:14px;color:#18181b;box-shadow:0 1px 2px rgba(0,0,0,0.05);"><option value="all">(all)</option><option value="finished">finished</option><option value="running">running</option><option value="failed">failed</option></select></label>
+                    <label style="display:flex;align-items:center;gap:8px;font-family:'PT Sans',system-ui,sans-serif;font-size:14px;color:#18181b;">min success rate <input type="range" min="0" max="95" value="{{ fAcc }}" onChange="{{ onFAcc }}" style="width:200px;accent-color:#0090ff;"><span style="font-family:'Fira Mono',monospace;font-size:13px;">{{ fAccLabel }}</span></label>
+                  </div>
+                </sc-if>
+                <sc-if value="{{ t.confusion }}" hint-placeholder-val="{{ false }}">
+                  <label style="display:flex;align-items:center;gap:8px;font-family:'PT Sans',system-ui,sans-serif;font-size:14px;color:#18181b;">normalize by <select value="{{ cmNorm }}" onChange="{{ onCmNorm }}" style="height:30px;padding:0 10px;border:1px solid #d4d4d8;border-radius:6px;background:#fff;font-family:'PT Sans',system-ui,sans-serif;font-size:14px;color:#18181b;box-shadow:0 1px 2px rgba(0,0,0,0.05);"><option value="none">none</option><option value="row">row (teacher)</option><option value="col">column (student)</option></select></label>
+                </sc-if>
+                <sc-if value="{{ t.loss }}" hint-placeholder-val="{{ false }}">
+                  <div style="display:flex;flex-direction:column;gap:6px;">
+                    <span style="font-family:'PT Sans',system-ui,sans-serif;font-size:14px;color:#18181b;">runs</span>
+                    <sc-for list="{{ lossToggles }}" as="lt" hint-placeholder-count="4">
+                      <label style="display:flex;align-items:center;gap:8px;font-family:'PT Sans',system-ui,sans-serif;font-size:14px;color:#18181b;cursor:pointer;">
+                        <input type="checkbox" checked="{{ lt.on }}" onChange="{{ lt.toggle }}" style="accent-color:#0090ff;width:15px;height:15px;margin:0;">{{ lt.name }}
+                      </label>
+                    </sc-for>
+                  </div>
+                </sc-if>
+                <sc-if value="{{ t.feature }}" hint-placeholder-val="{{ false }}">
+                  <label style="display:flex;align-items:center;gap:8px;font-family:'PT Sans',system-ui,sans-serif;font-size:14px;color:#18181b;">top N layers <input type="range" min="3" max="10" value="{{ fiTopN }}" onChange="{{ onFiTopN }}" style="width:200px;accent-color:#0090ff;"><span style="font-family:'Fira Mono',monospace;font-size:13px;">{{ fiTopN }}</span></label>
+                </sc-if>
+                <sc-if value="{{ t.embedding }}" hint-placeholder-val="{{ false }}">
+                  <label style="display:flex;align-items:center;gap:8px;font-family:'PT Sans',system-ui,sans-serif;font-size:14px;color:#18181b;">color by <select style="height:30px;padding:0 10px;border:1px solid #d4d4d8;border-radius:6px;background:#fff;font-family:'PT Sans',system-ui,sans-serif;font-size:14px;color:#18181b;box-shadow:0 1px 2px rgba(0,0,0,0.05);"><option>outcome</option></select></label>
+                </sc-if>
+                <sc-if value="{{ t.sweep }}" hint-placeholder-val="{{ false }}">
+                  <label style="display:flex;align-items:center;gap:8px;font-family:'PT Sans',system-ui,sans-serif;font-size:14px;color:#18181b;">x axis <select value="{{ swParam }}" onChange="{{ onSwParam }}" style="height:30px;padding:0 10px;border:1px solid #d4d4d8;border-radius:6px;background:#fff;font-family:'PT Sans',system-ui,sans-serif;font-size:14px;color:#18181b;box-shadow:0 1px 2px rgba(0,0,0,0.05);"><option value="lr">compute (FLOPs)</option><option value="batch">parameters</option></select></label>
+                </sc-if></div>
+            </div>
+            <sc-if value="{{ nbEditing }}" hint-placeholder-val="{{ false }}">
+              <div style="display:flex;flex-direction:column;gap:2px;padding-top:4px;color:#a1a1aa;">
+                <span title="Run cell" style="display:flex;padding:4px;border-radius:4px;cursor:pointer;" style-hover="background:#f4f4f5;color:#18181b;"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M7 5l12 7-12 7z"></path></svg></span>
+                <span title="Cell actions" style="display:flex;padding:4px;border-radius:4px;cursor:pointer;" style-hover="background:#f4f4f5;color:#18181b;"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg></span>
+              </div>
+            </sc-if>
+          </div></sc-if>
+
+          <div style="display:flex;gap:6px;align-items:flex-start;">
+            <div style="flex:1;min-width:0;display:flex;flex-direction:column;">
+              <sc-if value="{{ nbShowCode }}" hint-placeholder-val="{{ false }}">
+                <div style="border:1px solid #e4e4e7;border-radius:8px;background:#fff;overflow:hidden;box-shadow:0 1px 2px rgba(0,0,0,0.04);">{{ cb.plot }}</div>
+              </sc-if>
+              <div style="padding:14px 2px 6px;display:flex;flex-direction:column;gap:12px;min-width:0;">
+                <sc-if value="{{ t.drift }}" hint-placeholder-val="{{ false }}">
+                  <div style="font-family:'PT Sans',system-ui,sans-serif;font-size:14px;color:#18181b;">Mean shift in <code style="font-family:'Fira Mono',monospace;font-size:13px;background:#f4f4f5;padding:1px 5px;border-radius:4px;">prompt_tokens</code>: <b>+15.5%</b> — eval prompts run longer than training</div>
+                </sc-if>
+                <sc-if value="{{ t.filter }}" hint-placeholder-val="{{ false }}">
+                  <div style="border:1px solid #e4e4e7;border-radius:6px;overflow:hidden;">
+                    <div style="overflow-x:auto;">
+                      <table style="width:100%;border-collapse:collapse;">
+                        <thead><tr><th style="text-align:left;font-family:'PT Sans',system-ui,sans-serif;font-weight:700;font-size:13px;color:#18181b;padding:8px 12px;border-bottom:1px solid #e4e4e7;background:#fafafa;white-space:nowrap;">run</th><th style="text-align:left;font-family:'PT Sans',system-ui,sans-serif;font-weight:700;font-size:13px;color:#18181b;padding:8px 12px;border-bottom:1px solid #e4e4e7;background:#fafafa;white-space:nowrap;">model</th><th style="text-align:left;font-family:'PT Sans',system-ui,sans-serif;font-weight:700;font-size:13px;color:#18181b;padding:8px 12px;border-bottom:1px solid #e4e4e7;background:#fafafa;white-space:nowrap;">max_steps</th><th style="text-align:left;font-family:'PT Sans',system-ui,sans-serif;font-weight:700;font-size:13px;color:#18181b;padding:8px 12px;border-bottom:1px solid #e4e4e7;background:#fafafa;white-space:nowrap;">success</th><th style="text-align:left;font-family:'PT Sans',system-ui,sans-serif;font-weight:700;font-size:13px;color:#18181b;padding:8px 12px;border-bottom:1px solid #e4e4e7;background:#fafafa;white-space:nowrap;">avg_cost</th><th style="text-align:left;font-family:'PT Sans',system-ui,sans-serif;font-weight:700;font-size:13px;color:#18181b;padding:8px 12px;border-bottom:1px solid #e4e4e7;background:#fafafa;white-space:nowrap;">status</th></tr></thead>
+                        <tbody>
+                          <sc-for list="{{ fRows }}" as="fr" hint-placeholder-count="8">
+                            <tr style-hover="background:#fafafa;"><td style="padding:7px 12px;border-bottom:1px solid #f4f4f5;font-family:'Fira Mono',monospace;font-size:12.5px;color:#27272a;white-space:nowrap;">{{ fr.run }}</td><td style="padding:7px 12px;border-bottom:1px solid #f4f4f5;font-family:'Fira Mono',monospace;font-size:12.5px;color:#27272a;white-space:nowrap;">{{ fr.lr }}</td><td style="padding:7px 12px;border-bottom:1px solid #f4f4f5;font-family:'Fira Mono',monospace;font-size:12.5px;color:#27272a;white-space:nowrap;">{{ fr.batch }}</td><td style="padding:7px 12px;border-bottom:1px solid #f4f4f5;font-family:'Fira Mono',monospace;font-size:12.5px;color:#27272a;white-space:nowrap;">{{ fr.accText }}</td><td style="padding:7px 12px;border-bottom:1px solid #f4f4f5;font-family:'Fira Mono',monospace;font-size:12.5px;color:#27272a;white-space:nowrap;">{{ fr.lossText }}</td><td style="padding:7px 12px;border-bottom:1px solid #f4f4f5;font-family:'Fira Mono',monospace;font-size:12.5px;color:#27272a;white-space:nowrap;">{{ fr.status }}</td></tr>
+                          </sc-for>
+                        </tbody>
+                      </table>
+                    </div>
+                    <div style="padding:6px 12px;border-top:1px solid #e4e4e7;font-family:'PT Sans',system-ui,sans-serif;font-size:12px;color:#71717a;">{{ fCount }} rows</div>
+                  </div>
+                </sc-if>
+                <sc-if value="{{ hasChart }}" hint-placeholder-val="{{ true }}">
+                  <div style="position:relative;max-width:680px;padding:10px 12px 8px 22px;background:#fff;">
+                    {{ chart }}
+                    <sc-if value="{{ hasLegend }}" hint-placeholder-val="{{ false }}">
+                      <div style="position:absolute;top:18px;right:26px;background:rgba(255,255,255,0.9);border:1px solid #cccccc;border-radius:3px;padding:5px 8px;display:flex;flex-direction:column;gap:3px;">
+                        <sc-for list="{{ legend }}" as="lg" hint-placeholder-count="0">
+                          <span style="display:flex;align-items:center;gap:7px;font-family:'DejaVu Sans',Verdana,sans-serif;font-size:10.5px;color:#000;"><span style="width:18px;height:2px;background:{{ lg.color }};"></span>{{ lg.name }}</span>
+                        </sc-for>
+                      </div>
+                    </sc-if>
+                  </div>
+                </sc-if></div>
+            </div>
+            <sc-if value="{{ nbEditing }}" hint-placeholder-val="{{ false }}">
+              <div style="display:flex;flex-direction:column;gap:2px;padding-top:4px;color:#a1a1aa;">
+                <span title="Run cell" style="display:flex;padding:4px;border-radius:4px;cursor:pointer;" style-hover="background:#f4f4f5;color:#18181b;"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M7 5l12 7-12 7z"></path></svg></span>
+                <span title="Cell actions" style="display:flex;padding:4px;border-radius:4px;cursor:pointer;" style-hover="background:#f4f4f5;color:#18181b;"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg></span>
+              </div>
+            </sc-if>
+          </div>
+              <sc-if value="{{ nbEditing }}" hint-placeholder-val="{{ false }}">
+                <div style="display:flex;align-items:center;justify-content:center;gap:6px;padding:10px;border:1px dashed #d4d4d8;border-radius:8px;font-size:13px;color:#71717a;cursor:pointer;" style-hover="border-color:#a1a1aa;color:#18181b;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"></path></svg>Add cell</div>
+              </sc-if>
+            </div>
+            <div style="flex:1;"></div>
+            <div style="position:sticky;bottom:16px;align-self:flex-end;margin-right:16px;display:flex;flex-direction:column;align-items:flex-end;gap:8px;">
+              <sc-if value="{{ nbEditing }}" hint-placeholder-val="{{ false }}">
+                <div style="display:flex;flex-direction:column;gap:4px;padding:4px;background:#fff;border:1px solid #e4e4e7;border-radius:8px;box-shadow:0 2px 6px rgba(0,0,0,0.06);">
+                  <span onClick="{{ toggleCode }}" title="{{ codeLabel }}" style="display:flex;padding:7px;border-radius:6px;color:#52525b;cursor:pointer;" style-hover="background:#f4f4f5;color:#18181b;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8 8l-4 4 4 4"></path><path d="M16 8l4 4-4 4"></path></svg></span>
+                  <span title="Run all stale cells" style="display:flex;padding:7px;border-radius:6px;color:#fff;background:#1a7f4b;cursor:pointer;" style-hover="background:#156a3e;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M7 5l12 7-12 7z"></path></svg></span>
+                </div>
+              </sc-if>
+              <sc-if value="{{ nbPreview }}" hint-placeholder-val="{{ true }}">
+                <span style="display:flex;align-items:center;gap:6px;padding:4px 10px;border:1px solid #cdebd9;background:#effaf3;border-radius:6px;font-size:11px;font-weight:700;color:#1a7f4b;">made with marimo <span style="width:10px;height:10px;border-radius:50%;border:1.5px solid #1a7f4b;display:block;"></span></span>
+              </sc-if>
+            </div>
+          </div>
+        </div>
+      </div>
+    </sc-if>
+          </div>
+        </div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ isTutorial }}" hint-placeholder-val="{{ false }}">
+      <div data-screen-label="Tutorial">
+        <div style="display:flex;align-items:center;gap:10px;padding:12px 20px;border-bottom:1px solid var(--color-border);">
+          <div onClick="{{ closeTutorial }}" style="display:flex;align-items:center;gap:4px;font-size:13px;font-weight:600;color:var(--text-secondary);cursor:pointer;" style-hover="color:var(--cw-blue-700);">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M15 18l-6-6 6-6"></path></svg>Notebooks
+          </div>
+          <div style="font-size:13px;font-family:var(--font-mono);color:var(--text-secondary);">/ <b style="color:var(--text-primary);font-weight:600;">{{ tut.crumb }}</b></div>
+          <div style="flex:1;"></div>
+          <x-import component-from-global-scope="CoreWeaveDesignSystem_a63cc0.Button" size="sm" icon-left="{{ playIcon }}" on-click="{{ runFromTutorial }}" hint-size="140px,34px">Run notebook</x-import>
+        </div>
+        <div style="padding:48px 48px 72px;max-width:760px;display:flex;flex-direction:column;gap:12px;">
+          <div style="font-family:var(--font-mono);font-size:11px;letter-spacing:0.06em;text-transform:uppercase;color:var(--cw-blue-700);">Quickstart tutorial</div>
+          <h1 style="font-size:40px;font-weight:800;line-height:0.9;letter-spacing:-0.02em;text-transform:uppercase;margin:0 0 8px;text-wrap:balance;">{{ tut.title }}</h1>
+          <p style="font-size:15px;line-height:1.6;color:var(--text-secondary);margin:0;">{{ tut.intro0 }}<b style="color:var(--text-primary);">{{ tut.intro1 }}</b>{{ tut.intro2 }}</p>
+          <h3 style="font-size:20px;font-weight:700;margin:20px 0 0;">What you'll learn</h3>
+          <ul style="margin:0;padding-left:20px;display:flex;flex-direction:column;gap:6px;">
+            <sc-for list="{{ tut.learn }}" as="l" hint-placeholder-count="4">
+              <li style="font-size:14px;line-height:1.5;color:var(--text-secondary);">{{ l }}</li>
+            </sc-for>
+          </ul>
+          <p style="font-size:14px;line-height:1.6;color:var(--text-secondary);margin:8px 0 0;"><b style="color:var(--text-primary);">The example.</b> {{ tut.example }}</p>
+          <h3 style="font-size:20px;font-weight:700;margin:20px 0 0;">The Forge ecosystem you'll use</h3>
+          <ul style="margin:0;padding-left:20px;display:flex;flex-direction:column;gap:6px;">
+            <sc-for list="{{ tut.ecosystem }}" as="e" hint-placeholder-count="3">
+              <li style="font-size:14px;line-height:1.5;color:var(--text-secondary);">{{ e }}</li>
+            </sc-for>
+          </ul>
+          <div style="display:flex;align-items:center;gap:14px;background:var(--cw-blue-50);border-radius:var(--radius-md);padding:16px 18px;margin-top:20px;">
+            <div onClick="{{ toggleLog }}" style="width:36px;height:20px;border-radius:999px;position:relative;cursor:pointer;flex-shrink:0;transition:background 120ms;background:{{ logTrack }};">
+              <div style="position:absolute;top:2px;width:16px;height:16px;border-radius:50%;background:#fff;transition:left 120ms;left:{{ logThumb }};"></div>
+            </div>
+            <p style="font-size:13px;line-height:1.5;color:var(--cw-gray-950);margin:0;">This tutorial runs end-to-end on synthetic sample data, so you can follow along without touching production. Turn on <b>Log to W&amp;B</b> to also record results in a real project.</p>
+          </div>
+          <h3 style="font-size:20px;font-weight:700;margin:20px 0 0;">Before you begin</h3>
+          <p style="font-size:14px;line-height:1.6;color:var(--text-secondary);margin:0;">In a real run you'd have a CoreWeave Forge account (your compute), plus the W&amp;B tools above where your model's activity is tracked. For this tutorial you need none of it — the data is synthetic. Set an entity/project below only if you want to log results.</p>
+          <input value="{{ tutProject }}" onChange="{{ onTutProject }}" style="height:36px;padding:0 12px;border:1px solid var(--cw-gray-300);border-radius:var(--radius-sm);font-family:var(--font-mono);font-size:12px;max-width:380px;width:100%;background:#fff;color:var(--text-primary);">
+        </div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ isImported }}" hint-placeholder-val="{{ false }}">
+      <div data-screen-label="Imported notebook">
+        <div style="display:flex;align-items:center;gap:10px;padding:12px 20px;border-bottom:1px solid var(--color-border);">
+          <div onClick="{{ closeImported }}" style="display:flex;align-items:center;gap:4px;font-size:13px;font-weight:600;color:var(--text-secondary);cursor:pointer;" style-hover="color:var(--cw-blue-700);">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M15 18l-6-6 6-6"></path></svg>Overview
+          </div>
+          <div style="font-size:13px;font-family:var(--font-mono);color:var(--text-secondary);">/ <b style="color:var(--text-primary);font-weight:600;">{{ imp.fileName }}</b></div>
+          <x-import component-from-global-scope="CoreWeaveDesignSystem_a63cc0.Badge" tone="{{ imp.badgeTone }}" hint-size="120px,22px">{{ imp.badge }}</x-import>
+          <div style="flex:1;"></div>
+          <span style="font-size:12px;color:var(--text-secondary);margin-right:4px;">{{ imp.summary }}</span>
+          <x-import component-from-global-scope="CoreWeaveDesignSystem_a63cc0.Button" variant="support" appearance="outline" size="sm" icon-left="{{ codeIcon }}" on-click="{{ toggleCode }}" hint-size="120px,34px">{{ codeLabel }}</x-import>
+          <x-import component-from-global-scope="CoreWeaveDesignSystem_a63cc0.Button" size="sm" icon-left="{{ playIcon }}" hint-size="80px,34px">Run</x-import>
+        </div>
+        <sc-if value="{{ imp.converted }}" hint-placeholder-val="{{ false }}">
+          <div style="display:flex;align-items:center;gap:8px;padding:8px 20px;background:var(--cw-blue-50);border-bottom:1px solid var(--color-border);font-size:12px;color:var(--cw-blue-700);">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 6L9 17l-5-5"></path></svg>
+            <span>{{ imp.convertNote }}</span>
+          </div>
+        </sc-if>
+        <div style="background:#fff;min-height:780px;">
+          <div style="max-width:760px;margin:0 auto;padding:36px 24px 96px;display:flex;flex-direction:column;gap:14px;">
+            <sc-for list="{{ imp.cells }}" as="c" hint-placeholder-count="4">
+              <div style="background:#fff;border-radius:10px;border:1px solid {{ cellBorder }};overflow:hidden;" style-hover="border-color:var(--cw-gray-600);">
+                <sc-if value="{{ c.isH1 }}" hint-placeholder-val="{{ false }}">
+                  <div style="padding:12px 16px;"><h1 style="font-size:32px;font-weight:800;letter-spacing:-0.02em;line-height:1.1;margin:0;">{{ c.heading }}</h1></div>
+                </sc-if>
+                <sc-if value="{{ c.isText }}" hint-placeholder-val="{{ false }}">
+                  <div style="padding:12px 16px;font-size:15px;line-height:1.6;color:var(--text-secondary);white-space:pre-wrap;">{{ c.text }}</div>
+                </sc-if>
+                <sc-if value="{{ c.isCode }}" hint-placeholder-val="{{ false }}">
+                  <sc-if value="{{ showCode }}" hint-placeholder-val="{{ true }}">
+                    <pre style="margin:0;background:var(--cw-gray-50);padding:10px 16px 12px;font-family:var(--font-mono);font-size:12.5px;line-height:1.7;color:var(--text-primary);white-space:pre;overflow-x:auto;">{{ c.code }}</pre>
+                  </sc-if>
+                  <sc-if value="{{ hideCode }}" hint-placeholder-val="{{ false }}">
+                    <div style="padding:10px 16px;font-size:12px;font-family:var(--font-mono);color:var(--text-secondary);">cell {{ c.n }} · output appears after you run the notebook</div>
+                  </sc-if>
+                </sc-if>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </div>
+    </sc-if>
+
+    
+  </div>
+
+  <sc-if value="{{ panelOpen }}" hint-placeholder-val="{{ false }}">
+    <div onClick="{{ onPanelBackdrop }}" style="position:absolute;inset:0;background:rgba(0,0,0,0.32);display:flex;justify-content:flex-end;z-index:60;">
+      <div style="height:100%;max-width:1360px;background:var(--cw-gray-50);box-shadow:var(--shadow-lg);display:flex;flex-direction:column;position:relative;width:{{ panelWidth }};">
+        <div onMouseDown="{{ startResize }}" title="Drag to resize" style="position:absolute;left:-6px;top:0;bottom:0;width:12px;cursor:col-resize;z-index:3;background:transparent;"></div>
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:16px 24px;border-bottom:1px solid var(--color-border);background:#fff;">
+          <span style="font-weight:700;font-size:16px;">Quickstart templates</span>
+          <div style="display:flex;align-items:center;gap:6px;">
+            <span onClick="{{ expandPanel }}" title="Open full page" style="display:flex;padding:6px;border-radius:var(--radius-xs);color:var(--cw-gray-850);cursor:pointer;" style-hover="color:var(--cw-blue-700);background:var(--cw-blue-50);">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 3H3v6M15 3h6v6M9 21H3v-6M15 21h6v-6"></path></svg>
+            </span>
+            <span onClick="{{ closePanel }}" title="Close" style="display:flex;padding:6px;border-radius:var(--radius-xs);color:var(--cw-gray-850);cursor:pointer;" style-hover="color:var(--cw-blue-700);background:var(--cw-blue-50);">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 6l12 12M18 6L6 18"></path></svg>
+            </span>
+          </div>
+        </div>
+        <div style="flex:1;overflow-y:auto;padding:24px 28px;">
+          <div style="display:flex;flex-direction:column;gap:14px;margin-bottom:22px;">
+            
+            <div style="display:flex;align-items:center;gap:10px;border:1px solid var(--cw-gray-300);background:#fff;border-radius:var(--radius-sm);padding:0 14px;height:40px;max-width:420px;">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--cw-gray-850)" stroke-width="1.8"><circle cx="11" cy="11" r="7"></circle><path d="M21 21l-4.3-4.3"></path></svg>
+              <input value="{{ query }}" onChange="{{ onQuery }}" placeholder="Search quickstart templates" style="border:none;outline:none;font-family:var(--font-brand);font-size:14px;width:100%;background:transparent;color:var(--text-primary);">
+            </div>
+            <div style="display:flex;flex-wrap:wrap;gap:8px;">
+              <sc-for list="{{ chips }}" as="ch" hint-placeholder-count="6">
+                <x-import component-from-global-scope="CoreWeaveDesignSystem_a63cc0.Tag" selected="{{ ch.selected }}" on-click="{{ ch.pick }}" style="white-space:nowrap;flex-shrink:0;" hint-size="auto,32px"><span style="white-space:nowrap;">{{ ch.label }}</span></x-import>
+              </sc-for>
+            </div>
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px;">
+              <div onClick="{{ qt.scatter.open }}" onMouseEnter="{{ qt.scatter.enter }}" onMouseLeave="{{ qtLeave }}" style="background:#fff;border:1px solid var(--color-border);border-radius:var(--radius-md);overflow:hidden;cursor:pointer;display:{{ qt.scatter.display }};" style-hover="border-color:var(--cw-blue-300);">
+                <div style="position:relative;height:110px;background:var(--cw-blue-50);padding:8px 12px;">
+                  <svg viewBox="0 0 160 100" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" style="display:block;"><line x1="14" y1="86" x2="140" y2="18" stroke="#9DC7FE" stroke-dasharray="3,3"></line><circle cx="40" cy="66" r="3.5" fill="#0541E9"></circle><circle cx="55" cy="58" r="3.5" fill="#0541E9"></circle><circle cx="70" cy="50" r="3.5" fill="#2374FF"></circle><circle cx="90" cy="46" r="3.5" fill="#2374FF"></circle><circle cx="105" cy="34" r="3.5" fill="#63A4FF"></circle><circle cx="120" cy="28" r="3.5" fill="#63A4FF"></circle><circle cx="60" cy="70" r="3.5" fill="#0541E9"></circle><circle cx="100" cy="40" r="3.5" fill="#2374FF"></circle></svg>
+                  <div style="position:absolute;inset:0;background:rgba(5,65,233,0.82);display:flex;align-items:center;justify-content:center;transition:opacity 120ms;opacity:{{ qt.scatter.overlay }};">
+                    <span style="background:#fff;color:var(--cw-blue-700);font-size:13px;font-weight:600;padding:8px 14px;border-radius:var(--radius-sm);">Open notebook</span>
+                  </div>
+                </div>
+                <div style="padding:12px 14px 14px;display:flex;flex-direction:column;gap:6px;">
+                  <div style="font-size:14px;font-weight:700;line-height:1.25;">Reward model calibration</div>
+                  <div style="font-family:var(--font-mono);font-size:11px;letter-spacing:0.06em;text-transform:uppercase;color:var(--text-secondary);">Post-training</div>
+                </div>
+              </div>
+              <div onClick="{{ qt.eda.open }}" onMouseEnter="{{ qt.eda.enter }}" onMouseLeave="{{ qtLeave }}" style="background:#fff;border:1px solid var(--color-border);border-radius:var(--radius-md);overflow:hidden;cursor:pointer;display:{{ qt.eda.display }};" style-hover="border-color:var(--cw-blue-300);">
+                <div style="position:relative;height:110px;background:var(--cw-blue-50);padding:8px 12px;">
+                  <svg viewBox="0 0 160 100" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" style="display:block;"><rect x="24" y="50" width="14" height="36" rx="2" fill="#0541E9" opacity="1.0"></rect><rect x="44" y="34" width="14" height="52" rx="2" fill="#0541E9" opacity="0.9"></rect><rect x="64" y="20" width="14" height="66" rx="2" fill="#0541E9" opacity="0.8"></rect><rect x="84" y="40" width="14" height="46" rx="2" fill="#2374FF" opacity="0.7"></rect><rect x="104" y="58" width="14" height="28" rx="2" fill="#2374FF" opacity="0.6"></rect><rect x="124" y="70" width="14" height="16" rx="2" fill="#2374FF" opacity="0.5"></rect></svg>
+                  <div style="position:absolute;inset:0;background:rgba(5,65,233,0.82);display:flex;align-items:center;justify-content:center;transition:opacity 120ms;opacity:{{ qt.eda.overlay }};">
+                    <span style="background:#fff;color:var(--cw-blue-700);font-size:13px;font-weight:600;padding:8px 14px;border-radius:var(--radius-sm);">Open notebook</span>
+                  </div>
+                </div>
+                <div style="padding:12px 14px 14px;display:flex;flex-direction:column;gap:6px;">
+                  <div style="font-size:14px;font-weight:700;line-height:1.25;">Token-length profile</div>
+                  <div style="font-family:var(--font-mono);font-size:11px;letter-spacing:0.06em;text-transform:uppercase;color:var(--text-secondary);">Data Exploration</div>
+                </div>
+              </div>
+              <div onClick="{{ qt.filter.open }}" onMouseEnter="{{ qt.filter.enter }}" onMouseLeave="{{ qtLeave }}" style="background:#fff;border:1px solid var(--color-border);border-radius:var(--radius-md);overflow:hidden;cursor:pointer;display:{{ qt.filter.display }};" style-hover="border-color:var(--cw-blue-300);">
+                <div style="position:relative;height:110px;background:var(--cw-blue-50);padding:8px 12px;">
+                  <svg viewBox="0 0 160 100" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" style="display:block;"><circle cx="24" cy="26" r="4" fill="#0541E9"></circle><line x1="34" y1="26" x2="130" y2="26" stroke="#9DC7FE" stroke-width="2"></line><circle cx="24" cy="46" r="4" fill="#2374FF"></circle><line x1="34" y1="46" x2="110" y2="46" stroke="#9DC7FE" stroke-width="2"></line><circle cx="24" cy="66" r="4" fill="#63A4FF"></circle><line x1="34" y1="66" x2="95" y2="66" stroke="#9DC7FE" stroke-width="2"></line><circle cx="24" cy="86" r="4" fill="#0541E9"></circle><line x1="34" y1="86" x2="120" y2="86" stroke="#9DC7FE" stroke-width="2"></line></svg>
+                  <div style="position:absolute;inset:0;background:rgba(5,65,233,0.82);display:flex;align-items:center;justify-content:center;transition:opacity 120ms;opacity:{{ qt.filter.overlay }};">
+                    <span style="background:#fff;color:var(--cw-blue-700);font-size:13px;font-weight:600;padding:8px 14px;border-radius:var(--radius-sm);">Open notebook</span>
+                  </div>
+                </div>
+                <div style="padding:12px 14px 14px;display:flex;flex-direction:column;gap:6px;">
+                  <div style="font-size:14px;font-weight:700;line-height:1.25;">Agent eval leaderboard</div>
+                  <div style="font-family:var(--font-mono);font-size:11px;letter-spacing:0.06em;text-transform:uppercase;color:var(--text-secondary);">Agent Evals</div>
+                </div>
+              </div>
+              <div onClick="{{ qt.confusion.open }}" onMouseEnter="{{ qt.confusion.enter }}" onMouseLeave="{{ qtLeave }}" style="background:#fff;border:1px solid var(--color-border);border-radius:var(--radius-md);overflow:hidden;cursor:pointer;display:{{ qt.confusion.display }};" style-hover="border-color:var(--cw-blue-300);">
+                <div style="position:relative;height:110px;background:var(--cw-blue-50);padding:8px 12px;">
+                  <svg viewBox="0 0 160 100" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" style="display:block;"><rect x="47" y="17" width="20" height="20" rx="3" fill="#0541E9" opacity="1"></rect><rect x="69" y="17" width="20" height="20" rx="3" fill="#0541E9" opacity="0.35"></rect><rect x="91" y="17" width="20" height="20" rx="3" fill="#0541E9" opacity="0.15"></rect><rect x="47" y="39" width="20" height="20" rx="3" fill="#0541E9" opacity="0.3"></rect><rect x="69" y="39" width="20" height="20" rx="3" fill="#0541E9" opacity="1"></rect><rect x="91" y="39" width="20" height="20" rx="3" fill="#0541E9" opacity="0.25"></rect><rect x="47" y="61" width="20" height="20" rx="3" fill="#0541E9" opacity="0.12"></rect><rect x="69" y="61" width="20" height="20" rx="3" fill="#0541E9" opacity="0.2"></rect><rect x="91" y="61" width="20" height="20" rx="3" fill="#0541E9" opacity="1"></rect></svg>
+                  <div style="position:absolute;inset:0;background:rgba(5,65,233,0.82);display:flex;align-items:center;justify-content:center;transition:opacity 120ms;opacity:{{ qt.confusion.overlay }};">
+                    <span style="background:#fff;color:var(--cw-blue-700);font-size:13px;font-weight:600;padding:8px 14px;border-radius:var(--radius-sm);">Open notebook</span>
+                  </div>
+                </div>
+                <div style="padding:12px 14px 14px;display:flex;flex-direction:column;gap:6px;">
+                  <div style="font-size:14px;font-weight:700;line-height:1.25;">Teacher–student agreement</div>
+                  <div style="font-family:var(--font-mono);font-size:11px;letter-spacing:0.06em;text-transform:uppercase;color:var(--text-secondary);">Model Distillation</div>
+                </div>
+              </div>
+              <div onClick="{{ qt.loss.open }}" onMouseEnter="{{ qt.loss.enter }}" onMouseLeave="{{ qtLeave }}" style="background:#fff;border:1px solid var(--color-border);border-radius:var(--radius-md);overflow:hidden;cursor:pointer;display:{{ qt.loss.display }};" style-hover="border-color:var(--cw-blue-300);">
+                <div style="position:relative;height:110px;background:var(--cw-blue-50);padding:8px 12px;">
+                  <svg viewBox="0 0 160 100" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" style="display:block;"><path d="M14 20 Q60 30 90 65 T146 82" stroke="#0541E9" fill="none" stroke-width="2"></path><path d="M14 26 Q60 50 90 72 T146 88" stroke="#2374FF" fill="none" stroke-width="2"></path><path d="M14 18 Q55 22 85 58 T146 76" stroke="#63A4FF" fill="none" stroke-width="2"></path></svg>
+                  <div style="position:absolute;inset:0;background:rgba(5,65,233,0.82);display:flex;align-items:center;justify-content:center;transition:opacity 120ms;opacity:{{ qt.loss.overlay }};">
+                    <span style="background:#fff;color:var(--cw-blue-700);font-size:13px;font-weight:600;padding:8px 14px;border-radius:var(--radius-sm);">Open notebook</span>
+                  </div>
+                </div>
+                <div style="padding:12px 14px 14px;display:flex;flex-direction:column;gap:6px;">
+                  <div style="font-size:14px;font-weight:700;line-height:1.25;">Pretraining loss curves</div>
+                  <div style="font-family:var(--font-mono);font-size:11px;letter-spacing:0.06em;text-transform:uppercase;color:var(--text-secondary);">Pretraining</div>
+                </div>
+              </div>
+              <div onClick="{{ qt.feature.open }}" onMouseEnter="{{ qt.feature.enter }}" onMouseLeave="{{ qtLeave }}" style="background:#fff;border:1px solid var(--color-border);border-radius:var(--radius-md);overflow:hidden;cursor:pointer;display:{{ qt.feature.display }};" style-hover="border-color:var(--cw-blue-300);">
+                <div style="position:relative;height:110px;background:var(--cw-blue-50);padding:8px 12px;">
+                  <svg viewBox="0 0 160 100" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" style="display:block;"><rect x="20" y="22" width="110" height="9" rx="2" fill="#0541E9" opacity="1.0"></rect><rect x="20" y="40" width="85" height="9" rx="2" fill="#0541E9" opacity="0.8"></rect><rect x="20" y="58" width="60" height="9" rx="2" fill="#0541E9" opacity="0.6"></rect><rect x="20" y="76" width="35" height="9" rx="2" fill="#0541E9" opacity="0.4"></rect></svg>
+                  <div style="position:absolute;inset:0;background:rgba(5,65,233,0.82);display:flex;align-items:center;justify-content:center;transition:opacity 120ms;opacity:{{ qt.feature.overlay }};">
+                    <span style="background:#fff;color:var(--cw-blue-700);font-size:13px;font-weight:600;padding:8px 14px;border-radius:var(--radius-sm);">Open notebook</span>
+                  </div>
+                </div>
+                <div style="padding:12px 14px 14px;display:flex;flex-direction:column;gap:6px;">
+                  <div style="font-size:14px;font-weight:700;line-height:1.25;">Layer-wise distillation gap</div>
+                  <div style="font-family:var(--font-mono);font-size:11px;letter-spacing:0.06em;text-transform:uppercase;color:var(--text-secondary);">Model Distillation</div>
+                </div>
+              </div>
+              <div onClick="{{ qt.embedding.open }}" onMouseEnter="{{ qt.embedding.enter }}" onMouseLeave="{{ qtLeave }}" style="background:#fff;border:1px solid var(--color-border);border-radius:var(--radius-md);overflow:hidden;cursor:pointer;display:{{ qt.embedding.display }};" style-hover="border-color:var(--cw-blue-300);">
+                <div style="position:relative;height:110px;background:var(--cw-blue-50);padding:8px 12px;">
+                  <svg viewBox="0 0 160 100" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" style="display:block;"><circle cx="40" cy="35" r="3" fill="#0541E9"></circle><circle cx="48" cy="42" r="3" fill="#0541E9"></circle><circle cx="35" cy="48" r="3" fill="#0541E9"></circle><circle cx="52" cy="30" r="3" fill="#0541E9"></circle><circle cx="105" cy="55" r="3" fill="#2374FF"></circle><circle cx="115" cy="62" r="3" fill="#2374FF"></circle><circle cx="98" cy="65" r="3" fill="#2374FF"></circle><circle cx="118" cy="48" r="3" fill="#2374FF"></circle><circle cx="70" cy="75" r="3" fill="#63A4FF"></circle><circle cx="80" cy="80" r="3" fill="#63A4FF"></circle><circle cx="65" cy="82" r="3" fill="#63A4FF"></circle></svg>
+                  <div style="position:absolute;inset:0;background:rgba(5,65,233,0.82);display:flex;align-items:center;justify-content:center;transition:opacity 120ms;opacity:{{ qt.embedding.overlay }};">
+                    <span style="background:#fff;color:var(--cw-blue-700);font-size:13px;font-weight:600;padding:8px 14px;border-radius:var(--radius-sm);">Open notebook</span>
+                  </div>
+                </div>
+                <div style="padding:12px 14px 14px;display:flex;flex-direction:column;gap:6px;">
+                  <div style="font-size:14px;font-weight:700;line-height:1.25;">Agent trajectory map</div>
+                  <div style="font-family:var(--font-mono);font-size:11px;letter-spacing:0.06em;text-transform:uppercase;color:var(--text-secondary);">Agent Evals</div>
+                </div>
+              </div>
+              <div onClick="{{ qt.sweep.open }}" onMouseEnter="{{ qt.sweep.enter }}" onMouseLeave="{{ qtLeave }}" style="background:#fff;border:1px solid var(--color-border);border-radius:var(--radius-md);overflow:hidden;cursor:pointer;display:{{ qt.sweep.display }};" style-hover="border-color:var(--cw-blue-300);">
+                <div style="position:relative;height:110px;background:var(--cw-blue-50);padding:8px 12px;">
+                  <svg viewBox="0 0 160 100" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" style="display:block;"><circle cx="24" cy="70" r="4" fill="#2374FF" opacity="0.50"></circle><circle cx="40" cy="50" r="4" fill="#2374FF" opacity="0.56"></circle><circle cx="56" cy="60" r="4" fill="#2374FF" opacity="0.62"></circle><circle cx="72" cy="34" r="4" fill="#2374FF" opacity="0.68"></circle><circle cx="88" cy="44" r="4" fill="#2374FF" opacity="0.74"></circle><circle cx="104" cy="26" r="4" fill="#2374FF" opacity="0.80"></circle><circle cx="120" cy="38" r="4" fill="#2374FF" opacity="0.86"></circle><circle cx="136" cy="20" r="4" fill="#2374FF" opacity="0.92"></circle></svg>
+                  <div style="position:absolute;inset:0;background:rgba(5,65,233,0.82);display:flex;align-items:center;justify-content:center;transition:opacity 120ms;opacity:{{ qt.sweep.overlay }};">
+                    <span style="background:#fff;color:var(--cw-blue-700);font-size:13px;font-weight:600;padding:8px 14px;border-radius:var(--radius-sm);">Open notebook</span>
+                  </div>
+                </div>
+                <div style="padding:12px 14px 14px;display:flex;flex-direction:column;gap:6px;">
+                  <div style="font-size:14px;font-weight:700;line-height:1.25;">Scaling-law explorer</div>
+                  <div style="font-family:var(--font-mono);font-size:11px;letter-spacing:0.06em;text-transform:uppercase;color:var(--text-secondary);">Pretraining</div>
+                </div>
+              </div>
+              <div onClick="{{ qt.drift.open }}" onMouseEnter="{{ qt.drift.enter }}" onMouseLeave="{{ qtLeave }}" style="background:#fff;border:1px solid var(--color-border);border-radius:var(--radius-md);overflow:hidden;cursor:pointer;display:{{ qt.drift.display }};" style-hover="border-color:var(--cw-blue-300);">
+                <div style="position:relative;height:110px;background:var(--cw-blue-50);padding:8px 12px;">
+                  <svg viewBox="0 0 160 100" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" style="display:block;"><path d="M14 80 Q40 20 65 80 T116 80" stroke="#0541E9" fill="none" stroke-width="2"></path><path d="M34 80 Q60 30 85 80 T146 80" stroke="#63A4FF" fill="none" stroke-width="2" stroke-dasharray="4,3"></path></svg>
+                  <div style="position:absolute;inset:0;background:rgba(5,65,233,0.82);display:flex;align-items:center;justify-content:center;transition:opacity 120ms;opacity:{{ qt.drift.overlay }};">
+                    <span style="background:#fff;color:var(--cw-blue-700);font-size:13px;font-weight:600;padding:8px 14px;border-radius:var(--radius-sm);">Open notebook</span>
+                  </div>
+                </div>
+                <div style="padding:12px 14px 14px;display:flex;flex-direction:column;gap:6px;">
+                  <div style="font-size:14px;font-weight:700;line-height:1.25;">Train vs. eval shift</div>
+                  <div style="font-family:var(--font-mono);font-size:11px;letter-spacing:0.06em;text-transform:uppercase;color:var(--text-secondary);">Data Exploration</div>
+                </div>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ upOpen }}" hint-placeholder-val="{{ false }}">
+    <div style="position:absolute;inset:0;background:rgba(0,0,0,0.4);display:flex;align-items:center;justify-content:center;z-index:80;">
+      <div style="background:#fff;border-radius:var(--radius-lg);width:480px;max-width:calc(100vw - 32px);box-shadow:var(--shadow-lg);overflow:hidden;">
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:18px 20px;border-bottom:1px solid var(--color-border);">
+          <span style="font-weight:700;font-size:16px;">Upload notebook</span>
+          <span onClick="{{ closeUpload }}" style="display:flex;padding:4px;color:var(--cw-gray-850);cursor:pointer;" style-hover="color:var(--cw-blue-700);">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 6l12 12M18 6L6 18"></path></svg>
+          </span>
+        </div>
+        <div style="padding:20px;display:flex;flex-direction:column;gap:14px;">
+          <p style="font-size:14px;color:var(--text-secondary);margin:0;">marimo <span style="font-family:var(--font-mono);">.py</span> notebooks open as-is. Jupyter <span style="font-family:var(--font-mono);">.ipynb</span> files and plain Python scripts are converted to marimo.</p>
+          <sc-if value="{{ upNoFile }}" hint-placeholder-val="{{ true }}">
+            <label style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;padding:28px;border:1.5px dashed var(--cw-gray-500);border-radius:var(--radius-md);cursor:pointer;background:var(--cw-gray-50);text-align:center;" style-hover="border-color:var(--cw-blue-500);background:var(--cw-blue-50);">
+              <input type="file" accept=".py,.ipynb" onChange="{{ onNbFile }}" style="display:none;">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--cw-blue-700)" stroke-width="1.6"><path d="M12 16V4"></path><path d="M7 9l5-5 5 5"></path><path d="M4 16v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3"></path></svg>
+              <span style="font-size:13px;font-weight:600;">Drop a notebook here or <span style="color:var(--cw-blue-700);">browse</span></span>
+              <span style="font-size:12px;color:var(--text-secondary);font-family:var(--font-mono);">.py · .ipynb</span>
+            </label>
+          </sc-if>
+          <sc-if value="{{ upHasFile }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex;flex-direction:column;gap:10px;padding:12px 14px;border:1px solid var(--color-border);border-radius:var(--radius-sm);">
+              <div style="display:flex;align-items:center;gap:10px;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--cw-blue-700)" stroke-width="1.6"><path d="M6 3h9l5 5v13H6z"></path><path d="M14 3v6h6"></path></svg>
+                <span style="font-size:13px;font-weight:600;font-family:var(--font-mono);flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">{{ imp.fileName }}</span>
+                <span onClick="{{ clearNbFile }}" style="font-size:12px;font-weight:600;color:var(--cw-blue-700);cursor:pointer;">Replace</span>
+              </div>
+              <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+                <x-import component-from-global-scope="CoreWeaveDesignSystem_a63cc0.Badge" tone="{{ imp.badgeTone }}" hint-size="120px,22px">{{ imp.badge }}</x-import>
+                <span style="font-size:12px;color:var(--text-secondary);">{{ imp.summary }}</span>
+              </div>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:6px;">
+              <span style="font-size:12px;font-weight:600;">Project</span>
+              <select style="height:38px;padding:0 10px;border:1px solid var(--cw-gray-300);border-radius:var(--radius-sm);background:#fff;font-family:var(--font-mono);font-size:13px;width:100%;"><option>acme-labs/pretrain-1p3b</option><option>acme-labs/agent-evals</option><option>acme-labs/distill-7b</option><option>acme-labs/sft-mix</option></select>
+            </div>
+          </sc-if>
+          <sc-if value="{{ upError }}" hint-placeholder-val="{{ false }}">
+            <div style="font-size:13px;color:var(--cw-blue-700);background:var(--cw-blue-50);border-radius:var(--radius-sm);padding:10px 12px;">{{ upErrorText }}</div>
+          </sc-if>
+        </div>
+        <div style="display:flex;justify-content:flex-end;gap:10px;padding:14px 20px;border-top:1px solid var(--color-border);">
+          <x-import component-from-global-scope="CoreWeaveDesignSystem_a63cc0.Button" variant="support" appearance="outline" size="sm" on-click="{{ closeUpload }}" hint-size="80px,34px">Cancel</x-import>
+          <x-import component-from-global-scope="CoreWeaveDesignSystem_a63cc0.Button" size="sm" disabled="{{ upNoFile }}" on-click="{{ confirmUpload }}" hint-size="140px,34px">{{ upCta }}</x-import>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ modalOpen }}" hint-placeholder-val="{{ false }}">
+    <div style="position:absolute;inset:0;background:rgba(0,0,0,0.4);display:flex;align-items:center;justify-content:center;z-index:80;">
+      <div style="background:#fff;border-radius:var(--radius-lg);width:440px;max-width:calc(100vw - 32px);box-shadow:var(--shadow-lg);overflow:hidden;">
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:18px 20px;border-bottom:1px solid var(--color-border);">
+          <span style="font-weight:700;font-size:16px;">{{ modalTitle }}</span>
+          <span onClick="{{ closeModal }}" style="display:flex;padding:4px;color:var(--cw-gray-850);cursor:pointer;" style-hover="color:var(--cw-blue-700);">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 6l12 12M18 6L6 18"></path></svg>
+          </span>
+        </div>
+        <div style="padding:20px;display:flex;flex-direction:column;gap:12px;">
+          <p style="font-size:14px;color:var(--text-secondary);margin:0;">Your new notebook will be created within a project.</p>
+          <div style="display:flex;flex-direction:column;gap:6px;">
+            <span style="font-size:12px;font-weight:600;">Project</span>
+            <select style="height:38px;padding:0 10px;border:1px solid var(--cw-gray-300);border-radius:var(--radius-sm);background:#fff;font-family:var(--font-mono);font-size:13px;width:100%;"><option>asteroid-detection</option><option>acme-labs/churn-predictor</option><option>lab-ops/eval-suite</option></select>
+          </div>
+          <a href="#" style="font-size:13px;font-weight:600;">+ Create a new project</a>
+          <sc-if value="{{ modalIsFork }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex;flex-direction:column;gap:8px;margin-top:6px;">
+              <span style="font-size:12px;font-weight:600;">Start with</span>
+              <sc-for list="{{ forkModes }}" as="fm" hint-placeholder-count="3">
+                <div onClick="{{ fm.pick }}" style="display:flex;align-items:flex-start;gap:10px;padding:10px 12px;border-radius:var(--radius-sm);cursor:pointer;border:1px solid {{ fm.border }};background:{{ fm.bg }};">
+                  <span style="width:14px;height:14px;margin-top:2px;border-radius:50%;flex-shrink:0;box-sizing:border-box;border:{{ fm.ring }};"></span>
+                  <span style="display:flex;flex-direction:column;gap:2px;">
+                    <span style="font-size:13px;font-weight:600;">{{ fm.label }}</span>
+                    <span style="font-size:12px;color:var(--text-secondary);">{{ fm.desc }}</span>
+                  </span>
+                </div>
+              </sc-for>
+            </div>
+          </sc-if>
+        </div>
+        <div style="display:flex;justify-content:flex-end;gap:10px;padding:14px 20px;border-top:1px solid var(--color-border);">
+          <x-import component-from-global-scope="CoreWeaveDesignSystem_a63cc0.Button" variant="support" appearance="outline" size="sm" on-click="{{ closeModal }}" hint-size="80px,34px">Cancel</x-import>
+          <x-import component-from-global-scope="CoreWeaveDesignSystem_a63cc0.Button" size="sm" on-click="{{ confirmModal }}" hint-size="80px,34px">Create</x-import>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:948},&quot;initialView&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;home&quot;,&quot;templates&quot;,&quot;quickstart&quot;],&quot;default&quot;:&quot;home&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;showCode&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;}}">
+const h = React.createElement;
+const C = ['#1f77b4', '#ff7f0e', '#2ca02c', '#d62728'];
+const rng = (seed) => { let s = seed; return () => { s = (s * 9301 + 49297) % 233280; return s / 233280; }; };
+const icon = (paths, fill) => h('svg', { width: 14, height: 14, viewBox: '0 0 24 24', fill: fill || 'none', stroke: fill ? 'none' : 'currentColor', strokeWidth: 2, strokeLinecap: 'round' }, paths.map((d, i) => h('path', { key: i, d })));
+
+const TPLS = [
+  { id: 'loss', title: "Pretraining loss curves", cat: 'Pretraining' },
+  { id: 'sweep', title: "Scaling-law explorer", cat: 'Pretraining' },
+  { id: 'scatter', title: "Reward model calibration", cat: 'Post-training' },
+  { id: 'feature', title: "Layer-wise distillation gap", cat: 'Model Distillation' },
+  { id: 'confusion', title: "Teacher–student agreement", cat: 'Model Distillation' },
+  { id: 'filter', title: "Agent eval leaderboard", cat: 'Agent Evals' },
+  { id: 'embedding', title: "Agent trajectory map", cat: 'Agent Evals' },
+  { id: 'eda', title: "Token-length profile", cat: 'Data Exploration' },
+  { id: 'drift', title: "Train vs. eval shift", cat: 'Data Exploration' }
+];
+const CATS = ['Pretraining', 'Post-training', 'Model Distillation', 'Agent Evals', 'Data Exploration'];
+const TAB_LABELS = {"scatter":"Reward Calibration","eda":"Token Lengths","filter":"Leaderboard","confusion":"Agreement","loss":"Loss Curves","feature":"Layer KL","embedding":"Trajectories","sweep":"Scaling Laws","drift":"Distribution Shift"};
+
+const TUT = {
+ "loss": {
+  "crumb": "Pretraining loss curves",
+  "title": "See which run is actually converging",
+  "intro": [
+   "A hands-on template for pretraining teams who want to ",
+   "compare loss curves across runs",
+   " without exporting anything."
+  ],
+  "learn": [
+   "How to pull loss history for every run in a project",
+   "How to overlay and toggle runs on one chart",
+   "How to spot divergence and loss spikes early",
+   "How to read late-training differences at a glance"
+  ],
+  "example": "Four 1.3B-parameter runs with different learning rates are overlaid. Toggle them to see which schedule wins.",
+  "ecosystem": [
+   "marimo — reactive notebooks: interact with a chart and every dependent cell reruns",
+   "W&B Runs API — logged step-level history",
+   "CoreWeave Forge — the GPU compute your experiments run on"
+  ],
+  "project": "acme-labs/pretrain-1p3b"
+ },
+ "sweep": {
+  "crumb": "Scaling-law explorer",
+  "title": "Fit the curve before you spend the compute",
+  "intro": [
+   "A hands-on template for teams planning a large run who want to ",
+   "see how loss scales with compute and parameters",
+   "."
+  ],
+  "learn": [
+   "How to plot final loss against compute on a log axis",
+   "How parameters vs. compute tell different stories",
+   "How to spot compute-optimal runs on the frontier",
+   "How to extrapolate before committing a cluster"
+  ],
+  "example": "Thirty-six small runs span three orders of magnitude of compute. Switch the x axis to see which variable explains quality best.",
+  "ecosystem": [
+   "marimo — reactive notebooks: interact with a chart and every dependent cell reruns",
+   "W&B Sweeps — every run’s config and summary",
+   "CoreWeave Forge — the GPU compute your experiments run on"
+  ],
+  "project": "acme-labs/scaling-sweep"
+ },
+ "scatter": {
+  "crumb": "Reward model calibration",
+  "title": "Does your reward model agree with humans?",
+  "intro": [
+   "A hands-on template for post-training teams who want to ",
+   "check reward-model calibration",
+   " before using it for RL."
+  ],
+  "learn": [
+   "How to plot predicted reward against human preference",
+   "How to read the calibration line at a glance",
+   "How calibration improves across checkpoints",
+   "How to catch reward hacking before it ships"
+  ],
+  "example": "Three reward-model checkpoints score the same preference set. Colour by checkpoint to see which one tracks human judgement.",
+  "ecosystem": [
+   "marimo — reactive notebooks: interact with a chart and every dependent cell reruns",
+   "W&B Tables — logged preference evaluations",
+   "CoreWeave Forge — the GPU compute your experiments run on"
+  ],
+  "project": "acme-labs/rm-calibration"
+ },
+ "feature": {
+  "crumb": "Layer-wise distillation gap",
+  "title": "Find the layers where the student falls behind",
+  "intro": [
+   "A hands-on template for distillation teams who want to ",
+   "see where the student diverges from the teacher",
+   "."
+  ],
+  "learn": [
+   "How to compute per-layer KL divergence",
+   "How ranking layers exposes the bottleneck",
+   "How to focus on the top N worst layers",
+   "How to target intermediate-layer losses"
+  ],
+  "example": "A 7B student is distilled from a 70B teacher. We rank layers by KL gap so you know where to add supervision.",
+  "ecosystem": [
+   "marimo — reactive notebooks: interact with a chart and every dependent cell reruns",
+   "PyTorch hooks — per-layer activations",
+   "CoreWeave Forge — the GPU compute your experiments run on"
+  ],
+  "project": "acme-labs/distill-7b"
+ },
+ "confusion": {
+  "crumb": "Teacher–student agreement",
+  "title": "Where does the student disagree with the teacher?",
+  "intro": [
+   "A hands-on template for distillation teams who want to ",
+   "see agreement by task type",
+   ", not just an overall score."
+  ],
+  "learn": [
+   "How to build an agreement matrix across task types",
+   "How row vs. column normalising changes the story",
+   "How to spot the task the student is weakest on",
+   "How to prioritise the next distillation data mix"
+  ],
+  "example": "Teacher and student label the same prompts across math, code and chat. The matrix shows where they disagree.",
+  "ecosystem": [
+   "marimo — reactive notebooks: interact with a chart and every dependent cell reruns",
+   "W&B Tables — paired teacher/student outputs",
+   "CoreWeave Forge — the GPU compute your experiments run on"
+  ],
+  "project": "acme-labs/distill-7b"
+ },
+ "filter": {
+  "crumb": "Agent eval leaderboard",
+  "title": "Rank agent runs without scrolling a spreadsheet",
+  "intro": [
+   "A hands-on template for agent teams who want to ",
+   "compare eval runs by success rate and cost",
+   "."
+  ],
+  "learn": [
+   "How filters generate from your eval history",
+   "How to slice by status and a minimum success rate",
+   "How cost per task changes the ranking",
+   "How to promote the right agent config"
+  ],
+  "example": "Eight agent eval runs across models and step budgets. Filter to the finished runs worth promoting.",
+  "ecosystem": [
+   "marimo — reactive notebooks: interact with a chart and every dependent cell reruns",
+   "W&B Weave — agent eval traces",
+   "CoreWeave Forge — the GPU compute your experiments run on"
+  ],
+  "project": "acme-labs/agent-evals"
+ },
+ "embedding": {
+  "crumb": "Agent trajectory map",
+  "title": "See how failed trajectories cluster",
+  "intro": [
+   "A hands-on template for agent teams who want to ",
+   "map trajectories by outcome",
+   " and find failure modes."
+  ],
+  "learn": [
+   "How to embed agent trajectories into 2D",
+   "How colouring by outcome reveals failure clusters",
+   "How to select a cluster and inspect its traces",
+   "How to spot the outlier trajectory"
+  ],
+  "example": "Seventy-two trajectories are embedded and coloured by success, failure and timeout. Select a cluster to inspect it.",
+  "ecosystem": [
+   "marimo — reactive notebooks: interact with a chart and every dependent cell reruns",
+   "W&B Weave — logged trajectories and embeddings",
+   "CoreWeave Forge — the GPU compute your experiments run on"
+  ],
+  "project": "acme-labs/agent-evals"
+ },
+ "eda": {
+  "crumb": "Token-length profile",
+  "title": "Know your data’s shape before you train",
+  "intro": [
+   "A hands-on template for teams preparing a dataset who want to ",
+   "profile token lengths and turns",
+   "."
+  ],
+  "learn": [
+   "How to profile prompt and completion lengths",
+   "How long tails affect packing and cost",
+   "How to spot truncation risk before training",
+   "How to decide on a context length"
+  ],
+  "example": "An SFT dataset is profiled by prompt tokens, completion tokens, and turns per conversation.",
+  "ecosystem": [
+   "marimo — reactive notebooks: interact with a chart and every dependent cell reruns",
+   "W&B Artifacts — versioned datasets",
+   "CoreWeave Forge — the GPU compute your experiments run on"
+  ],
+  "project": "acme-labs/sft-mix:v4"
+ },
+ "drift": {
+  "crumb": "Train vs. eval shift",
+  "title": "Is your eval set representative?",
+  "intro": [
+   "A hands-on template for teams who want to ",
+   "compare training and eval distributions",
+   " before trusting a benchmark."
+  ],
+  "learn": [
+   "How to overlay distributions from two datasets",
+   "How a mean shift flags a mismatch",
+   "How to switch the feature you compare",
+   "How to catch contamination or skew early"
+  ],
+  "example": "We overlay prompt lengths from the training mix and the eval set and quantify the shift.",
+  "ecosystem": [
+   "marimo — reactive notebooks: interact with a chart and every dependent cell reruns",
+   "W&B Artifacts — train and eval dataset versions",
+   "CoreWeave Forge — the GPU compute your experiments run on"
+  ],
+  "project": "acme-labs/sft-mix:v4"
+ }
+};
+
+const NB = {
+ "loss": {
+  "title": "Pretraining loss curves",
+  "desc": "Overlay training loss across runs to see which configuration actually converges faster.",
+  "fields": [
+   [
+    "W&B project",
+    "acme-labs/pretrain-1p3b"
+   ]
+  ],
+  "status": "connected — 4 runs × 60k steps",
+  "code1": "api = wandb.Api()\nruns = api.runs(project.value)\ndf = pd.concat([r.history(keys=[\"loss\"]).assign(run=r.name) for r in runs])",
+  "code2": "fig, ax = plt.subplots(figsize=(7.5, 4.5))\nfor i, name in enumerate(run_picker.value):\n    sub = df[df[\"run\"] == name]\n    ax.plot(sub[\"_step\"], sub[\"loss\"], label=name, color=palette[i])\nax.legend(fontsize=8)\nfig",
+  "file": "pretraining_loss_curves.py"
+ },
+ "sweep": {
+  "title": "Scaling-law explorer",
+  "desc": "Plot final loss against compute or parameters across a sweep of small runs.",
+  "fields": [
+   [
+    "W&B sweep",
+    "acme-labs/scaling-sweep/sweeps/9f3k2la1"
+   ]
+  ],
+  "status": "connected — 36 runs",
+  "code1": "sweep = wandb.Api().sweep(sweep_path.value)\ndf = pd.DataFrame([{\n    \"compute\": r.summary[\"flops\"],\n    \"params\": r.config[\"n_params\"],\n    \"loss\": r.summary[\"final_loss\"],\n} for r in sweep.runs])",
+  "code2": "fig, ax = plt.subplots(figsize=(7, 4.5))\nax.scatter(df[x_axis.value], df[\"loss\"], c=df[\"loss\"], cmap=\"Blues_r\")\nax.set_xscale(\"log\")\nfig",
+  "file": "scaling_law_explorer.py"
+ },
+ "scatter": {
+  "title": "Reward model calibration",
+  "desc": "Compare reward-model scores with human preference ratings across checkpoints.",
+  "fields": [
+   [
+    "W&B run path",
+    "acme-labs/rm-calibration/eval-run-482"
+   ]
+  ],
+  "status": "connected — 36 preference pairs × 3 checkpoints",
+  "code1": "run = wandb.Api().run(run_path.value)\ndf = run.logged_artifacts()[0].get(\"preferences\").get_dataframe()",
+  "code2": "fig, ax = plt.subplots(figsize=(7, 4.5))\nax.plot([0, 1], [0, 1], \"--\", color=\"#C2C6CC\")\nfor ckpt, sub in df.groupby(color_by.value):\n    ax.scatter(sub[\"human_preference\"], sub[\"predicted_reward\"], label=ckpt)\nax.legend()\nfig",
+  "file": "reward_model_calibration.py"
+ },
+ "feature": {
+  "title": "Layer-wise distillation gap",
+  "desc": "Rank student layers by KL divergence from the teacher to find where supervision is needed.",
+  "fields": [
+   [
+    "W&B artifact",
+    "acme-labs/distill-7b/layer-kl:v3"
+   ]
+  ],
+  "status": "connected — 32 layers",
+  "code1": "artifact = wandb.Api().artifact(artifact_path.value)\nkl = pd.read_csv(f\"{artifact.download()}/layer_kl.csv\")",
+  "code2": "ranked = kl.nlargest(top_n.value, \"kl\")\nfig, ax = plt.subplots(figsize=(7, 4.5))\nax.barh(ranked[\"layer\"], ranked[\"kl\"], color=\"#1f77b4\")\nfig",
+  "file": "layerwise_distillation_gap.py"
+ },
+ "confusion": {
+  "title": "Teacher–student agreement",
+  "desc": "An agreement matrix of teacher vs. student labels across task types.",
+  "fields": [
+   [
+    "W&B run path",
+    "acme-labs/distill-7b/eval-run-117"
+   ]
+  ],
+  "status": "connected — 280 paired outputs",
+  "code1": "run = wandb.Api().run(run_path.value)\ndf = run.history()[[\"teacher_task\", \"student_task\"]].dropna()\nmatrix = pd.crosstab(df[\"teacher_task\"], df[\"student_task\"])",
+  "code2": "display = normalize_matrix(matrix, normalize.value)\nax.imshow(display.values, cmap=\"Blues\")\nfig",
+  "file": "teacher_student_agreement.py"
+ },
+ "filter": {
+  "title": "Agent eval leaderboard",
+  "desc": "Filters generate themselves from your eval history. Slice to the agent runs worth promoting.",
+  "fields": [
+   [
+    "W&B project",
+    "acme-labs/agent-evals"
+   ]
+  ],
+  "status": "connected — 8 eval runs",
+  "code1": "runs = wandb.Api().runs(project.value)\ndf = pd.DataFrame([{\n    \"run\": r.name, \"model\": r.config[\"model\"], \"steps\": r.config[\"max_steps\"],\n    \"success\": r.summary.get(\"success_rate\"), \"cost\": r.summary.get(\"avg_cost\"),\n    \"status\": r.state,\n} for r in runs])",
+  "code2": "filtered = df[df[\"success\"].fillna(-1) >= min_success.value]\nif status.value != \"(all)\":\n    filtered = filtered[filtered[\"status\"] == status.value]\nmo.ui.table(filtered.sort_values(\"success\", ascending=False))",
+  "file": "agent_eval_leaderboard.py"
+ },
+ "embedding": {
+  "title": "Agent trajectory map",
+  "desc": "A 2D projection of agent trajectories, coloured by outcome — similar trajectories sit close together.",
+  "fields": [
+   [
+    "W&B artifact",
+    "acme-labs/agent-evals/trajectory-embeddings:v2"
+   ]
+  ],
+  "status": "connected — 72 trajectories",
+  "code1": "artifact = wandb.Api().artifact(artifact_path.value)\ndf = pd.read_parquet(f\"{artifact.download()}/trajectories.parquet\")",
+  "code2": "fig, ax = plt.subplots(figsize=(7, 5))\nfor outcome, sub in df.groupby(color_by.value):\n    ax.scatter(sub[\"x\"], sub[\"y\"], label=outcome, s=20)\nax = mo.ui.matplotlib(ax)\nax",
+  "file": "agent_trajectory_map.py"
+ },
+ "eda": {
+  "title": "Token-length profile",
+  "desc": "Profile prompt and completion token lengths before you pick a context length or packing strategy.",
+  "fields": [
+   [
+    "W&B artifact",
+    "acme-labs/sft-mix:v4"
+   ]
+  ],
+  "status": "connected — 120k conversations",
+  "code1": "artifact = wandb.Api().artifact(artifact_path.value)\ndf = pd.read_parquet(f\"{artifact.download()}/stats.parquet\")",
+  "code2": "mo.ui.altair_chart(\n    alt.Chart(df).mark_bar().encode(\n        x=alt.X(f\"{col_picker.value}:Q\", bin=alt.Bin(maxbins=8)), y=\"count()\"\n    )\n)",
+  "file": "token_length_profile.py"
+ },
+ "drift": {
+  "title": "Train vs. eval shift",
+  "desc": "Compare a feature’s distribution between the training mix and the eval set.",
+  "fields": [
+   [
+    "Training artifact",
+    "acme-labs/sft-mix:v4"
+   ],
+   [
+    "Eval artifact",
+    "acme-labs/eval-set:v2"
+   ]
+  ],
+  "status": "connected — 2 datasets",
+  "code1": "train = load(train_path.value)[\"prompt_tokens\"]\neval_ = load(eval_path.value)[\"prompt_tokens\"]\nshift = (eval_.mean() - train.mean()) / train.mean() * 100",
+  "code2": "fig, ax = plt.subplots(figsize=(7, 4.5))\nax.hist(train, bins=24, alpha=0.6, label=\"train\", color=\"#1f77b4\")\nax.hist(eval_, bins=24, alpha=0.6, label=\"eval\", color=\"#2ca02c\")\nax.legend()\nfig",
+  "file": "train_eval_shift.py"
+ }
+};
+
+const VARS = {"scatter":["run_path"],"eda":["artifact_path"],"filter":["project"],"confusion":["run_path"],"loss":["project"],"feature":["artifact_path"],"embedding":["artifact_path"],"sweep":["sweep_path"],"drift":["train_path","eval_path"]};
+const CTRL = {"scatter":"color_by = mo.ui.dropdown([\"(none)\", \"checkpoint\"], value=\"checkpoint\", label=\"color by\")\ncolor_by","eda":"col_picker = mo.ui.dropdown([\"prompt_tokens\", \"completion_tokens\", \"turns\"], value=\"completion_tokens\", label=\"column\")\ncol_picker","filter":"status = mo.ui.dropdown([\"(all)\", \"finished\", \"running\", \"failed\"], value=\"(all)\", label=\"status\")\nmin_success = mo.ui.slider(0, 95, value=0, label=\"min success rate\", show_value=True)\nmo.hstack([status, min_success], justify=\"start\")","confusion":"normalize = mo.ui.dropdown([\"none\", \"row (teacher)\", \"column (student)\"], value=\"none\", label=\"normalize by\")\nnormalize","loss":"run_picker = mo.ui.multiselect(df[\"run\"].unique().tolist(), label=\"runs\")\nrun_picker","feature":"top_n = mo.ui.slider(3, 10, value=8, label=\"top N layers\", show_value=True)\ntop_n","embedding":"color_by = mo.ui.dropdown([\"outcome\"], value=\"outcome\", label=\"color by\")\ncolor_by","sweep":"x_axis = mo.ui.dropdown([\"compute\", \"params\"], value=\"compute\", label=\"x axis\")\nx_axis"};
+const TRY = {"scatter":"Try switching the color-by control!","eda":"Try profiling a different column!","filter":"Try raising the minimum success rate!","confusion":"Try normalizing by row or column!","loss":"Try toggling runs on and off!","feature":"Try dragging the top-N slider!","embedding":"Try making a selection with your mouse!","sweep":"Try switching the x axis!","drift":"Compare the two distributions below."};
+const HL_RE = /(#.*$)|("""[\s\S]*?"""|f?"[^"\n]*"|'[^'\n]*')|\b(import|from|as|def|return|for|in|if|else|elif|try|except|with|lambda|True|False|None|and|or|not)\b|\b(\d+(?:\.\d+)?(?:e-?\d+)?)\b|([A-Za-z_]\w*)(?=\()|(@[\w.]+)/gm;
+const HL_STYLE = [null, { color: '#6e7781', fontStyle: 'italic' }, { color: '#0a3069' }, { color: '#cf222e' }, { color: '#0550ae' }, { color: '#8250df' }, { color: '#953800' }];
+const hl = (code) => { const out = []; let last = 0, m, k = 0; HL_RE.lastIndex = 0; while ((m = HL_RE.exec(code))) { if (m.index > last) out.push(code.slice(last, m.index)); const g = m.findIndex((x, i) => i > 0 && x !== undefined); out.push(h('span', { key: k++, style: HL_STYLE[g] }, m[0])); last = m.index + m[0].length; if (m[0].length === 0) HL_RE.lastIndex++; } out.push(code.slice(last)); return out; };
+
+const WB = {
+  loss: { project: 'wandb/pytorch-intro', cols: ['name', 'state', 'lr', 'loss', '_step'], rows: [['1p3b-lr3e-4', 'finished', '3e-4', '0.412', '60000'], ['1p3b-lr6e-4', 'finished', '6e-4', '0.398', '60000'], ['1p3b-lr1e-3', 'crashed', '1e-3', '0.521', '41200'], ['1p3b-cosine', 'finished', '3e-4', '0.377', '60000']] },
+  sweep: { project: 'wandb/sweeps-intro', cols: ['name', 'state', 'n_params', 'flops', 'final_loss'], rows: [['sweep-a1f3', 'finished', '19M', '3.1e17', '3.92'], ['sweep-b72c', 'finished', '85M', '1.4e18', '3.41'], ['sweep-c09e', 'finished', '302M', '6.2e18', '3.02'], ['sweep-d5aa', 'finished', '1.1B', '2.5e19', '2.71']], count: 36 },
+  scatter: { project: 'wandb/trl-reward-modeling', cols: ['name', 'state', 'checkpoint', 'accuracy', 'pairs'], rows: [['rm-ckpt-1k', 'finished', '1000', '0.612', '36'], ['rm-ckpt-4k', 'finished', '4000', '0.688', '36'], ['rm-ckpt-8k', 'finished', '8000', '0.741', '36']] },
+  feature: { project: 'wandb/distillation-tutorial', cols: ['name', 'state', 'teacher', 'student', 'mean_kl'], rows: [['distill-7b-v3', 'finished', '70B', '7B', '0.087'], ['distill-7b-v2', 'finished', '70B', '7B', '0.112'], ['distill-3b-v1', 'finished', '70B', '3B', '0.164']] },
+  confusion: { project: 'wandb/distillation-tutorial', cols: ['name', 'state', 'teacher', 'student', 'agreement'], rows: [['distill-7b-v3', 'finished', '70B', '7B', '0.84'], ['distill-7b-v2', 'finished', '70B', '7B', '0.79'], ['distill-3b-v1', 'finished', '70B', '3B', '0.71']] },
+  filter: { project: 'wandb/weave-agent-evals', cols: ['name', 'state', 'model', 'success_rate', 'avg_cost'], rows: [['react-gpt4o-30', 'finished', 'gpt-4o', '0.884', '$0.31'], ['plan-claude-50', 'finished', 'claude-sonnet', '0.912', '$0.24'], ['react-llama-30', 'finished', 'llama-3-70b', '0.743', '$0.09'], ['reflexion-gpt4o', 'running', 'gpt-4o', '—', '—']], count: 8 },
+  embedding: { project: 'wandb/weave-agent-evals', cols: ['name', 'state', 'trajectories', 'success', 'timeout'], rows: [['traj-embed-v2', 'finished', '72', '41', '9'], ['traj-embed-v1', 'finished', '64', '33', '12']] },
+  eda: { project: 'wandb/llm-finetuning-datasets', cols: ['name', 'state', 'rows', 'mean_prompt', 'mean_completion'], rows: [['sft-mix-v4', 'finished', '120000', '412', '238'], ['sft-mix-v3', 'finished', '96000', '388', '221']] },
+  drift: { project: 'wandb/llm-finetuning-datasets', cols: ['name', 'state', 'split', 'rows', 'mean_prompt'], rows: [['sft-mix-v4', 'finished', 'train', '120000', '412'], ['eval-set-v2', 'finished', 'eval', '2000', '476']] },
+};
+const IMPORTS = 'import marimo as mo\nimport pandas as pd\nimport matplotlib.pyplot as plt';
+const RUNS_CODE = 'api = wandb.Api()\nruns = api.runs(project.value)\nruns_df = pd.DataFrame([\n    {"name": r.name, "state": r.state, **r.config, **r.summary}\n    for r in runs\n])\nmo.ui.table(runs_df)';
+const codeBlock = (code) => { const lines = code.split('\n'); return h('div', { style: { display: 'flex', fontFamily: "'Fira Mono', monospace", fontSize: 13, lineHeight: '20px' } }, [
+  h('div', { key: 'g', style: { padding: '8px 0', minWidth: 34, textAlign: 'right', color: '#a1a1aa', userSelect: 'none', flexShrink: 0 } }, lines.map((_, i) => h('div', { key: i, style: { paddingRight: 10 } }, i + 1))),
+  h('pre', { key: 'c', style: { margin: 0, padding: '8px 12px 8px 4px', whiteSpace: 'pre', overflowX: 'auto', color: '#24292f', flex: 1, font: 'inherit' } }, hl(code))
+]); };
+const REQ = { scatter: ['human_preference', 'predicted_reward', 'checkpoint'], eda: ['prompt_tokens', 'completion_tokens', 'turns'], filter: ['run', 'success_rate', 'avg_cost', 'status'], confusion: ['teacher_label', 'student_label'], loss: ['step', 'loss', 'run'], feature: ['layer', 'kl'], embedding: ['x', 'y', 'outcome'], sweep: ['compute', 'params', 'loss'], drift: ['value', 'split'] };
+const SAMPLE = { scatter: 'rm_preferences_sample.parquet', eda: 'sft_token_stats_sample.parquet', filter: 'agent_eval_runs_sample.csv', confusion: 'distill_pairs_sample.parquet', loss: 'pretrain_history_sample.parquet', feature: 'layer_kl_sample.csv', embedding: 'trajectory_umap_sample.parquet', sweep: 'scaling_sweep_sample.csv', drift: 'train_eval_prompts_sample.parquet' };
+const REG = {
+  'acme-labs/pretrain-1p3b': [{ name: 'loss-history', version: 'v12', type: 'run-table', meta: '2h ago · 240k rows' }, { name: 'scaling-sweep', version: 'v3', type: 'dataset', meta: '1d ago · 36 rows' }, { name: 'tokenizer-stats', version: 'v1', type: 'dataset', meta: '1w ago · 50k rows' }],
+  'acme-labs/agent-evals': [{ name: 'eval-runs', version: 'v8', type: 'run-table', meta: '3h ago · 8 rows' }, { name: 'trajectory-embeddings', version: 'v2', type: 'embeddings', meta: '2d ago · 72 rows' }],
+  'acme-labs/distill-7b': [{ name: 'layer-kl', version: 'v3', type: 'metrics', meta: '5h ago · 32 rows' }, { name: 'teacher-student-pairs', version: 'v5', type: 'dataset', meta: '1d ago · 280 rows' }],
+  'acme-labs/sft-mix': [{ name: 'sft-mix', version: 'v4', type: 'dataset', meta: '4d ago · 120k rows' }, { name: 'eval-set', version: 'v2', type: 'dataset', meta: '4d ago · 2k rows' }, { name: 'rm-preferences', version: 'v6', type: 'dataset', meta: '6d ago · 12k rows' }]
+};
+const REG_DEFAULT = { scatter: 'acme-labs/sft-mix', eda: 'acme-labs/sft-mix', filter: 'acme-labs/agent-evals', confusion: 'acme-labs/distill-7b', loss: 'acme-labs/pretrain-1p3b', feature: 'acme-labs/distill-7b', embedding: 'acme-labs/agent-evals', sweep: 'acme-labs/pretrain-1p3b', drift: 'acme-labs/sft-mix' };
+function dedent(t) { const lines = t.replace(/\s+$/, '').split('\n'); const ind = Math.min(...lines.filter(l => l.trim()).map(l => l.match(/^ */)[0].length)); return lines.map(l => l.slice(isFinite(ind) ? ind : 0)).join('\n'); }
+function mdCell(text) { const t = text.trim(); const m = t.match(/^#\s+(.+)$/m); if (m && t.split('\n').length === 1) return { type: 'h1', text: m[1] }; if (m && t.indexOf(m[0]) === 0) return [{ type: 'h1', text: m[1] }, { type: 'md', text: t.slice(m[0].length).trim().replace(/\*\*/g, '') }]; return { type: 'md', text: t.replace(/\*\*/g, '').replace(/^#+\s*/gm, '') }; }
+function parseNotebook(name, text) {
+  const cells = []; let kind = 'marimo';
+  const push = (c) => [].concat(c).forEach(x => { if (x.text && x.text.trim()) cells.push(x); });
+  if (/\.ipynb$/i.test(name)) {
+    kind = 'jupyter'; const nb = JSON.parse(text);
+    (nb.cells || []).forEach(c => { const src = Array.isArray(c.source) ? c.source.join('') : (c.source || ''); push(c.cell_type === 'markdown' ? mdCell(src) : { type: 'code', text: src }); });
+  } else if (/@app\.cell|marimo\.App/.test(text)) {
+    const setup = text.match(/with app\.setup[^:]*:\n((?:[ \t]+.*\n|\s*\n)+)/);
+    if (setup) push({ type: 'code', text: dedent(setup[1]) });
+    const re = /@app\.(cell|function)[^\n]*\n([\s\S]*?)(?=\n@app\.|\nif __name__|$)/g; let m;
+    while ((m = re.exec(text))) {
+      let body = m[2];
+      if (m[1] === 'cell') { body = body.replace(/^def [^\n]*:\n/, ''); body = dedent(body).replace(/\n?return[^\n]*\s*$/, ''); }
+      const md = body.match(/^mo\.md\(\s*(?:r|f)?(?:"""|''')([\s\S]*?)(?:"""|''')\s*\)\s*$/);
+      push(md ? mdCell(dedent(md[1])) : { type: 'code', text: body.trim() });
+    }
+  } else {
+    kind = 'script';
+    const parts = /^# %%/m.test(text) ? text.split(/^# %%.*$/m) : text.split(/\n{2,}(?=\S)/);
+    parts.forEach(p => { const t = p.trim(); if (!t) return; const doc = t.match(/^(?:"""|''')([\s\S]*?)(?:"""|''')$/); push(doc ? mdCell(doc[1]) : { type: 'code', text: t }); });
+  }
+  return { name, kind, cells };
+}
+const ROWS = [
+  { title: 'Copy of Fine-tune an LLM with W&B…', author: 'Matt Smith', project: 'production/service-monitor', updated: '1m ago', created: 'Just now' },
+  { title: 'Quick Data Cleaning for Eval Set', author: 'Zara Davis', project: 'zara.davis/temp-data-prep', updated: '2h ago', created: '3 minutes ago' },
+  { title: 'Team Image Labeling Tool v3', author: 'Sarah Miller', project: 'lab-ops/dataset-labeling', updated: '3d ago', created: '2 hours ago' },
+  { title: 'Real-Time Monitoring Dashboard', author: 'Dave Kim', project: 'production/service-monitor', updated: '1w ago', created: '4 days ago' }
+];
+const GS = [
+  { title: 'Fine-tune an LLM with W&B, Agent Pulse, Training and Inference', desc: 'Fine-tune, track, evaluate, and run inference on an LLM.' },
+  { title: 'Monitor an agent with Agent Pulse', desc: 'Instrument an agent and explore its behavior in Agent Pulse.' },
+  { title: 'Train a robotics model with W&B', desc: 'Train and evaluate a robotics model with W&B tracking.' }
+];
+
+const SCATTER = (() => { const r = rng(11), pts = []; ['v1', 'v2', 'v3'].forEach((v, vi) => { for (let i = 0; i < 12; i++) { const b = 30 + r() * 330; pts.push({ x: b, y: b + (r() - 0.5) * (3 - vi) * 10 - 10, v: vi }); } }); return pts; })();
+const HIST = { age: [10, 18, 28, 34, 30, 22, 14, 8], income: [4, 9, 20, 32, 38, 28, 16, 7], tenure_months: [26, 22, 19, 17, 14, 12, 10, 9] };
+const RUNS = [
+  { run: 'react-gpt4o-30', lr: 'gpt-4o', batch: 30, acc: 88.4, loss: '$0.31', status: 'finished', c: 1 },
+  { run: 'plan-claude-50', lr: 'claude-sonnet', batch: 50, acc: 91.2, loss: '$0.24', status: 'finished', c: 2 },
+  { run: 'react-llama-30', lr: 'llama-3.1-70b', batch: 30, acc: 71.0, loss: '$0.08', status: 'failed', c: 0 },
+  { run: 'plan-claude-100', lr: 'claude-sonnet', batch: 100, acc: 93.6, loss: '$0.41', status: 'finished', c: 3 },
+  { run: 'reflex-gpt4o-50', lr: 'gpt-4o', batch: 50, acc: 0, loss: '—', status: 'running', c: 1 },
+  { run: 'react-qwen-30', lr: 'qwen2.5-72b', batch: 30, acc: 84.9, loss: '$0.06', status: 'finished', c: 0 },
+  { run: 'plan-gpt4o-100', lr: 'gpt-4o', batch: 100, acc: 89.7, loss: '$0.52', status: 'finished', c: 2 },
+  { run: 'react-mistral-30', lr: 'mistral-large', batch: 30, acc: 63.5, loss: '$0.12', status: 'failed', c: 0 }
+];
+const CM = [[98, 10, 2], [14, 86, 6], [3, 7, 54]];
+const CM_CLS = ['math', 'code', 'chat'];
+const CM_COLS = CM_CLS;
+const LOSS_RUNS = [['1p3b-lr3e-4', 0.02], ['1p3b-lr6e-4', 0.035], ['1p3b-lr1e-3', 0.05], ['1p3b-cosine', 0.015]];
+const FI = [['layer 28', 0.24], ['layer 31', 0.19], ['layer 24', 0.16], ['layer 30', 0.12], ['layer 18', 0.09], ['layer 12', 0.07], ['layer 22', 0.05], ['layer 6', 0.04], ['layer 3', 0.02], ['layer 1', 0.02]];
+const EMB = (() => { const r = rng(41), pts = []; [['Basic', 0, 0], ['Pro', 6, 4], ['Enterprise', 3, -5]].forEach(([l, cx, cy], ci) => { for (let i = 0; i < 24; i++) pts.push({ x: cx + (r() - 0.5) * 3.6, y: cy + (r() - 0.5) * 3.6, c: ci }); }); return pts; })();
+const SWEEP = (() => { const r = rng(71), pts = []; for (let i = 0; i < 36; i++) { const lr = Math.pow(10, -4 + r() * 3); const batch = [16, 32, 64, 128][Math.floor(r() * 4)]; const acc = Math.min(97, Math.max(40, 95 - 8 * Math.log10(lr / 1e-4) + (r() - 0.5) * 10)); pts.push({ lr, batch, acc }); } return pts; })();
+const gauss = (mean, std, n, bins, lo, hi) => { const r = rng(mean * 7 + std * 3), c = new Array(bins).fill(0); for (let i = 0; i < n; i++) { const z = Math.sqrt(-2 * Math.log(r() || 1e-4)) * Math.cos(2 * Math.PI * r()); const idx = Math.floor(((mean + z * std - lo) / (hi - lo)) * bins); if (idx >= 0 && idx < bins) c[idx]++; } return c; };
+const DRIFT_REF = gauss(58000, 16000, 400, 24, 10000, 120000);
+const DRIFT_CUR = gauss(67000, 21000, 400, 24, 10000, 120000);
+
+const svg = (vb, height, kids, width) => h('svg', { viewBox: vb, width: width || '100%', height, style: { display: 'block', overflow: 'visible' } }, kids);
+const MPL = "'DejaVu Sans', Verdana, sans-serif";
+const axes = (bottom, xl, yl) => { const k = [h('rect', { key: 'fr', x: 28, y: 10, width: 372, height: bottom - 10, fill: 'none', stroke: '#000', strokeWidth: 0.8 })]; for (let i = 0; i <= 5; i++) { const x = 28 + i * 372 / 5, y = bottom - i * (bottom - 10) / 5; k.push(h('line', { key: 'tx' + i, x1: x, y1: bottom, x2: x, y2: bottom + 4, stroke: '#000', strokeWidth: 0.8 }), h('line', { key: 'ty' + i, x1: 24, y1: y, x2: 28, y2: y, stroke: '#000', strokeWidth: 0.8 })); } if (xl) k.push(h('text', { key: 'xl', x: 214, y: bottom + 20, textAnchor: 'middle', fontSize: 11, fontFamily: MPL, fill: '#000' }, xl)); if (yl) k.push(h('text', { key: 'yl', x: 10, y: (bottom + 10) / 2, textAnchor: 'middle', fontSize: 11, fontFamily: MPL, fill: '#000', transform: `rotate(-90 10 ${(bottom + 10) / 2})` }, yl)); return k; };
+
+function thumb(id) {
+  const k = [];
+  const B = '#1f77b4', M = '#ff7f0e', L = '#2ca02c', S = '#aec7e8';
+  if (id === 'scatter') { k.push(h('line', { key: 'd', x1: 14, y1: 86, x2: 140, y2: 18, stroke: S, strokeDasharray: '3,3' })); [[40, 66, B], [55, 58, B], [70, 50, M], [90, 46, M], [105, 34, L], [120, 28, L], [60, 70, B], [100, 40, M]].forEach(([x, y, c], i) => k.push(h('circle', { key: i, cx: x, cy: y, r: 3.5, fill: c }))); }
+  if (id === 'eda') [50, 34, 20, 40, 58, 70].forEach((y, i) => k.push(h('rect', { key: i, x: 24 + i * 20, y, width: 14, height: 86 - y, rx: 2, fill: i < 3 ? B : M, opacity: 1 - i * 0.1 })));
+  if (id === 'filter') [[26, 130, B], [46, 110, M], [66, 95, L], [86, 120, B]].forEach(([y, x2, c], i) => { k.push(h('circle', { key: 'c' + i, cx: 24, cy: y, r: 4, fill: c })); k.push(h('line', { key: 'l' + i, x1: 34, y1: y, x2, y2: y, stroke: S, strokeWidth: 2 })); });
+  if (id === 'confusion') { const op = [[1, .35, .15], [.3, 1, .25], [.12, .2, 1]]; op.forEach((row, i) => row.forEach((o, j) => k.push(h('rect', { key: i + '' + j, x: 47 + j * 22, y: 17 + i * 22, width: 20, height: 20, rx: 3, fill: B, opacity: o })))); }
+  if (id === 'loss') [['M14 20 Q60 30 90 65 T146 82', B], ['M14 26 Q60 50 90 72 T146 88', M], ['M14 18 Q55 22 85 58 T146 76', L]].forEach(([d, c], i) => k.push(h('path', { key: i, d, stroke: c, fill: 'none', strokeWidth: 2 })));
+  if (id === 'feature') [110, 85, 60, 35].forEach((w, i) => k.push(h('rect', { key: i, x: 20, y: 22 + i * 18, width: w, height: 9, rx: 2, fill: B, opacity: 1 - i * 0.2 })));
+  if (id === 'embedding') [[40, 35, B], [48, 42, B], [35, 48, B], [52, 30, B], [105, 55, M], [115, 62, M], [98, 65, M], [118, 48, M], [70, 75, L], [80, 80, L], [65, 82, L]].forEach(([x, y, c], i) => k.push(h('circle', { key: i, cx: x, cy: y, r: 3, fill: c })));
+  if (id === 'sweep') [[24, 70], [40, 50], [56, 60], [72, 34], [88, 44], [104, 26], [120, 38], [136, 20]].forEach(([x, y], i) => k.push(h('circle', { key: i, cx: x, cy: y, r: 4, fill: M, opacity: 0.5 + i * 0.06 })));
+  if (id === 'drift') { k.push(h('path', { key: 'a', d: 'M14 80 Q40 20 65 80 T116 80', stroke: B, fill: 'none', strokeWidth: 2 })); k.push(h('path', { key: 'b', d: 'M34 80 Q60 30 85 80 T146 80', stroke: L, fill: 'none', strokeWidth: 2, strokeDasharray: '4,3' })); }
+  return h('svg', { viewBox: '0 0 160 100', width: '100%', height: '100%', preserveAspectRatio: 'xMidYMid meet', style: { display: 'block' } }, k);
+}
+
+class Component extends DCLogic {
+  state = {
+    screen: 'gallery', view: this.props.initialView ?? 'home', panelOpen: false, panelW: 880,
+    modal: null, pendingTpl: null, tpl: 'scatter', nbSource: 'tutorial', showCode: this.props.showCode ?? true, nbEdit: false,
+    chip: 'all', query: '', gsOpen: false, gq: '', upOpen: false, upFile: null, upErr: null, imported: null, dsMode: 'sample', file: null, mapping: {}, uploadApplied: false, regProject: null, regArt: null, regApplied: null, forkMode: 'sample', nbQuery: '', filtersOpen: false, fProject: 'all', fAuthor: 'all', hovered: null, rows: ROWS, menu: null, logWandb: false, tutProject: '', paths: {},
+    sColor: 'model_version', edaCol: 'income', fStatus: 'all', fAcc: 0, cmNorm: 'none',
+    lossOn: {},
+    fiTopN: 8, swParam: 'lr'
+  };
+  gsRef = React.createRef();
+  componentDidMount() {
+    this._move = (e) => { if (!this._drag) return; this.setState({ panelW: Math.min(Math.max(this._right - e.clientX, 380), 1360) }); };
+    this._up = () => { if (this._drag) { this._drag = false; this._justDragged = true; setTimeout(() => { this._justDragged = false; }, 0); document.body.style.userSelect = ''; } };
+    this._click = () => { if (this.state.menu !== null) this.setState({ menu: null }); if (this.state.gsOpen) this.setState({ gsOpen: false, gq: '' }); };
+    document.addEventListener('mousemove', this._move);
+    document.addEventListener('mouseup', this._up);
+    document.addEventListener('click', this._click);
+  }
+  componentWillUnmount() {
+    document.removeEventListener('mousemove', this._move);
+    document.removeEventListener('mouseup', this._up);
+    document.removeEventListener('click', this._click);
+  }
+  go(view) { this.setState({ view, screen: 'gallery', panelOpen: false, nbEdit: false }); }
+  openNotebook(id, source) {
+    const src = source || (this.state.panelOpen ? 'panel' : (this.state.view === 'quickstart' ? 'quickstart' : 'tutorial'));
+    if (this._pendingMode || id !== this.state.tpl || !this.state.regProject) this.resetDs(id, this._pendingMode); this._pendingMode = null;
+    this.setState({ tpl: id, nbSource: src, screen: 'notebook', panelOpen: false, hovered: null, nbEdit: false });
+  }
+  resetDs(id, mode) { this.setState({ dsMode: mode || 'sample', file: null, mapping: {}, uploadApplied: false, regProject: REG_DEFAULT[id], regArt: null, regApplied: null }); }
+  openTutorial(id) { this.setState({ tpl: id, screen: 'tutorial', tutProject: TUT[id].project }); }
+  backFromNotebook() {
+    this.setState({ nbEdit: false });
+    const s = this.state.nbSource;
+    if (s === 'quickstart') this.go('quickstart');
+    else if (s === 'panel') this.setState({ screen: 'gallery', view: 'home', panelOpen: true });
+    else if (s === 'home') this.go('home');
+    else this.openTutorial(this.state.tpl);
+  }
+
+  chart(tab) {
+    const st = this.state;
+    if (tab === 'scatter') return svg('0 0 420 205', 205, [...axes(185, 'human preference', 'predicted reward'), h('line', { key: 'd', x1: 28, y1: 185, x2: 380, y2: 20, stroke: '#C2C6CC', strokeDasharray: '3,4' }), ...SCATTER.map((p, i) => h('circle', { key: i, cx: p.x, cy: 195 - p.y * 0.5, r: 4, fill: st.sColor === 'model_version' ? C[p.v] : C[0], opacity: 0.85 }))]);
+    if (tab === 'eda') { const v = HIST[st.edaCol], m = Math.max(...v); return svg('0 0 420 160', 160, [h('line', { key: 'b', x1: 20, y1: 150, x2: 410, y2: 150, stroke: '#000' }), ...v.map((x, i) => { const hh = (x / m) * 130; return h('rect', { key: i, x: 30 + i * 48, y: 150 - hh, width: 40, height: hh, rx: 3, fill: C[0] }); })]); }
+    if (tab === 'confusion') {
+      let m = CM;
+      if (st.cmNorm === 'row') m = CM.map(r => { const s = r.reduce((a, b) => a + b, 0); return r.map(v => v / s); });
+      if (st.cmNorm === 'col') { const cs = [0, 0, 0]; CM.forEach(r => r.forEach((v, j) => cs[j] += v)); m = CM.map(r => r.map((v, j) => v / cs[j])); }
+      const max = Math.max(...m.flat()), cell = 60, ox = 80, oy = 24, k = [];
+      m.forEach((row, i) => row.forEach((val, j) => {
+        const a = val / max;
+        k.push(h('rect', { key: 'r' + i + j, x: ox + j * cell, y: oy + i * cell, width: cell - 3, height: cell - 3, rx: 0, fill: `rgba(31,119,180,${0.08 + 0.92 * a})` }));
+        k.push(h('text', { key: 't' + i + j, x: ox + j * cell + (cell - 3) / 2, y: oy + i * cell + (cell - 3) / 2 + 4, textAnchor: 'middle', fontSize: 13, fontWeight: 600, fontFamily: MPL, fill: a > 0.5 ? '#fff' : '#16181C' }, st.cmNorm === 'none' ? val : val.toFixed(2)));
+      }));
+      CM_COLS.forEach((c, j) => k.push(h('text', { key: 'cx' + j, x: ox + j * cell + (cell - 3) / 2, y: oy - 8, textAnchor: 'middle', fontSize: 11, fill: '#000' }, c)));
+      CM_CLS.forEach((c, i) => k.push(h('text', { key: 'cy' + i, x: ox - 8, y: oy + i * cell + (cell - 3) / 2 + 4, textAnchor: 'end', fontSize: 11, fill: '#000' }, c)));
+      return svg('0 0 280 210', 210, k, 280);
+    }
+    if (tab === 'loss') {
+      const k = [...axes(195, 'step', 'loss')];
+      LOSS_RUNS.forEach(([n, d], i) => { if (st.lossOn[n] === false) return; const pts = Array.from({ length: 60 }, (_, j) => { const v = 1.2 * Math.exp(-d * j * 3.3) + 0.05; return `${28 + (j / 59) * 370},${195 - (v / 1.3) * 180}`; }).join(' '); k.push(h('polyline', { key: n, points: pts, fill: 'none', stroke: C[i], strokeWidth: 2 })); });
+      return svg('0 0 420 215', 215, k);
+    }
+    if (tab === 'feature') { const r = FI.slice(0, st.fiTopN), m = r[0][1], k = []; r.forEach(([f, v], i) => { const y = 6 + i * 24; k.push(h('rect', { key: 'b' + i, x: 130, y, width: (v / m) * 260, height: 18, rx: 3, fill: C[0], opacity: 1 - i * 0.06 })); k.push(h('text', { key: 't' + i, x: 122, y: y + 13, textAnchor: 'end', fontSize: 11, fontFamily: MPL, fill: '#16181C' }, f)); }); return svg(`0 0 420 ${r.length * 24 + 8}`, r.length * 24 + 8, k); }
+    if (tab === 'embedding') return svg('0 0 420 250', 250, EMB.map((p, i) => h('circle', { key: i, cx: 210 + p.x * 22 - 60, cy: 125 - p.y * 14, r: 4, fill: C[p.c], opacity: 0.85 })));
+    if (tab === 'sweep') {
+      const lg = st.swParam === 'lr', vals = SWEEP.map(d => lg ? Math.log10(d.lr) : d.batch), mn = Math.min(...vals), mx = Math.max(...vals);
+      return svg('0 0 420 215', 215, [...axes(195, lg ? 'compute (FLOPs, log scale)' : 'parameters', 'final loss'), ...SWEEP.map((d, i) => { const a = (d.acc - 40) / 57; return h('circle', { key: i, cx: 32 + ((vals[i] - mn) / (mx - mn)) * 360, cy: 195 - a * 180, r: 4.5, fill: `rgba(31,119,180,${0.25 + 0.7 * a})` }); })]);
+    }
+    if (tab === 'drift') { const m = Math.max(...DRIFT_REF, ...DRIFT_CUR), bw = 380 / 24, k = [h('line', { key: 'b', x1: 20, y1: 170, x2: 410, y2: 170, stroke: '#000' })]; for (let i = 0; i < 24; i++) { const a = (DRIFT_REF[i] / m) * 150, b = (DRIFT_CUR[i] / m) * 150, x = 20 + i * bw; k.push(h('rect', { key: 'r' + i, x, y: 170 - a, width: bw * 0.45, height: a, fill: C[0] })); k.push(h('rect', { key: 'c' + i, x: x + bw * 0.48, y: 170 - b, width: bw * 0.45, height: b, fill: C[2] })); } return svg('0 0 420 180', 180, k); }
+    return null;
+  }
+
+  renderVals() {
+    const v = this._vals(), st0 = this.state;
+    v.hl = { code1: hl(v.nb.code1), code2: hl(v.nb.code2), fieldCode: hl(v.fieldCode), ctrlCode: hl(v.ctrlCode) };
+    const mdSrc = 'mo.md(\n    r"""\n    # ' + v.nb.title + '\n\n    ' + v.nb.desc + '\n\n    **' + v.nb.tryIt + '**\n    """\n)';
+    v.cb = { md: codeBlock(mdSrc), imports: codeBlock(IMPORTS + '\n\ndf = pd.read_parquet(mo.notebook_dir() / "data/' + (SAMPLE[st0.tpl] || 'sample.parquet') + '")'), load: codeBlock('project = mo.ui.text(\n    value="' + v.wb.project + '",\n    label="W&B project",\n)\nproject'), runs: codeBlock(RUNS_CODE), ctrl: codeBlock(v.ctrlCode || ''), plot: codeBlock(v.nb.code2) };
+    return v;
+  }
+  _vals() {
+    const st = this.state, tab = st.tpl;
+    const navItem = (v) => ({ go: () => this.go(v), bg: st.view === v ? 'var(--cw-blue-50)' : 'transparent', fg: st.view === v ? 'var(--cw-blue-700)' : 'var(--text-secondary)', fw: st.view === v ? 600 : 500 });
+    const q = st.query.trim().toLowerCase();
+    const qtCards = TPLS.filter(t => (st.chip === 'all' || t.cat === st.chip) && (!q || t.title.toLowerCase().includes(q)));
+    const fRows = RUNS.filter(r => (st.fStatus === 'all' || r.status === st.fStatus) && r.acc >= st.fAcc).map(r => ({
+      ...r, color: C[r.c], accText: r.acc ? r.acc.toFixed(1) + '%' : '—', lossText: r.loss || '—',
+      tone: r.status === 'finished' ? 'brand' : (r.status === 'running' ? 'info' : 'neutral'), solid: r.status !== 'finished'
+    }));
+    let legend = [];
+    if (tab === 'scatter' && st.sColor === 'model_version') legend = ['ckpt-1k', 'ckpt-4k', 'ckpt-8k'].map((n, i) => ({ name: n, color: C[i] }));
+    if (tab === 'loss') legend = LOSS_RUNS.map(([n], i) => ({ name: n, color: C[i], on: st.lossOn[n] !== false })).filter(l => l.on);
+    if (tab === 'embedding') legend = ['success', 'failure', 'timeout'].map((n, i) => ({ name: n, color: C[i] }));
+    if (tab === 'drift') legend = [{ name: 'train', color: C[0] }, { name: 'eval', color: C[2] }];
+    const nq0 = st.nbQuery.trim().toLowerCase();
+    this._visible = st.rows.filter(r => (!nq0 || (r.title + ' ' + r.author + ' ' + r.project).toLowerCase().includes(nq0)) && (st.fProject === 'all' || r.project === st.fProject) && (st.fAuthor === 'all' || r.author === st.fAuthor)).length;
+    const nb = NB[tab], tut = TUT[tab];
+    const t = {}; Object.keys(NB).forEach(k => t[k] = k === tab);
+    return {
+      isGallery: st.screen === 'gallery' || st.screen === 'notebook', inGalleryView: st.screen === 'gallery', isTutorial: st.screen === 'tutorial', isNotebook: st.screen === 'notebook',
+      isHome: st.view === 'home', isTemplates: st.view === 'templates', isQuickstart: st.view === 'quickstart', isNotebooks: st.view === 'notebooks',
+      showTable: st.view === 'home',
+      nav: { home: navItem('home'), templates: navItem('templates'), quickstart: navItem('quickstart') },
+      sparkIcon: icon(['M12 2l1.8 5.6L19 9l-5.2 1.4L12 16l-1.8-5.6L5 9l5.2-1.4z'], 'currentColor'),
+      plusIcon: icon(['M12 5v14M5 12h14']), playIcon: icon(['M6 4l14 8-14 8z'], 'currentColor'), codeIcon: icon(['M8 4l-6 8 6 8M16 4l6 8-6 8']),
+      homeOpen: Object.fromEntries(['loss', 'scatter', 'filter', 'confusion'].map(id => [id, () => this.openNotebook(id, 'home')])),
+      openCreate: () => this.setState({ modal: 'create', pendingTpl: null }),
+      openCopy: () => this.setState({ modal: 'copy', pendingTpl: null }),
+      openPanel: () => this.setState({ panelOpen: true }),
+      closePanel: () => this.setState({ panelOpen: false }),
+      expandPanel: () => this.go('quickstart'),
+      onPanelBackdrop: (e) => { if (this._justDragged) return; if (e.target === e.currentTarget) this.setState({ panelOpen: false }); },
+      startResize: (e) => { this._right = e.currentTarget.parentElement.getBoundingClientRect().right; this._drag = true; document.body.style.userSelect = 'none'; e.preventDefault(); },
+      panelOpen: st.panelOpen, panelWidth: st.panelW + 'px',
+      query: st.query, onQuery: (e) => this.setState({ query: e.target.value }),
+      chips: [{ label: 'All templates', v: 'all' }, ...CATS.map(c => ({ label: c, v: c }))].map(c => ({ label: c.label, selected: st.chip === c.v, pick: () => this.setState({ chip: c.v }) })),
+      qt: Object.fromEntries(TPLS.map(x => { const vis = qtCards.some(c => c.id === x.id); return [x.id, { display: vis ? 'block' : 'none', overlay: st.hovered === x.id ? 1 : 0, open: () => this.openNotebook(x.id), enter: () => this.setState({ hovered: x.id }) }]; })),
+      qtLeave: () => this.setState({ hovered: null }), qtEmpty: qtCards.length === 0,
+      rows: st.rows.map((r, i) => ({ r, i })).filter(({ r }) => { const nq = st.nbQuery.trim().toLowerCase(); return (!nq || (r.title + ' ' + r.author + ' ' + r.project).toLowerCase().includes(nq)) && (st.fProject === 'all' || r.project === st.fProject) && (st.fAuthor === 'all' || r.author === st.fAuthor); }).map(({ r, i }) => ({
+        ...r, initials: r.author.split(' ').map(w => w[0]).join(''), menuOpen: st.menu === i,
+        toggleMenu: (e) => { e.stopPropagation(); this.setState({ menu: st.menu === i ? null : i }); },
+        remove: (e) => { e.stopPropagation(); this.setState(s => ({ rows: s.rows.filter((_, j) => j !== i), menu: null })); }
+      })),
+      stop: (e) => e.stopPropagation(),
+      pagination: (() => { const n = this._visible; return n ? `${n} of ${st.rows.length} notebooks` : 'No matching notebooks'; })(),
+      gsOpen: st.gsOpen, gsClosed: !st.gsOpen, gq: st.gq, gsRef: this.gsRef,
+      openGs: () => this.setState({ gsOpen: true }, () => this.gsRef.current && this.gsRef.current.focus()),
+      closeGs: () => this.setState({ gsOpen: false, gq: '' }),
+      onGq: (e) => this.setState({ gq: e.target.value }),
+      onGqKey: (e) => { if (e.key === 'Escape') this.setState({ gsOpen: false, gq: '' }); },
+      ...(() => {
+        const g = st.gq.trim().toLowerCase();
+        const tp = g ? TPLS.filter(x => (x.title + ' ' + x.cat).toLowerCase().includes(g)).map(x => ({ ...x, open: () => { this.setState({ gsOpen: false, gq: '' }); this.openNotebook(x.id, 'home'); } })) : [];
+        const nbs = g ? st.rows.filter(r => (r.title + ' ' + r.author + ' ' + r.project).toLowerCase().includes(g)).map(r => ({ ...r, open: () => this.setState({ gsOpen: false, gq: '', dsMode: 'sample', file: null, mapping: {}, uploadApplied: false, regProject: null, regArt: null, regApplied: null, forkMode: 'sample', screen: 'gallery', view: 'home', panelOpen: false, nbQuery: r.title }) })) : [];
+        return { gsHasQuery: !!g, gsTpl: tp, gsNb: nbs, gsHasTpl: tp.length > 0, gsHasNb: nbs.length > 0, gsEmpty: !!g && !tp.length && !nbs.length };
+      })(),
+      nbQuery: st.nbQuery, onNbQuery: (e) => this.setState({ nbQuery: e.target.value }),
+      filtersOpen: st.filtersOpen, toggleFilters: () => this.setState({ filtersOpen: !st.filtersOpen }),
+      filterLabel: 'Filters', filterBtnVariant: (st.fProject !== 'all' || st.fAuthor !== 'all') ? 'primary' : 'support',
+      filterIcon: icon(['M4 6h16M7 12h10M10 18h4']),
+      fProject: st.fProject, onFProject: (e) => this.setState({ fProject: e.target.value }),
+      fAuthor: st.fAuthor, onFAuthor: (e) => this.setState({ fAuthor: e.target.value }),
+      projectOpts: [{ v: 'all', label: 'All projects' }, ...[...new Set(st.rows.map(r => r.project))].map(p => ({ v: p, label: p }))],
+      authorOpts: [{ v: 'all', label: 'All authors' }, ...[...new Set(st.rows.map(r => r.author))].map(p => ({ v: p, label: p }))],
+      hasActiveFilters: st.fProject !== 'all' || st.fAuthor !== 'all',
+      clearFilters: () => this.setState({ fProject: 'all', fAuthor: 'all' }),
+      modalOpen: !!st.modal, modalTitle: st.modal === 'copy' ? (st.pendingTpl ? 'Fork template' : 'Make a copy') : 'Create a notebook',
+      closeModal: () => this.setState({ modal: null }),
+      confirmModal: () => { const p = st.pendingTpl; this.setState({ modal: null }); if (p) { this._pendingMode = st.modal === 'copy' ? st.forkMode : null; if (st.screen === 'notebook' && p === st.tpl) { this.setState({ dsMode: st.forkMode }); } this.openTutorial(p); } },
+      modalIsFork: st.modal === 'copy' && !!st.pendingTpl,
+      forkModes: [['sample', 'Sample data', 'Run the template as-is on bundled sample data.'], ['upload', 'My own data', 'Upload a CSV, Parquet or JSON file and map its columns.'], ['registry', 'Import from Registry', 'Pick a versioned artifact from one of your projects.']].map(([v, label, desc]) => ({ label, desc, pick: () => this.setState({ forkMode: v }), border: st.forkMode === v ? 'var(--cw-blue-500)' : 'var(--color-border)', bg: st.forkMode === v ? 'var(--cw-blue-50)' : '#fff', ring: st.forkMode === v ? '4px solid var(--cw-blue-500)' : '1.5px solid var(--cw-gray-500)' })),
+      tut: { ...tut, intro0: tut.intro[0], intro1: tut.intro[1], intro2: tut.intro[2] },
+      closeTutorial: () => this.setState({ screen: 'gallery' }),
+      runFromTutorial: () => this.openNotebook(st.tpl, 'tutorial'),
+      toggleLog: () => this.setState({ logWandb: !st.logWandb }),
+      logTrack: st.logWandb ? 'var(--cw-blue-500)' : 'var(--cw-gray-500)', logThumb: st.logWandb ? '18px' : '2px',
+      tutProject: st.tutProject, onTutProject: (e) => this.setState({ tutProject: e.target.value }),
+      nb: { ...nb, tryIt: TRY[tab] }, t, cellBorder: st.showCode ? 'var(--color-border)' : 'transparent',
+      hasControls: tab !== 'drift', ctrlCode: CTRL[tab] || '',
+      uploadIcon: icon(['M12 16V4', 'M7 9l5-5 5 5', 'M4 16v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3']),
+      isImported: st.screen === 'imported', hideCode: !st.showCode,
+      openUpload: () => this.setState({ upOpen: true, upFile: null, upErr: null }),
+      closeUpload: () => this.setState({ upOpen: false }),
+      clearNbFile: () => this.setState({ upFile: null, upErr: null }),
+      upOpen: st.upOpen, upNoFile: !st.upFile, upHasFile: !!st.upFile, upError: !!st.upErr, upErrorText: st.upErr || '',
+      upCta: st.upFile && st.upFile.kind !== 'marimo' ? 'Convert & open' : 'Open notebook',
+      onNbFile: (e) => { const f = e.target.files && e.target.files[0]; if (!f) return; const rd = new FileReader(); rd.onload = () => { try { const p = parseNotebook(f.name, String(rd.result || '')); if (!p.cells.length) throw new Error('empty'); this.setState({ upFile: p, upErr: null }); } catch (err) { this.setState({ upFile: null, upErr: "Couldn't read that file. Upload a marimo .py notebook, a Python script, or a Jupyter .ipynb file." }); } }; rd.readAsText(f); },
+      confirmUpload: () => { if (!st.upFile) return; const p = st.upFile; this.setState(s2 => ({ upOpen: false, imported: p, screen: 'imported', rows: [{ title: p.name.replace(/\.(py|ipynb)$/i, '') + (p.kind === 'marimo' ? '' : ' (converted)'), author: 'Tanha Alsheikhdallah', project: 'acme-labs/pretrain-1p3b', updated: 'Just now', created: 'Just now' }, ...s2.rows] })); },
+      closeImported: () => this.setState({ screen: 'gallery', view: 'home' }),
+      imp: (() => { const p = st.upFile || st.imported; if (!p) return { fileName: '', badge: '', badgeTone: 'brand', summary: '', cells: [], converted: false, convertNote: '' };
+        const nCode = p.cells.filter(c => c.type === 'code').length, nMd = p.cells.length - nCode;
+        const outName = p.kind === 'marimo' ? p.name : p.name.replace(/\.(ipynb|py)$/i, '') + (p.kind === 'jupyter' ? '.py' : '_marimo.py');
+        let n = 0;
+        return { fileName: st.upOpen ? p.name : outName, badge: p.kind === 'marimo' ? 'marimo notebook' : (p.kind === 'jupyter' ? 'Jupyter → marimo' : 'Python script → marimo'), badgeTone: p.kind === 'marimo' ? 'brand' : 'info',
+          summary: `${p.cells.length} cells · ${nCode} code · ${nMd} markdown`, converted: p.kind !== 'marimo',
+          convertNote: `Converted ${p.name} to a marimo notebook — cells are now reactive, so run order follows dependencies instead of top-to-bottom.`,
+          cells: p.cells.map(c => { if (c.type === 'code') n++; return { isH1: c.type === 'h1', isText: c.type === 'md', isCode: c.type === 'code', heading: c.text, text: c.text, code: c.type === 'code' ? hl(c.text) : null, n }; }) }; })(),
+      forkIcon: icon(['M6 3v12', 'M18 9a3 3 0 1 0 0-6 3 3 0 0 0 0 6z', 'M6 21a3 3 0 1 0 0-6 3 3 0 0 0 0 6z', 'M18 9a9 9 0 0 1-9 9']),
+      forkNotebook: () => this.setState({ nbEdit: true }), exitFork: () => this.setState({ nbEdit: false }),
+      nbPreview: !st.nbEdit, nbEditing: !!st.nbEdit, nbShowCode: !!st.nbEdit && st.showCode, nbCellBorder: st.nbEdit && st.showCode ? 'var(--color-border)' : 'transparent',
+      ...(() => {
+        const req = REQ[tab], cols = st.file ? st.file.columns : [];
+        const regProject = st.regProject || REG_DEFAULT[tab], arts = REG[regProject] || [];
+        const mapOf = (f) => st.mapping[f] ?? (cols.find(c => c.toLowerCase() === f.toLowerCase()) || cols.find(c => c.toLowerCase().includes(f.split('_')[0].toLowerCase())) || cols[0] || '');
+        const applied = st.regApplied;
+        let status = 'using bundled sample · ' + SAMPLE[tab];
+        if (st.dsMode === 'upload') status = st.uploadApplied && st.file ? `rendering ${st.file.name} · ${req.length} columns mapped` : 'waiting for a file — showing sample data meanwhile';
+        if (st.dsMode === 'registry') status = applied ? `imported wandb-registry/${applied.project}/${applied.name}:${applied.version}` : 'pick an artifact — showing sample data meanwhile';
+        let code = `df = forge.samples.load("${SAMPLE[tab]}")\ndf.head()`;
+        if (st.dsMode === 'upload') code = `upload = mo.ui.file(filetypes=[".csv", ".parquet", ".json", ".jsonl"], kind="area")\ndf = forge.read(upload)\ndf = df.rename(columns={\n${req.map(f => `    "${mapOf(f) || f}": "${f}",`).join('\n')}\n})\nupload`;
+        if (st.dsMode === 'registry') { const art = applied || (st.regArt ? arts.find(x => x.name === st.regArt) : arts[0]) || {}; code = `api = wandb.Api()\nartifact = api.artifact("wandb-registry/${regProject}/${art.name || 'artifact'}:${art.version || 'latest'}")\ndf = forge.read(artifact.download())\ndf[${JSON.stringify(req)}].head()`; }
+        return {
+          fieldCode: code,
+          dsModes: [['sample', 'Sample data'], ['upload', 'My data'], ['registry', 'Registry']].map(([v, label]) => ({ label, pick: () => this.setState({ dsMode: v }), bg: st.dsMode === v ? '#fff' : 'transparent', fg: st.dsMode === v ? 'var(--cw-blue-700)' : 'var(--text-secondary)', shadow: st.dsMode === v ? 'var(--shadow-sm)' : 'none' })),
+          ds: {
+            isSample: st.dsMode === 'sample', isUpload: st.dsMode === 'upload', isRegistry: st.dsMode === 'registry',
+            sampleName: SAMPLE[tab], reqList: req.join(', '), status,
+            noFile: !st.file, hasFile: !!st.file, fileName: st.file ? st.file.name : '', fileMeta: st.file ? `${st.file.columns.length} columns · ${st.file.rows} rows` : '',
+            mapFields: req.map(f => ({ field: f, value: mapOf(f), options: cols.length ? cols : [f], change: (e) => this.setState(s2 => ({ mapping: { ...s2.mapping, [f]: e.target.value }, uploadApplied: false })) })),
+            applyUploadLabel: st.uploadApplied ? 'Applied' : 'Apply to notebook',
+            regProject, regProjects: Object.keys(REG),
+            regArtifacts: arts.map((x, i) => { const on = (st.regArt || arts[0].name) === x.name; return { ...x, bg: on ? 'var(--cw-blue-50)' : '#fff', ring: on ? '4px solid var(--cw-blue-500)' : '1.5px solid var(--cw-gray-500)', pick: () => this.setState({ regArt: x.name }) }; }),
+            applyRegLabel: applied && applied.name === (st.regArt || (arts[0] && arts[0].name)) && applied.project === regProject ? 'Imported' : 'Import artifact'
+          },
+          onFile: (e) => { const f = e.target.files && e.target.files[0]; if (!f) return; const done = (columns, rows) => this.setState({ file: { name: f.name, columns, rows }, mapping: {}, uploadApplied: false });
+            if (/\.(csv|jsonl?)$/i.test(f.name)) { const rd = new FileReader(); rd.onload = () => { const txt = String(rd.result || ''); const lines = txt.split(/\r?\n/).filter(Boolean); let columns = []; if (/\.csv$/i.test(f.name)) columns = (lines[0] || '').split(',').map(c => c.trim().replace(/^"|"$/g, '')).filter(Boolean); else { try { const o = /\.jsonl$/i.test(f.name) ? JSON.parse(lines[0]) : [].concat(JSON.parse(txt))[0]; columns = Object.keys(o || {}); } catch (err) { columns = []; } } done(columns.length ? columns : req, Math.max(lines.length - (/\.csv$/i.test(f.name) ? 1 : 0), 0).toLocaleString()); }; rd.readAsText(f.slice(0, 2e6)); }
+            else done(req.map(c => c), '—'); },
+          clearFile: () => this.setState({ file: null, mapping: {}, uploadApplied: false }),
+          applyUpload: () => this.setState({ uploadApplied: true }),
+          onRegProject: (e) => this.setState({ regProject: e.target.value, regArt: null }),
+          applyRegistry: () => { const x = arts.find(y => y.name === (st.regArt || arts[0].name)); if (x) this.setState({ regApplied: { project: regProject, ...x } }); }
+        };
+      })(),
+      backFromNotebook: () => this.backFromNotebook(),
+      backLabel: { quickstart: 'Quickstart templates', panel: 'Templates', home: 'Overview', tutorial: 'Tutorial' }[st.nbSource],
+      nbFields: nb.fields.map(([label, def], i) => { const key = tab + i; return { label, value: st.paths[key] ?? def, change: (e) => this.setState(s => ({ paths: { ...s.paths, [key]: e.target.value } })) }; }),
+      nbTabs: Object.keys(TAB_LABELS).map(k => ({ label: TAB_LABELS[k], fg: k === tab ? 'var(--text-primary)' : 'var(--text-secondary)', fw: k === tab ? 600 : 400, line: k === tab ? 'var(--cw-blue-500)' : 'transparent', pick: () => this.setState({ tpl: k }) })),
+      showCode: st.showCode, toggleCode: () => this.setState({ showCode: !st.showCode }), codeLabel: st.showCode ? 'Hide code' : 'Show code',
+      sColor: st.sColor, onSColor: (e) => this.setState({ sColor: e.target.value }),
+      edaCol: st.edaCol, onEdaCol: (e) => this.setState({ edaCol: e.target.value }),
+      fStatus: st.fStatus, onFStatus: (e) => this.setState({ fStatus: e.target.value }),
+      fAcc: st.fAcc, fAccLabel: st.fAcc + '%', onFAcc: (e) => this.setState({ fAcc: +e.target.value }),
+      fRows, fCount: fRows.length,
+      cmNorm: st.cmNorm, onCmNorm: (e) => this.setState({ cmNorm: e.target.value }),
+      lossToggles: LOSS_RUNS.map(([n], i) => ({ name: n, color: C[i], on: st.lossOn[n] !== false, toggle: () => this.setState(s => ({ lossOn: { ...s.lossOn, [n]: s.lossOn[n] === false } })) })),
+      fiTopN: st.fiTopN, onFiTopN: (e) => this.setState({ fiTopN: +e.target.value }),
+      swParam: st.swParam, onSwParam: (e) => this.setState({ swParam: e.target.value }),
+      hasChart: tab !== 'filter', chart: this.chart(tab), legend, hasLegend: legend.length > 0,
+      wb: (() => { const w = WB[tab], p = (st.wbProject || {})[tab] ?? w.project; return { project: p, url: 'https://wandb.ai/' + p, cols: w.cols, rows: w.rows, count: w.count || w.rows.length }; })(),
+      onWbProject: (e) => { const val = e.target.value; this.setState(s2 => ({ wbProject: { ...(s2.wbProject || {}), [tab]: val } })); }
+    };
+  }
+}
+</script>
+</body>
+</html>

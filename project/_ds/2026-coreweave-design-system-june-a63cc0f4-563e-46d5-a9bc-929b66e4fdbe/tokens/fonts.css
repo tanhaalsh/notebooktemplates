@@ -1,0 +1,30 @@
+/* ============================================================
+   FONTS — CoreWeave
+   Brand typeface: **Plus Jakarta Sans** (official, supplied by
+   the brand owner) — served locally from assets/fonts/.
+   --font-mono uses JetBrains Mono (Google Fonts) for small
+   data/labels; swap if CoreWeave specifies a mono face.
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+/* Plus Jakarta Sans — weights 200–800, upright + italic */
+@font-face { font-family: "Plus Jakarta Sans"; font-weight: 200; font-style: normal; font-display: swap; src: url("../assets/fonts/PlusJakartaSans-ExtraLight.ttf") format("truetype"); }
+@font-face { font-family: "Plus Jakarta Sans"; font-weight: 200; font-style: italic; font-display: swap; src: url("../assets/fonts/PlusJakartaSans-ExtraLightItalic.ttf") format("truetype"); }
+@font-face { font-family: "Plus Jakarta Sans"; font-weight: 300; font-style: normal; font-display: swap; src: url("../assets/fonts/PlusJakartaSans-Light.ttf") format("truetype"); }
+@font-face { font-family: "Plus Jakarta Sans"; font-weight: 300; font-style: italic; font-display: swap; src: url("../assets/fonts/PlusJakartaSans-LightItalic.ttf") format("truetype"); }
+@font-face { font-family: "Plus Jakarta Sans"; font-weight: 400; font-style: normal; font-display: swap; src: url("../assets/fonts/PlusJakartaSans-Regular.ttf") format("truetype"); }
+@font-face { font-family: "Plus Jakarta Sans"; font-weight: 400; font-style: italic; font-display: swap; src: url("../assets/fonts/PlusJakartaSans-Italic.ttf") format("truetype"); }
+@font-face { font-family: "Plus Jakarta Sans"; font-weight: 500; font-style: normal; font-display: swap; src: url("../assets/fonts/PlusJakartaSans-Medium.ttf") format("truetype"); }
+@font-face { font-family: "Plus Jakarta Sans"; font-weight: 500; font-style: italic; font-display: swap; src: url("../assets/fonts/PlusJakartaSans-MediumItalic.ttf") format("truetype"); }
+@font-face { font-family: "Plus Jakarta Sans"; font-weight: 600; font-style: normal; font-display: swap; src: url("../assets/fonts/PlusJakartaSans-SemiBold.ttf") format("truetype"); }
+@font-face { font-family: "Plus Jakarta Sans"; font-weight: 600; font-style: italic; font-display: swap; src: url("../assets/fonts/PlusJakartaSans-SemiBoldItalic.ttf") format("truetype"); }
+@font-face { font-family: "Plus Jakarta Sans"; font-weight: 700; font-style: normal; font-display: swap; src: url("../assets/fonts/PlusJakartaSans-Bold.ttf") format("truetype"); }
+@font-face { font-family: "Plus Jakarta Sans"; font-weight: 700; font-style: italic; font-display: swap; src: url("../assets/fonts/PlusJakartaSans-BoldItalic.ttf") format("truetype"); }
+@font-face { font-family: "Plus Jakarta Sans"; font-weight: 800; font-style: normal; font-display: swap; src: url("../assets/fonts/PlusJakartaSans-ExtraBold.ttf") format("truetype"); }
+@font-face { font-family: "Plus Jakarta Sans"; font-weight: 800; font-style: italic; font-display: swap; src: url("../assets/fonts/PlusJakartaSans-ExtraBoldItalic.ttf") format("truetype"); }
+
+:root {
+  --font-brand: "Plus Jakarta Sans", "Helvetica Neue", Arial, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", "SFMono-Regular", ui-monospace, Menlo, monospace;
+}
