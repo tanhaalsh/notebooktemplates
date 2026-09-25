@@ -1,0 +1,38 @@
+/* ============================================================
+   TYPOGRAPHY — CoreWeave
+   A single brand family across the whole hierarchy (deck "FONT
+   HIERARCHY"): XL 72pt / Large 40pt (0.85 lh, uppercase),
+   Small Header 24pt, Subheader 20pt, Body 16/14/12pt (1.15 lh).
+   Family vars live in fonts.css. This file holds weights,
+   line-heights, tracking, and the deck-proportional size scale.
+   ============================================================ */
+:root {
+  /* --- Weights -------------------------------------------- */
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --weight-bold: 700;
+  --weight-extrabold: 800;
+  --weight-black: 900;
+
+  /* --- Line heights --------------------------------------- */
+  --leading-tight: 0.85;  /* XL + Large display (deck)         */
+  --leading-snug: 1.0;    /* small header / subheader          */
+  --leading-body: 1.15;   /* body text (deck)                  */
+  --leading-relaxed: 1.4; /* long-form paragraphs              */
+
+  /* --- Tracking ------------------------------------------- */
+  --tracking-tight: -0.02em; /* large display                  */
+  --tracking-snug: -0.01em;
+  --tracking-normal: 0;
+  --tracking-wide: 0.06em;   /* eyebrows / caps labels         */
+
+  /* --- Size scale (px, deck-proportional) ----------------- */
+  --text-display-xl: 72px; /* XL HEADER (72pt)                 */
+  --text-display-lg: 40px; /* LARGE HEADER (40pt)              */
+  --text-heading:    24px; /* Small Header (24pt)              */
+  --text-subheading: 20px; /* Subheader / Section title (20pt) */
+  --text-body-lg:    16px; /* Body (16pt)                      */
+  --text-body:       14px; /* Body (14pt)                      */
+  --text-caption:    12px; /* Body (12pt) — dense/charts       */
+}

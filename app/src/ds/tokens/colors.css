@@ -1,0 +1,67 @@
+/* ============================================================
+   COLOR — CoreWeave
+   "Color amplifies brand expression and our personality …
+   intentional, modern, and unmistakably CoreWeave."
+   Blue is the signature; neutrals support structure & balance.
+   Verbatim palette from the Company Deck Template.
+   ============================================================ */
+:root {
+  /* --- Primary Blues (light 50 -> deep 700) --------------- */
+  --cw-blue-50:  #ECF4FF;
+  --cw-blue-100: #D9E9FF;
+  --cw-blue-200: #9DC7FE;
+  --cw-blue-300: #63A4FF;
+  --cw-blue-500: #2374FF; /* bright brand blue                */
+  --cw-blue-700: #0541E9; /* deep action blue                 */
+
+  /* --- Neutral ramp (light 50 -> dark 950) ---------------- */
+  --cw-gray-50:  #FAFCFF;
+  --cw-gray-100: #F2F4F7;
+  --cw-gray-200: #EBEEF2;
+  --cw-gray-300: #E2E6EB;
+  --cw-gray-400: #CED2D9;
+  --cw-gray-500: #C2C6CC;
+  --cw-gray-600: #AFB3B8;
+  --cw-gray-700: #95999E;
+  --cw-gray-800: #7D8185;
+  --cw-gray-850: #686D73; /* "Gray 3" — diagram line stroke   */
+  --cw-gray-900: #555B61;
+  --cw-gray-950: #464B51; /* darkest neutral (no near-blacks) */
+
+  /* --- Absolutes ------------------------------------------ */
+  --cw-black: #000000;
+  --cw-white: #FFFFFF;
+
+  /* ========================================================
+     SEMANTIC ALIASES
+     ======================================================== */
+
+  /* Text */
+  --text-primary:   #16181C; /* softened near-black           */
+  --text-secondary: var(--cw-gray-900);
+  --text-muted:     var(--cw-gray-800);
+  --text-brand:     var(--cw-blue-700);
+  --text-on-dark:   var(--cw-white);
+
+  /* Backgrounds & surfaces */
+  --color-bg:             var(--cw-white);
+  --color-bg-muted:       var(--cw-gray-100);
+  --surface-card:         var(--cw-white);
+  --surface-brand:        var(--cw-blue-700);
+  --surface-brand-subtle: var(--cw-blue-50);
+  --surface-inverse:      var(--cw-black);
+
+  /* Borders & lines */
+  --color-border:        var(--cw-gray-200);
+  --color-border-subtle: var(--cw-gray-100);
+  --color-border-strong: var(--cw-gray-700);
+
+  /* Charts & diagrams — emphasis ladder + line treatments */
+  --diagram-step-1:    var(--cw-blue-700); /* primary step     */
+  --diagram-step-2:    var(--cw-blue-500); /* secondary step   */
+  --diagram-step-3:    var(--cw-blue-300); /* tertiary step    */
+  --diagram-support:   var(--cw-gray-300); /* support fill     */
+  --diagram-connector: var(--cw-blue-500); /* 2px connector    */
+  --diagram-stroke:    var(--cw-gray-850); /* 1px container     */
+  --diagram-arrow:     var(--cw-gray-850); /* 2px arrow         */
+}

@@ -1,0 +1,9 @@
+/* Hover states from the design prototype (`style-hover`). !important beats the inline base styles. */
+.hv1:hover { background:#f5f4f2 !important; }
+.hv2:hover { color:var(--cw-blue-700) !important; }
+.hv3:hover { background:#faf9f7 !important; }
+.hv4:hover { background:var(--cw-blue-50) !important; }
+.hv5:hover { border-color:#d6d3cf !important; }
+.hv6:hover { border-color:var(--cw-blue-300) !important; }
+.hv7:hover { border-color:var(--cw-blue-500) !important; }
+.hv8:hover { border-color:var(--cw-blue-300) !important; background:#fafcff !important; }
